@@ -1,0 +1,25 @@
+.list-add-button {
+  margin-bottom: 10px !important;
+}
+.list-item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-item-content-buttons {
+  flex-basis: 30%;
+  margin-left: auto;
+  display: flex;
+  & > * {
+    margin: 0 3px;
+  }
+}
+.list-item-content-subName {
+  color: silver;
+  font-size: .7em;
+  margin: 0 10px;
+}
+
+.list-container {
+}

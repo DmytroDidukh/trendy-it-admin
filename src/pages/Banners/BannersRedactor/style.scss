@@ -1,0 +1,15 @@
+.prodcut-redactor-flex {
+  display: flex;
+
+  &-left {
+    flex-grow: 1;
+  }
+
+  &-right {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+}
+.addImageInput-btn {
+  margin-top: 10px;
+}

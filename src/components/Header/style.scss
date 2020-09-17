@@ -1,0 +1,54 @@
+.navbar {
+  display: flex !important;
+
+  .to-settings {
+    margin-left: auto;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+
+    .to-settings {
+      margin-left: 0;
+    }
+  }
+}
+
+.nav-item {
+  font-size: 1.05em;
+  padding: 0 30px;
+
+  @media screen and (max-width: 991px) {
+    padding: 0 5px;
+  }
+
+  &.navbar-text:nth-child(4) {
+    margin-left: auto;
+    padding-right: 10px;
+  }
+
+  &:last-child {
+    color: rgba(255, 255, 255, .5);
+    cursor: pointer;
+
+    &:hover {
+      color: rgba(255, 255, 255, .75);
+    }
+  }
+}
+
+.nav-link {
+  text-decoration: none;
+}
+
+tbody {
+  tr {
+    text-align: center;
+  }
+}

@@ -1,0 +1,26 @@
+.list-item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+  &__index, .date {
+    font-style: italic;
+  }
+  &__name {
+    margin: 0 auto 0 20px;
+    font-weight: bold;
+    flex: 1
+  }
+
+  &__sum, .date {
+    flex-basis: 160px;
+  }
+
+  .date {
+    text-align: right;
+  }
+}
+
+
+

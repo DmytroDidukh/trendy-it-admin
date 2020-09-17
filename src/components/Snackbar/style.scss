@@ -1,0 +1,28 @@
+.snackbar {
+  position: fixed;
+  left: 50%;
+  bottom: -50px;
+  transform: translateX(-50%);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: all .4s ease-in-out;
+  opacity: .6;
+}
+
+.active {
+  display: flex;
+  bottom: 50px;
+  opacity: 1;
+}
+
+.success {
+  background: #28a745;
+}
+
+.error {
+  background: #bd2130;
+}
