@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "apollo-boost": "^0.4.9",
     "bootstrap": "^4.5.0",
     "bootstrap-switch-button-react": "^1.2.0",
     "classnames": "^2.2.6",
@@ -29,7 +28,7 @@
     "serve": "^11.3.2"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "set PORT=3001 && react-scripts start",
     "start": "serve -s build",
     "build": "react-scripts build"
   },
