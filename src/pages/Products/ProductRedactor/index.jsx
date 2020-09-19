@@ -7,11 +7,9 @@ import {PRODUCT_DEFAULT, IMAGES_DEFAULT, COLORS_DEFAULT, COLORS_DATA} from '../.
 
 import './style.scss';
 
-const ProductRedactor = ({redactorState}) => {
+const ProductRedactor = ({redactorState, setShowRedactor}) => {
     const dispatch = useDispatch()
-    const {product} = useSelector(({Products}) => ({
-        product: Products.product
-    }));
+    const product = useSelector(({Products}) => Products.product)
 
     const [id, setId] = useState('');
     const [images, setImages] = useState({...IMAGES_DEFAULT});
@@ -28,7 +26,8 @@ const ProductRedactor = ({redactorState}) => {
 
 
             const colorsArray = Object.entries(colors).filter(([key]) => key !== '__typename')
-            setColors(Object.assign(COLORS_DEFAULT, Object.fromEntries(colorsArray)));
+            const copyColorsDefault = JSON.stringify(COLORS_DEFAULT)
+            setColors({...JSON.parse(copyColorsDefault), ...Object.fromEntries(colorsArray)});
         } else {
             onResetInputs()
         }
@@ -76,6 +75,7 @@ const ProductRedactor = ({redactorState}) => {
                 addProduct({...productObj, images, colors}) :
                 updateProduct({id, product: {...productObj, images, colors}}))
             onResetInputs();
+            setShowRedactor(null)
         } else {
             window.alert('Всі поля з "*" повинні бути заповнені!')
         }
@@ -232,7 +232,7 @@ const ProductRedactor = ({redactorState}) => {
                     <Button variant="primary" onClick={onSaveProduct}>
                         Зберегти
                     </Button>
-                    <Button variant="dark" onClick={onResetInputs}>
+                    <Button variant="dark" onClick={() => {onResetInputs(); setShowRedactor(null)}} >
                         Відмінити
                     </Button>
                 </div>

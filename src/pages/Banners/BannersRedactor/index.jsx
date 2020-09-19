@@ -6,7 +6,7 @@ import {addBanner, updateBanner} from "../../../redux/banner/banner.actions";
 
 import './style.scss';
 
-const BannerRedactor = ({redactorState}) => {
+const BannerRedactor = ({redactorState, setShowRedactor}) => {
     const dispatch = useDispatch()
     const { banner} = useSelector(({Banners}) => ({
         banner: Banners.banner
@@ -46,6 +46,7 @@ const BannerRedactor = ({redactorState}) => {
                 addBanner({...bannerObj}) :
                 updateBanner({id, banner: {...bannerObj}}))
             onResetInputs();
+            setShowRedactor(null)
         } else {
             window.alert('Всі поля з "*" повинні бути заповнені!')
         }
@@ -111,7 +112,7 @@ const BannerRedactor = ({redactorState}) => {
                     <Button variant="primary" onClick={onSaveProduct}>
                         Зберегти
                     </Button>
-                    <Button variant="dark" onClick={onResetInputs}>
+                    <Button variant="dark" onClick={() => {onResetInputs(); setShowRedactor(null)}}>
                         Відмінити
                     </Button>
                 </div>

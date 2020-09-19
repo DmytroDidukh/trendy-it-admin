@@ -103,6 +103,7 @@ const ProductsPage = () => {
             <div className='page-container__item'>
                 {showRedactor ? <ProductRedactor
                         redactorState={redactorState}
+                        setShowRedactor={setShowRedactor}
                     /> :
                     <div className='page-item-message'>Редагуйте елемет зі списку або добавте новий</div>}
 

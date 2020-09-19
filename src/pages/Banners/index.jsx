@@ -59,6 +59,7 @@ const BannersPage = () => {
             <div className='page-container__item'>
                 {showRedactor ? <BannerRedactor
                         redactorState={redactorState}
+                        setShowRedactor={setShowRedactor}
                     /> :
                     <div className='page-item-message'>Редагуйте елемет зі списку або добавте новий</div>}
 
