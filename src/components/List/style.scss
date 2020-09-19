@@ -21,6 +21,10 @@
       color: #343a40;
     }
 
+    i:last-child {
+      margin-right: 0 !important;
+    }
+
     @media screen and (max-width: 768px) {
       flex-basis: auto;
     }

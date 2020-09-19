@@ -6,6 +6,7 @@ import {addProduct, updateProduct} from "../../../redux/product/product.actions"
 import {PRODUCT_DEFAULT, IMAGES_DEFAULT, COLORS_DEFAULT, COLORS_DATA} from '../../../config'
 
 import './style.scss';
+import {RedactorButtons} from "../../../components";
 
 const ProductRedactor = ({redactorState, setShowRedactor}) => {
     const dispatch = useDispatch()
@@ -228,14 +229,11 @@ const ProductRedactor = ({redactorState, setShowRedactor}) => {
                     </div>
 
                 </div>
-                <div className='category-redactor-buttons'>
-                    <Button variant="primary" onClick={onSaveProduct}>
-                        Зберегти
-                    </Button>
-                    <Button variant="dark" onClick={() => {onResetInputs(); setShowRedactor(null)}} >
-                        Відмінити
-                    </Button>
-                </div>
+                <RedactorButtons
+                    onSaveProduct={onSaveProduct}
+                    onResetInputs={onResetInputs}
+                    setShowRedactor={setShowRedactor}
+                />
             </Form>
         </div>
     )

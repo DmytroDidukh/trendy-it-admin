@@ -19,9 +19,6 @@
 
     &__control {
       display: flex;
-      justify-content: center;
-      align-content: center;
-      align-items: center;
       flex-wrap: wrap;
       margin-bottom: 10px;
 
@@ -39,7 +36,7 @@
         margin-bottom: 0 !important;
 
         @media screen and (max-width: 450px) {
-         margin: 3px 0 !important;
+          margin: 3px 0 !important;
         }
       }
 
@@ -49,13 +46,22 @@
         }
       }
 
-      .list-filter-buttons, input {
+      .list-filter-buttons {
         margin-left: 10px;
         height: 38px;
+
+        @media screen and (max-width: 450px) {
+          flex: 1;
+        }
       }
 
-      input {
-        border-radius: 5px;
+      .ui.input {
+        flex: 1;
+        margin-left: 10px;
+
+        input {
+          border-radius: 5px;
+        }
       }
     }
   }

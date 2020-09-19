@@ -5,10 +5,11 @@ import {Form, Button} from 'react-bootstrap';
 import {addBanner, updateBanner} from "../../../redux/banner/banner.actions";
 
 import './style.scss';
+import {RedactorButtons} from "../../../components";
 
 const BannerRedactor = ({redactorState, setShowRedactor}) => {
     const dispatch = useDispatch()
-    const { banner} = useSelector(({Banners}) => ({
+    const {banner} = useSelector(({Banners}) => ({
         banner: Banners.banner
     }));
 
@@ -72,7 +73,7 @@ const BannerRedactor = ({redactorState, setShowRedactor}) => {
                                 onChange={onInputChange}/>
                         </Form.Group>
 
-                        <Form.Group >
+                        <Form.Group>
                             <Form.Label>*Опис:</Form.Label>
                             <Form.Control
                                 as="textarea"
@@ -108,14 +109,11 @@ const BannerRedactor = ({redactorState, setShowRedactor}) => {
                     </div>
 
                 </div>
-                <div className='category-redactor-buttons'>
-                    <Button variant="primary" onClick={onSaveProduct}>
-                        Зберегти
-                    </Button>
-                    <Button variant="dark" onClick={() => {onResetInputs(); setShowRedactor(null)}}>
-                        Відмінити
-                    </Button>
-                </div>
+                <RedactorButtons
+                    onSaveProduct={onSaveProduct}
+                    onResetInputs={onResetInputs}
+                    setShowRedactor={setShowRedactor}
+                />
             </Form>
         </div>
     )
