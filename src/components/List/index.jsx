@@ -17,7 +17,7 @@ const List = ({items, isLoading, onEditItem, onDeleteItem}) => {
                 { item.__typename === 'Product' &&
                 <img className='list-item-content-image'
                     src={images.product[0].link} alt='product'/>}
-                <div className='list-item-content-name'>{name || item.title}</div>
+                <h4 className='list-item-content-name'>{name || item.title}</h4>
                 <div className='list-item-content-buttons'>
                     {window.innerWidth > 550 ? (
                         <>

@@ -14,6 +14,13 @@
       margin: 0 3px;
     }
 
+    i {
+      font-size: 1.2rem !important;
+      margin-left: 15px !important;
+      margin-right: 15px !important;
+      color: #343a40;
+    }
+
     @media screen and (max-width: 768px) {
       flex-basis: auto;
     }
@@ -23,9 +30,12 @@
     position: relative;
     left: -5px;
     max-height: 35px;
-    border: 1px solid #858585;
+    border: 1px solid #b5b5b5;
     border-radius: 5px;
+  }
 
+  &-name {
+    margin: 0;
   }
 }
 
