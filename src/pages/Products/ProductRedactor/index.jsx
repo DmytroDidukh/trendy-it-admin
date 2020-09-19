@@ -27,7 +27,7 @@ const ProductRedactor = ({redactorState}) => {
             setImages({slider: images.slider, product: images.product.map(img => ({link: img.link}))});
 
 
-            const colorsArray = Object.entries(colors).filter( ([key]) => key !== '__typename')
+            const colorsArray = Object.entries(colors).filter(([key]) => key !== '__typename')
             setColors(Object.assign(COLORS_DEFAULT, Object.fromEntries(colorsArray)));
         } else {
             onResetInputs()
@@ -66,8 +66,12 @@ const ProductRedactor = ({redactorState}) => {
         setImages({...images, product: newArr});
     }
 
+    const checkFieldsBeforeSubmit = () => {
+        return productObj.name && productObj.price && images.product[0].link && Object.values(colors).some(val => val)
+    }
+
     const onSaveProduct = () => {
-        if (productObj.name && productObj.price && images.product[0].link) {
+        if (checkFieldsBeforeSubmit()) {
             dispatch(redactorState === 'add' ?
                 addProduct({...productObj, images, colors}) :
                 updateProduct({id, product: {...productObj, images, colors}}))
@@ -187,9 +191,9 @@ const ProductRedactor = ({redactorState}) => {
                         </Form.Group>
                     </div>
 
-                    <div className='prodcut-redactor-flex-right'>
+                    <div className='product-redactor-flex-right'>
                         <Form.Group>
-                            <Form.Label>Посилання на зоображення:</Form.Label>
+                            <Form.Label>*Посилання на зоображення:</Form.Label>
                             {images.product.map((img, idx) => {
                                 return (
                                     <Form.Control
@@ -207,7 +211,7 @@ const ProductRedactor = ({redactorState}) => {
                             </div>
 
                             <div className="product-colors">
-                                <h6>Наявні кольори:</h6>
+                                <h6>*Наявні кольори:</h6>
                                 {(productObj.name || redactorState) && COLORS_DATA.map((color, i) => (
                                     <Form.Group id="formGridCheckbox" key={i}>
                                         <span style={{background: color.hex}}/>
