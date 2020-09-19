@@ -1,5 +1,6 @@
-.prodcut-redactor-flex {
+.product-redactor-flex {
   display: flex;
+  flex-direction: column;
 
   &-left {
     flex-grow: 1;

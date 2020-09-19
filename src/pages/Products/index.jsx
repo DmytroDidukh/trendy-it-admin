@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Button} from 'react-bootstrap';
-import {Message} from 'semantic-ui-react';
+import {Input} from 'semantic-ui-react';
 
 import {List, ButtonsGroup, Pagination} from '../../components';
 import ProductRedactor from './ProductRedactor'
@@ -39,6 +39,8 @@ const ProductsPage = () => {
     }
 
     const onEditProduct = (product) => {
+        window.innerWidth <= 1100 && window.scroll(0, 500)
+
         setRedactorState('edit')
         setShowRedactor(true);
         dispatch(setProduct(product))
@@ -49,8 +51,9 @@ const ProductsPage = () => {
     }
 
     const onFilterOptionChange = ({target}) => {
+        console.dir(target)
         target.innerText === 'Всі' ? setFilter(null) : setFilter(target.dataset.status);
-        target.dataset.id === 'search-input' && setFilteredName(target.value.toLowerCase())
+        target.id === 'search-input' && setFilteredName(target.value.toLowerCase())
     }
 
     const productsFilter = () => {
@@ -75,8 +78,9 @@ const ProductsPage = () => {
                             variant="primary"
                             onClick={onAddProduct}> Додати +</Button>
                     <ButtonsGroup onChange={onFilterOptionChange} items={PRODUCT_FILTER_OPTIONS}/>
-                    <input type='text' placeholder='Пошук...'
-                           onChange={onFilterOptionChange} data-id='search-input'/>
+                    <Input placeholder='Пошук...'
+                           onChange={onFilterOptionChange} id='search-input'
+                    />
                 </div>
                 <List
                     items={productsToShow(currentPage)}
@@ -84,7 +88,7 @@ const ProductsPage = () => {
                     onEditItem={onEditProduct}
                     onDeleteItem={onDeleteProduct}
                 />
-                {productsToShow(currentPage).length && <Pagination
+                {!!productsToShow(currentPage).length && <Pagination
                     productsFilter={productsFilter}
                     productsToShow={productsToShow}
                     setCurrentPage={setCurrentPage}

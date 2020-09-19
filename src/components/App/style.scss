@@ -6,28 +6,58 @@
 
   @media screen and (max-width: 1100px) {
     flex-direction: column;
+    align-items: center;
   }
 
   .page-list {
     padding: 50px;
     flex-basis: 45%;
-    @media screen and (max-width: 1100px) {
-      width: calc(100% - 100px);
+    width: 100%;
+
+    @media screen and (max-width: 450px) {
+      width: 100%;
+      padding: 10px 5px;
     }
+
     &__control {
       display: flex;
       justify-content: center;
       align-content: center;
       align-items: center;
+      flex-wrap: wrap;
       margin-bottom: 10px;
+
+      @media screen and (max-width: 450px) {
+        justify-content: flex-start;
+      }
+
+      * {
+        @media screen and (max-width: 768px) {
+          font-size: .8rem;
+        }
+      }
 
       > * {
         margin-bottom: 0 !important;
+
+        @media screen and (max-width: 450px) {
+         margin: 3px 0 !important;
+        }
+      }
+
+      #search-input {
+        @media screen and (max-width: 450px) {
+          margin: 3px 0 !important;
+        }
       }
 
       .list-filter-buttons, input {
         margin-left: 10px;
         height: 38px;
+      }
+
+      input {
+        border-radius: 5px;
       }
     }
   }
@@ -37,14 +67,20 @@
     flex-basis: 55%;
     min-height: 100%;
     background-color: #f8f8f8;
+    width: 100%;
+
     @media screen and (max-width: 1100px) {
-      width: calc(100% - 100px);
+      border-top: 5px dashed #414141;
+    }
+
+    @media screen and (max-width: 450px) {
+      padding: 10px;
     }
   }
 }
 
 .page-item-message {
-  font-size: 30px;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #343a40;
 }

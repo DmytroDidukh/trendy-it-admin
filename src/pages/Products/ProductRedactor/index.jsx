@@ -85,10 +85,10 @@ const ProductRedactor = ({redactorState}) => {
     }
 
     return (
-        <div className='prodcut-redactor-container'>
+        <div className='product-redactor-container'>
             <Form>
-                <div className='prodcut-redactor-flex'>
-                    <div className='prodcut-redactor-flex-left'>
+                <div className='product-redactor-flex'>
+                    <div className='product-redactor-flex-left'>
 
                         <div className='product-available'
                              style={{background: productObj.available ? '#28a745' : '#dc3545'}}>
