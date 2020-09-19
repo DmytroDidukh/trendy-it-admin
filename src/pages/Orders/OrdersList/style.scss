@@ -10,15 +10,25 @@
   &__name {
     margin: 0 auto 0 20px;
     font-weight: bold;
-    flex: 1
+    flex: 1;
+    min-width: fit-content;
   }
 
   &__sum, .date {
     flex-basis: 160px;
+
+    @media screen and (max-width: 450px){
+      margin-left: auto;
+      flex-basis: auto;
+      margin-right: 5px;
+      width: fit-content;
+    }
   }
 
   .date {
     text-align: right;
+    border-left: 1px solid black;
+    padding-left: 2px;
   }
 }
 

@@ -1,7 +1,7 @@
 .snackbar {
   position: fixed;
   left: 50%;
-  bottom: -50px;
+  bottom: -70px;
   transform: translateX(-50%);
   color: white;
   display: flex;
@@ -13,16 +13,16 @@
   opacity: .6;
 }
 
-.active {
+.snackbar.active {
   display: flex;
-  bottom: 50px;
+  bottom: 70px;
   opacity: 1;
 }
 
-.success {
+.snackbar.success {
   background: #28a745;
 }
 
-.error {
+.snackbar .error {
   background: #bd2130;
 }

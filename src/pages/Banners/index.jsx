@@ -33,6 +33,7 @@ const BannersPage = () => {
     }
 
     const onEditProduct = (banner) => {
+        // window.innerWidth <= 1100 && window.scroll(0, 600)
         setRedactorState('edit')
         setShowRedactor(true);
         dispatch(setBanner(banner))
@@ -55,7 +56,7 @@ const BannersPage = () => {
                     onDeleteItem={onDeleteProduct}
                 />
             </div>
-            <div className='page-item'>
+            <div className='page-container__item'>
                 {showRedactor ? <BannerRedactor
                         redactorState={redactorState}
                     /> :

@@ -1,14 +1,22 @@
-.prodcut-redactor-flex {
+.product-redactor-flex {
   display: flex;
 
-  &-left {
-    flex-grow: 1;
+  @media screen and (max-width: 1100px){
+      flex-direction: column;
   }
 
-  &-right {
-    flex-grow: 1;
-    margin-left: 20px;
+  &-left {
+    @media screen and (min-width: 1101px) {
+      margin-right: 10px;
+    }
   }
+
+  > * {
+    @media screen and (min-width: 1101px) {
+      flex-basis: 50%;
+    }
+  }
+
 }
 .addImageInput-btn {
   margin-top: 10px;

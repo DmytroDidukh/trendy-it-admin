@@ -57,10 +57,10 @@ const BannerRedactor = ({redactorState}) => {
     }
 
     return (
-        <div className='prodcut-redactor-container'>
+        <div className='product-redactor-container'>
             <Form>
-                <div className='prodcut-redactor-flex'>
-                    <div className='prodcut-redactor-flex-left'>
+                <div className='product-redactor-flex'>
+                    <div className='product-redactor-flex-left'>
                         <Form.Group>
                             <Form.Label>*Заголовок:</Form.Label>
                             <Form.Control

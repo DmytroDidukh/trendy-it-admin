@@ -27,9 +27,8 @@ const ProductRedactor = ({redactorState}) => {
             setImages({slider: images.slider, product: images.product.map(img => ({link: img.link}))});
 
 
-            const colorsArray = Object.entries(colors)
-            const length = colorsArray.length
-            setColors(Object.assign(COLORS_DEFAULT, Object.fromEntries(colorsArray.slice(0, length - 1))));
+            const colorsArray = Object.entries(colors).filter( ([key]) => key !== '__typename')
+            setColors(Object.assign(COLORS_DEFAULT, Object.fromEntries(colorsArray)));
         } else {
             onResetInputs()
         }
@@ -68,7 +67,7 @@ const ProductRedactor = ({redactorState}) => {
     }
 
     const onSaveProduct = () => {
-        if (productObj.name && productObj.price) {
+        if (productObj.name && productObj.price && images.product[0].link) {
             dispatch(redactorState === 'add' ?
                 addProduct({...productObj, images, colors}) :
                 updateProduct({id, product: {...productObj, images, colors}}))
@@ -86,10 +85,10 @@ const ProductRedactor = ({redactorState}) => {
     }
 
     return (
-        <div className='prodcut-redactor-container'>
+        <div className='product-redactor-container'>
             <Form>
-                <div className='prodcut-redactor-flex'>
-                    <div className='prodcut-redactor-flex-left'>
+                <div className='product-redactor-flex'>
+                    <div className='product-redactor-flex-left'>
 
                         <div className='product-available'
                              style={{background: productObj.available ? '#28a745' : '#dc3545'}}>
