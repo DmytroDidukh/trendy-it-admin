@@ -33,6 +33,8 @@ const ProductsPage = () => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const onAddProduct = () => {
+        window.innerWidth <= 1100 && window.scroll(0, 600)
+
         setRedactorState('add')
         setShowRedactor(true);
         dispatch(setProduct(null))
