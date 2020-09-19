@@ -57,15 +57,15 @@ export const COLORS_DEFAULT = {
 
 export const COLORS_DATA = [
     {hex: '#000000', name: 'Чорний', type: 'black'},
-    {hex: '#949494', name: 'Сірий', type: 'silver'},
+    {hex: '#6c757d', name: 'Сірий', type: 'silver'},
     {hex: '#ffffff', name: 'Білий', type: 'white'},
-    {hex: '#00308c', name: 'Синій', type: 'blue'},
-    {hex: '#eeca07', name: 'Жовтий', type: 'yellow'},
-    {hex: '#ee4807', name: 'Оранжевий', type: 'orange'},
-    {hex: '#ff0000', name: 'Червоний', type: 'red'},
-    {hex: '#2eae1c', name: 'Зелений', type: 'green'},
-    {hex: '#e607ee', name: 'Рожейвий', type: 'pink'},
-    {hex: '#5800fc', name: 'Фіолетовий', type: 'purple'},
+    {hex: '#007bff', name: 'Синій', type: 'blue'},
+    {hex: '#ffc107', name: 'Жовтий', type: 'yellow'},
+    {hex: '#fd7e14', name: 'Оранжевий', type: 'orange'},
+    {hex: '#dc3545', name: 'Червоний', type: 'red'},
+    {hex: '#28a745', name: 'Зелений', type: 'green'},
+    {hex: '#e83e8c', name: 'Рожейвий', type: 'pink'},
+    {hex: '#6f42c1', name: 'Фіолетовий', type: 'purple'},
     {hex: '#692e19', name: 'Коричневий', type: 'brown'},
 ];
 

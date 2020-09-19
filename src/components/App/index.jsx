@@ -11,6 +11,7 @@ import Snackbar from "../Snackbar";
 import Routes from '../../routes'
 import {history} from "../../store/store";
 
+import 'semantic-ui-css/semantic.min.css'
 import './style.scss';
 
 const App = () => {
@@ -23,7 +24,7 @@ const App = () => {
         if (isAuth) {
             dispatch(getBanners());
             dispatch(getProducts());
-            //dispatch(getOrders());
+            dispatch(getOrders());
         }
     }, [dispatch, isAuth])
 

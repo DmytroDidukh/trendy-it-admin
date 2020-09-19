@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Button} from 'react-bootstrap';
+import {Message} from 'semantic-ui-react';
 
-import {List, ButtonsGroup} from '../../components';
+import {List, ButtonsGroup, Pagination} from '../../components';
 import ProductRedactor from './ProductRedactor'
 import {
     deleteProduct,
@@ -28,6 +29,8 @@ const ProductsPage = () => {
     const [showRedactor, setShowRedactor] = useState(false);
     const [filter, setFilter] = useState(false);
     const [filteredName, setFilteredName] = useState('');
+
+    const [currentPage, setCurrentPage] = useState(0);
 
     const onAddProduct = () => {
         setRedactorState('add')
@@ -62,6 +65,8 @@ const ProductsPage = () => {
         }
     }
 
+    const productsToShow = (length) => productsFilter().slice(length, length + 10)
+
     return (
         <div className='page-container'>
             <div className='page-list'>
@@ -74,14 +79,18 @@ const ProductsPage = () => {
                            onChange={onFilterOptionChange} data-id='search-input'/>
                 </div>
                 <List
-
-                    items={productsFilter()}
+                    items={productsToShow(currentPage)}
                     isLoading={isLoading}
                     onEditItem={onEditProduct}
                     onDeleteItem={onDeleteProduct}
                 />
+                {productsToShow(currentPage).length && <Pagination
+                    productsFilter={productsFilter}
+                    productsToShow={productsToShow}
+                    setCurrentPage={setCurrentPage}
+                />}
             </div>
-            <div className='page-item'>
+            <div className='page-container__item'>
                 {showRedactor ? <ProductRedactor
                         redactorState={redactorState}
                     /> :

@@ -42,7 +42,7 @@ const OrdersPage = () => {
                     onSelectItem={onSelectPurchase}
                 />
             </div>
-            <div className='page-item'>
+            <div className='page-container__item'>
                 {
                     showRedactor ? <OrderRedactor setRedactorState={setShowRedactor}/> :
                     <div className='page-item-message'>Натисніть на замовлення, щоб отримати детальнішу інформацію</div>

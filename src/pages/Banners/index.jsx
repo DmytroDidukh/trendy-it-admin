@@ -55,7 +55,7 @@ const BannersPage = () => {
                     onDeleteItem={onDeleteProduct}
                 />
             </div>
-            <div className='page-item'>
+            <div className='page-container__item'>
                 {showRedactor ? <BannerRedactor
                         redactorState={redactorState}
                     /> :
