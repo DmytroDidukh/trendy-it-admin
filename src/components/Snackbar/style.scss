@@ -1,7 +1,7 @@
 .snackbar {
   position: fixed;
   left: 50%;
-  bottom: -50px;
+  bottom: -70px;
   transform: translateX(-50%);
   color: white;
   display: flex;
@@ -15,7 +15,7 @@
 
 .snackbar.active {
   display: flex;
-  bottom: 50px;
+  bottom: 70px;
   opacity: 1;
 }
 

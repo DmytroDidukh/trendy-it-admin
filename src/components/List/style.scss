@@ -5,25 +5,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
 
-.list-item-content-buttons {
-  flex-basis: 30%;
-  margin-left: auto;
-  display: flex;
-  & > * {
-    margin: 0 3px;
+  &-buttons {
+    flex-basis: 30%;
+    margin-left: auto;
+    display: flex;
+    & > * {
+      margin: 0 3px;
+    }
+
+    @media screen and (max-width: 768px) {
+      flex-basis: auto;
+    }
   }
 
-  @media screen and (max-width: 768px) {
-    flex-basis: auto;
+  &-image {
+    position: relative;
+    left: -5px;
+    max-height: 35px;
+    border: 1px solid #858585;
+    border-radius: 5px;
+
   }
 }
-.list-item-content-subName {
-  color: silver;
-  font-size: .7em;
-  margin: 0 10px;
-}
 
-.list-container {
-}

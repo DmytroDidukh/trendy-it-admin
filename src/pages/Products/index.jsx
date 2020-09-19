@@ -28,7 +28,7 @@ const ProductsPage = () => {
     const [redactorState, setRedactorState] = useState('');
     const [showRedactor, setShowRedactor] = useState(false);
     const [filter, setFilter] = useState(false);
-    const [filteredName, setFilteredName] = useState('');
+    const [searchValue, setSearchValue] = useState(null);
 
     const [currentPage, setCurrentPage] = useState(0);
 
@@ -39,7 +39,7 @@ const ProductsPage = () => {
     }
 
     const onEditProduct = (product) => {
-        window.innerWidth <= 1100 && window.scroll(0, 500)
+        window.innerWidth <= 1100 && window.scroll(0, 600)
 
         setRedactorState('edit')
         setShowRedactor(true);
@@ -51,18 +51,22 @@ const ProductsPage = () => {
     }
 
     const onFilterOptionChange = ({target}) => {
-        console.dir(target)
-        target.innerText === 'Всі' ? setFilter(null) : setFilter(target.dataset.status);
-        target.id === 'search-input' && setFilteredName(target.value.toLowerCase())
+        if (target.innerText === 'Всі') {
+            return setFilter(null)
+        } else if (target.id === 'search-input') {
+            return setSearchValue(target.value.toLowerCase())
+        } else {
+            setFilter(target.dataset.status);
+        }
     }
 
     const productsFilter = () => {
-        if (filter) {
+        if (filter && !searchValue) {
             return products.filter(product => product[filter])
-        } else if (filteredName) {
-            return products.filter(product => product.name.toLowerCase().includes(filteredName))
-        } else if (filter && filteredName) {
-            return products.filter(product => product[filter] && product.name.toLowerCase().includes(filteredName))
+        } else if (filter && searchValue) {
+            return products.filter(product => product[filter] && product.name.toLowerCase().includes(searchValue))
+        } else if (searchValue) {
+            return products.filter(product => product.name.toLowerCase().includes(searchValue))
         } else {
             return products
         }

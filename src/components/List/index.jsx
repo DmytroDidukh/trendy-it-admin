@@ -10,10 +10,13 @@ import './style.scss';
 const List = ({items, isLoading, onEditItem, onDeleteItem}) => {
 
     const ItemContent = ({item}) => {
-        const {name} = item;
+        const {name, images} = item;
 
         return (
             <div className='list-item-content'>
+                { item.__typename === 'Product' &&
+                <img className='list-item-content-image'
+                    src={images.product[0].link} alt='product'/>}
                 <div className='list-item-content-name'>{name || item.title}</div>
                 <div className='list-item-content-buttons'>
                     {window.innerWidth > 550 ? (

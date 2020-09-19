@@ -1,8 +1,6 @@
 .page-container {
-  height: 100vh;
+  min-height: fit-content;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
 
   @media screen and (max-width: 1100px) {
     flex-direction: column;
