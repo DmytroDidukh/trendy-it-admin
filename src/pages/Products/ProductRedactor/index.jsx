@@ -98,6 +98,7 @@ const ProductRedactor = ({redactorState, setShowRedactor}) => {
                         <div className='product-available'
                              style={{background: productObj.available ? '#28a745' : '#dc3545'}}>
                             <Form.Group id="formGridCheckbox">
+                                Наявність:
                                 <Form.Check type="checkbox"
                                             label={productObj.available ? 'Так' : 'Ні'}
                                             id='available'
