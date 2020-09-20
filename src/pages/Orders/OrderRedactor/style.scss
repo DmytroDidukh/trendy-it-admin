@@ -16,6 +16,10 @@
   }
 }
 
+td:not(:nth-child(2)) {
+  text-align: center;
+}
+
 .order-color {
   display: inline-block;
   width: 20px;
