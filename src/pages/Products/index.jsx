@@ -74,7 +74,12 @@ const ProductsPage = () => {
         }
     }
 
-    const productsToShow = (length) => productsFilter().slice(length, length + 10)
+    const setProductsToShow = (lengthIndex) => {
+        const products = productsFilter()
+        const isEnoughProducts = products.length>= 12
+
+        return isEnoughProducts ? products.slice(lengthIndex, lengthIndex + 12) : products.slice(0, 12)
+    }
 
     return (
         <div className='page-container'>
@@ -89,14 +94,14 @@ const ProductsPage = () => {
                     />
                 </div>
                 <List
-                    items={productsToShow(currentPage)}
+                    items={setProductsToShow(currentPage)}
                     isLoading={isLoading}
                     onEditItem={onEditProduct}
                     onDeleteItem={onDeleteProduct}
                 />
-                {!!productsToShow(currentPage).length && <Pagination
+                {!!setProductsToShow(currentPage).length && <Pagination
                     productsFilter={productsFilter}
-                    productsToShow={productsToShow}
+                    setProductsToShow={setProductsToShow}
                     setCurrentPage={setCurrentPage}
                 />}
             </div>
