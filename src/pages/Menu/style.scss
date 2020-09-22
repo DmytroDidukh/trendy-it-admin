@@ -13,9 +13,14 @@
     letter-spacing: 20px;
     font-size: 44px;
   }
+
   a {
     color: white;
     text-decoration: none;
+
+    &:hover {
+      color: white;
+    }
   }
 
   &__menu-list {
@@ -38,9 +43,10 @@
       justify-content: center;
       background: #ea3f34;
       transition: all .2s ease-in-out;
+
       &:hover {
         transform: scale(1.05);
-    }
+      }
     }
   }
 }

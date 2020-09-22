@@ -1,0 +1,9 @@
+.redactor-buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+
+  > button {
+    margin: 5px;
+  }
+}

@@ -33,6 +33,8 @@ const ProductsPage = () => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const onAddProduct = () => {
+        window.innerWidth <= 1100 && window.scroll(0, 600)
+
         setRedactorState('add')
         setShowRedactor(true);
         dispatch(setProduct(null))
@@ -72,7 +74,12 @@ const ProductsPage = () => {
         }
     }
 
-    const productsToShow = (length) => productsFilter().slice(length, length + 10)
+    const setProductsToShow = (lengthIndex) => {
+        const products = productsFilter()
+        const isEnoughProducts = products.length>= 12
+
+        return isEnoughProducts ? products.slice(lengthIndex, lengthIndex + 12) : products.slice(0, 12)
+    }
 
     return (
         <div className='page-container'>
@@ -87,20 +94,21 @@ const ProductsPage = () => {
                     />
                 </div>
                 <List
-                    items={productsToShow(currentPage)}
+                    items={setProductsToShow(currentPage)}
                     isLoading={isLoading}
                     onEditItem={onEditProduct}
                     onDeleteItem={onDeleteProduct}
                 />
-                {!!productsToShow(currentPage).length && <Pagination
+                {!!setProductsToShow(currentPage).length && <Pagination
                     productsFilter={productsFilter}
-                    productsToShow={productsToShow}
+                    setProductsToShow={setProductsToShow}
                     setCurrentPage={setCurrentPage}
                 />}
             </div>
             <div className='page-container__item'>
                 {showRedactor ? <ProductRedactor
                         redactorState={redactorState}
+                        setShowRedactor={setShowRedactor}
                     /> :
                     <div className='page-item-message'>Редагуйте елемет зі списку або добавте новий</div>}
 

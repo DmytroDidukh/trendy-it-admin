@@ -6,12 +6,11 @@ import {addProduct, updateProduct} from "../../../redux/product/product.actions"
 import {PRODUCT_DEFAULT, IMAGES_DEFAULT, COLORS_DEFAULT, COLORS_DATA} from '../../../config'
 
 import './style.scss';
+import {RedactorButtons} from "../../../components";
 
-const ProductRedactor = ({redactorState}) => {
+const ProductRedactor = ({redactorState, setShowRedactor}) => {
     const dispatch = useDispatch()
-    const {product} = useSelector(({Products}) => ({
-        product: Products.product
-    }));
+    const product = useSelector(({Products}) => Products.product)
 
     const [id, setId] = useState('');
     const [images, setImages] = useState({...IMAGES_DEFAULT});
@@ -27,8 +26,9 @@ const ProductRedactor = ({redactorState}) => {
             setImages({slider: images.slider, product: images.product.map(img => ({link: img.link}))});
 
 
-            const colorsArray = Object.entries(colors).filter( ([key]) => key !== '__typename')
-            setColors(Object.assign(COLORS_DEFAULT, Object.fromEntries(colorsArray)));
+            const colorsArray = Object.entries(colors).filter(([key]) => key !== '__typename')
+            const copyColorsDefault = JSON.stringify(COLORS_DEFAULT)
+            setColors({...JSON.parse(copyColorsDefault), ...Object.fromEntries(colorsArray)});
         } else {
             onResetInputs()
         }
@@ -66,12 +66,17 @@ const ProductRedactor = ({redactorState}) => {
         setImages({...images, product: newArr});
     }
 
+    const checkFieldsBeforeSubmit = () => {
+        return productObj.name && productObj.price && images.product[0].link && Object.values(colors).some(val => val)
+    }
+
     const onSaveProduct = () => {
-        if (productObj.name && productObj.price && images.product[0].link) {
+        if (checkFieldsBeforeSubmit()) {
             dispatch(redactorState === 'add' ?
                 addProduct({...productObj, images, colors}) :
                 updateProduct({id, product: {...productObj, images, colors}}))
             onResetInputs();
+            setShowRedactor(null)
         } else {
             window.alert('Всі поля з "*" повинні бути заповнені!')
         }
@@ -93,6 +98,7 @@ const ProductRedactor = ({redactorState}) => {
                         <div className='product-available'
                              style={{background: productObj.available ? '#28a745' : '#dc3545'}}>
                             <Form.Group id="formGridCheckbox">
+                                Наявність:
                                 <Form.Check type="checkbox"
                                             label={productObj.available ? 'Так' : 'Ні'}
                                             id='available'
@@ -187,9 +193,9 @@ const ProductRedactor = ({redactorState}) => {
                         </Form.Group>
                     </div>
 
-                    <div className='prodcut-redactor-flex-right'>
+                    <div className='product-redactor-flex-right'>
                         <Form.Group>
-                            <Form.Label>Посилання на зоображення:</Form.Label>
+                            <Form.Label>*Посилання на зоображення:</Form.Label>
                             {images.product.map((img, idx) => {
                                 return (
                                     <Form.Control
@@ -207,7 +213,7 @@ const ProductRedactor = ({redactorState}) => {
                             </div>
 
                             <div className="product-colors">
-                                <h6>Наявні кольори:</h6>
+                                <h6>*Наявні кольори:</h6>
                                 {(productObj.name || redactorState) && COLORS_DATA.map((color, i) => (
                                     <Form.Group id="formGridCheckbox" key={i}>
                                         <span style={{background: color.hex}}/>
@@ -224,14 +230,11 @@ const ProductRedactor = ({redactorState}) => {
                     </div>
 
                 </div>
-                <div className='category-redactor-buttons'>
-                    <Button variant="primary" onClick={onSaveProduct}>
-                        Зберегти
-                    </Button>
-                    <Button variant="dark" onClick={onResetInputs}>
-                        Відмінити
-                    </Button>
-                </div>
+                <RedactorButtons
+                    onSaveProduct={onSaveProduct}
+                    onResetInputs={onResetInputs}
+                    setShowRedactor={setShowRedactor}
+                />
             </Form>
         </div>
     )
