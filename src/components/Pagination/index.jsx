@@ -2,20 +2,20 @@ import React from "react";
 import { Pagination as BasePagination } from 'semantic-ui-react'
 
 
-const Pagination = ({productsFilter, setProductsToShow, setCurrentPage}) => {
-    const productsAfterFiltering = productsFilter();
+const Pagination = ({itemsFilter, setItemsToShow, setCurrentPage, paginationLength}) => {
+    const itemsAfterFiltering = itemsFilter();
 
     const onPageChange = (e, data) => {
         let lengthIndex;
         if (data.activePage.toString().includes('.')) {
-            lengthIndex = data.activePage.toString().split('.')[0] * 10
+            lengthIndex = data.activePage.toString().split('.')[0] * paginationLength
         } else  {
-            lengthIndex = (data.activePage === 1 || data.activePage === undefined ? 0 : data.activePage - 1) * 10
+            lengthIndex = (data.activePage === 1 || data.activePage === undefined ? 0 : data.activePage - 1) * paginationLength
         }
-        if (lengthIndex >= productsAfterFiltering.length) return
+        if (lengthIndex >= itemsAfterFiltering.length) return
 
         setCurrentPage(lengthIndex)
-        setProductsToShow(lengthIndex)
+        setItemsToShow(lengthIndex)
     }
 
 
@@ -26,7 +26,7 @@ const Pagination = ({productsFilter, setProductsToShow, setCurrentPage}) => {
             lastItem={null}
             pointing
             secondary
-            totalPages={productsAfterFiltering.length / 10}
+            totalPages={itemsAfterFiltering.length / paginationLength}
             onPageChange={onPageChange}
         />
     )
