@@ -33,7 +33,7 @@ const ProductsPage = () => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const onAddProduct = () => {
-        window.innerWidth <= 1100 && window.scroll(0, 600)
+        window.innerWidth <= 1100 && window.scroll(0, 700)
 
         setRedactorState('add')
         setShowRedactor(true);
@@ -100,9 +100,10 @@ const ProductsPage = () => {
                     onDeleteItem={onDeleteProduct}
                 />
                 {!!setProductsToShow(currentPage).length && <Pagination
-                    productsFilter={productsFilter}
-                    setProductsToShow={setProductsToShow}
+                    itemsFilter={productsFilter}
+                    setItemsToShow={setProductsToShow}
                     setCurrentPage={setCurrentPage}
+                    paginationLength={10}
                 />}
             </div>
             <div className='page-container__item'>
