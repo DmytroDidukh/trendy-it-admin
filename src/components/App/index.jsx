@@ -2,13 +2,13 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {ConnectedRouter} from "connected-react-router";
 
-import Header from '../Header';
+import {Header} from "../index";
+import Routes from "../../routes";
 import {getBanners} from "../../redux/banner/banner.actions";
 import {getProducts} from "../../redux/product/product.actions";
 import {getOrders} from "../../redux/order/order.actions";
 import {checkUserByToken} from "../../redux/user/user.actions";
 import Snackbar from "../Snackbar";
-import Routes from '../../routes'
 import {history} from "../../store/store";
 
 import 'semantic-ui-css/semantic.min.css'

@@ -2,6 +2,7 @@ import {
         SET_PRODUCT,
         SET_PRODUCTS,
         GET_PRODUCTS,
+        GET_PRODUCT_BY_ID,
         ADD_PRODUCT,
         UPDATE_PRODUCT,
         DELETE_PRODUCT,
@@ -21,6 +22,11 @@ export const setProducts = (products) => ({
 
 export const getProducts = () => ({
         type: GET_PRODUCTS
+})
+
+export const getProductById = (id) => ({
+        type: GET_PRODUCT_BY_ID,
+        payload: id
 })
 
 export const addProduct = (payload) => ({

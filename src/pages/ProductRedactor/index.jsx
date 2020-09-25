@@ -1,27 +1,38 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Form, Button} from 'react-bootstrap';
+import {push} from 'connected-react-router'
 
-import {addProduct, updateProduct} from "../../../redux/product/product.actions";
-import {PRODUCT_DEFAULT, IMAGES_DEFAULT, COLORS_DEFAULT, COLORS_DATA} from '../../../config'
+import {RedactorButtons} from "../../components";
+import {addProduct,
+    updateProduct,
+    getProductById
+} from "../../redux/product/product.actions";
+import {
+    PRODUCT_DEFAULT,
+    IMAGES_DEFAULT,
+    COLORS_DEFAULT,
+    COLORS_DATA
+} from '../../config'
 
 import './style.scss';
-import {RedactorButtons} from "../../../components";
 
-const ProductRedactor = ({redactorState, setShowRedactor}) => {
+const ProductRedactor = ({id, editMode}) => {
     const dispatch = useDispatch()
     const product = useSelector(({Products}) => Products.product)
 
-    const [id, setId] = useState('');
     const [images, setImages] = useState({...IMAGES_DEFAULT});
     const [colors, setColors] = useState(COLORS_DEFAULT);
     const [productObj, setProductObj] = useState(PRODUCT_DEFAULT)
 
     useEffect(() => {
-        if (product) {
-            const {price, oldPrice, name, description, id, images, colors, sale, hot, available, newItem, toSlider} = product
+        id && dispatch(getProductById(id))
+    }, [dispatch, id])
 
-            setId(id);
+    useEffect(() => {
+        if (product) {
+            const {price, oldPrice, name, description, images, colors, sale, hot, available, newItem, toSlider} = product
+
             setProductObj({price, oldPrice, name, description, available, sale, hot, newItem, toSlider});
             setImages({slider: images.slider, product: images.product.map(img => ({link: img.link}))});
 
@@ -29,8 +40,6 @@ const ProductRedactor = ({redactorState, setShowRedactor}) => {
             const colorsArray = Object.entries(colors).filter(([key]) => key !== '__typename')
             const copyColorsDefault = JSON.stringify(COLORS_DEFAULT)
             setColors({...JSON.parse(copyColorsDefault), ...Object.fromEntries(colorsArray)});
-        } else {
-            onResetInputs()
         }
     }, [product]);
 
@@ -72,28 +81,28 @@ const ProductRedactor = ({redactorState, setShowRedactor}) => {
 
     const onSaveProduct = () => {
         if (checkFieldsBeforeSubmit()) {
-            dispatch(redactorState === 'add' ?
+            dispatch(!editMode ?
                 addProduct({...productObj, images, colors}) :
                 updateProduct({id, product: {...productObj, images, colors}}))
             onResetInputs();
-            setShowRedactor(null)
+            dispatch(push('/products'))
         } else {
             window.alert('Всі поля з "*" повинні бути заповнені!')
         }
     }
 
     const onResetInputs = () => {
-        setId('');
         setImages({slider: '', product: [{link: ''}]})
         setColors(COLORS_DEFAULT)
         setProductObj(PRODUCT_DEFAULT)
+        dispatch(push('/products'))
     }
 
     return (
         <div className='product-redactor-container'>
             <Form>
-                <div className='product-redactor-flex'>
-                    <div className='product-redactor-flex-left'>
+                <div className='product-redactor'>
+                    <div className='product-redactor-left'>
 
                         <div className='product-available'
                              style={{background: productObj.available ? '#28a745' : '#dc3545'}}>
@@ -162,7 +171,7 @@ const ProductRedactor = ({redactorState, setShowRedactor}) => {
 
                         <Form.Group id="formGridCheckbox">
                             <Form.Check type="checkbox"
-                                        label="Відобразити у на головній сторінці?"
+                                        label="Відобразити на головній сторінці?"
                                         id='toSlider'
                                         checked={productObj.toSlider || false}
                                         onChange={onCheckboxChange}/>
@@ -193,7 +202,7 @@ const ProductRedactor = ({redactorState, setShowRedactor}) => {
                         </Form.Group>
                     </div>
 
-                    <div className='product-redactor-flex-right'>
+                    <div className='product-redactor-right'>
                         <Form.Group>
                             <Form.Label>*Посилання на зоображення:</Form.Label>
                             {images.product.map((img, idx) => {
@@ -214,7 +223,7 @@ const ProductRedactor = ({redactorState, setShowRedactor}) => {
 
                             <div className="product-colors">
                                 <h6>*Наявні кольори:</h6>
-                                {(productObj.name || redactorState) && COLORS_DATA.map((color, i) => (
+                                {COLORS_DATA.map((color, i) => (
                                     <Form.Group id="formGridCheckbox" key={i}>
                                         <span style={{background: color.hex}}/>
                                         <Form.Check type="checkbox"
@@ -233,7 +242,6 @@ const ProductRedactor = ({redactorState, setShowRedactor}) => {
                 <RedactorButtons
                     onSaveProduct={onSaveProduct}
                     onResetInputs={onResetInputs}
-                    setShowRedactor={setShowRedactor}
                 />
             </Form>
         </div>

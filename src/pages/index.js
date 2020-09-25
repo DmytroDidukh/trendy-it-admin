@@ -1,5 +1,6 @@
 import BannersPage from './Banners';
 import ProductsPage from './Products';
+import ProductRedactor from './ProductRedactor';
 import OrdersPage from './Orders';
 import LoginPage from './Login';
 import MenuPage from './Menu';
@@ -7,6 +8,7 @@ import SettingsPage from './Settings';
 
 export {
         ProductsPage,
+        ProductRedactor,
         OrdersPage,
         BannersPage,
         LoginPage,

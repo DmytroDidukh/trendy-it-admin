@@ -42,6 +42,49 @@ client.query({
     `
 });
 
+const getProductById = async (id) => (
+await client.query({
+    variables: {
+        id
+    },
+    query: gql`
+        query($id: ID!) {
+            getProductById(id: $id) {
+                id
+                name
+                images {
+                    slider
+                    product {
+                        link
+                    }
+                }
+                colors {
+                    black
+                    silver
+                    white
+                    yellow
+                    orange
+                    red
+                    blue
+                    green
+                    brown
+                    purple
+                    pink
+                }
+                price
+                oldPrice
+                description
+                available
+                sale
+                hot
+                newItem
+                toSlider
+                createdAt
+            }
+        }
+    `
+}))
+
 const addProduct = async (product) => {
     await client.mutate({
         variables: {
@@ -121,6 +164,7 @@ const deleteProduct = async (id) => {
 
 export {
     getProducts,
+    getProductById,
     addProduct,
     updateProduct,
     deleteProduct

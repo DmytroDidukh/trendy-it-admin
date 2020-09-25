@@ -2,6 +2,7 @@ import {takeEvery, call, put} from 'redux-saga/effects';
 
 import {
     setProducts,
+    setProduct,
     showLoading,
     hideLoading
 } from './product.actions';
@@ -12,12 +13,14 @@ import {
 } from '../snackbar/snackbar.actions';
 import {
     getProducts,
+    getProductById,
     addProduct,
     updateProduct,
     deleteProduct
 } from '../../services/product';
 import {
     GET_PRODUCTS,
+    GET_PRODUCT_BY_ID,
     ADD_PRODUCT,
     UPDATE_PRODUCT,
     DELETE_PRODUCT
@@ -30,6 +33,17 @@ function* handleProductsLoad() {
         yield put(showLoading());
         const products = yield call(getProducts);
         yield put(setProducts(products.data.getProducts));
+        yield put(hideLoading());
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function* handleGetProductById({payload}) {
+    try {
+        yield put(showLoading());
+        const product = yield call(getProductById, payload);
+        yield put(setProduct(product.data.getProductById));
         yield put(hideLoading());
     } catch (error) {
         console.log(error);
@@ -106,6 +120,7 @@ function* handleDeleteProduct({payload}) {
 
 export default function* productSaga() {
     yield takeEvery(GET_PRODUCTS, handleProductsLoad);
+    yield takeEvery(GET_PRODUCT_BY_ID, handleGetProductById);
     yield takeEvery(ADD_PRODUCT, handleAddProduct);
     yield takeEvery(UPDATE_PRODUCT, handleUpdateProduct);
     yield takeEvery(DELETE_PRODUCT, handleDeleteProduct);

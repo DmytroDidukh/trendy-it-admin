@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
+import { push } from 'connected-react-router';
 import {Button} from 'react-bootstrap';
 import {Input} from 'semantic-ui-react';
 
 import {List, ButtonsGroup, Pagination} from '../../components';
-import ProductRedactor from './ProductRedactor'
+import ProductRedactor from '../ProductRedactor'
 import {
     deleteProduct,
     setProduct,
@@ -25,27 +26,22 @@ const ProductsPage = () => {
         dispatch(getProducts());
     }, [dispatch])
 
-    const [redactorState, setRedactorState] = useState('');
-    const [showRedactor, setShowRedactor] = useState(false);
     const [filter, setFilter] = useState(false);
     const [searchValue, setSearchValue] = useState(null);
 
     const [currentPage, setCurrentPage] = useState(0);
 
     const onAddProduct = () => {
-        window.innerWidth <= 1100 && window.scroll(0, 700)
+        //window.innerWidth <= 1100 && window.scroll(0, 700)
 
-        setRedactorState('add')
-        setShowRedactor(true);
+        dispatch(push('/products/create'))
         dispatch(setProduct(null))
     }
 
     const onEditProduct = (product) => {
         window.innerWidth <= 1100 && window.scroll(0, 600)
 
-        setRedactorState('edit')
-        setShowRedactor(true);
-        dispatch(setProduct(product))
+        dispatch(push(`/products/${product.id}`))
     }
 
     const onDeleteProduct = ({id, name}) => {
@@ -105,14 +101,6 @@ const ProductsPage = () => {
                     setCurrentPage={setCurrentPage}
                     paginationLength={10}
                 />}
-            </div>
-            <div className='page-container__item'>
-                {showRedactor ? <ProductRedactor
-                        redactorState={redactorState}
-                        setShowRedactor={setShowRedactor}
-                    /> :
-                    <div className='page-item-message'>Редагуйте елемет зі списку або добавте новий</div>}
-
             </div>
         </div>
     )
