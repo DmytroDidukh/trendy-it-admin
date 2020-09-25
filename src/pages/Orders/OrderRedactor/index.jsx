@@ -13,7 +13,7 @@ const OrderRedactor = ({setRedactorState}) => {
     const dispatch = useDispatch()
     const order = useSelector(({Orders}) => Orders.order);
 
-    const {customer, delivery, status, createdAt, connectionMethod, products} = order
+    const {customer, delivery, status, createdAt, connectionMethod, products, deliveryPrice, paymentMethod} = order
 
     const [newStatus, setNewStatus] = useState(null)
     const [dropdownBarValue, setDropdownBarValue] = useState(null)
@@ -49,6 +49,8 @@ const OrderRedactor = ({setRedactorState}) => {
             setRedactorState(false)
         }
     }
+
+    const totalProductSum = orderSumCounter(products)
 
     return (
         <div className='purchase'>
@@ -106,6 +108,18 @@ const OrderRedactor = ({setRedactorState}) => {
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
                     <InputGroup.Text id="basic-addon3">
+                        Спосіб оплати:
+                    </InputGroup.Text>
+                </InputGroup.Prepend>
+                <FormControl id="basic-url" aria-describedby="basic-addon3"
+                             value={`${paymentMethod}`}
+                             disabled
+                />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+                <InputGroup.Prepend>
+                    <InputGroup.Text id="basic-addon3">
                         Спосіб доставки:
                     </InputGroup.Text>
                 </InputGroup.Prepend>
@@ -153,7 +167,11 @@ const OrderRedactor = ({setRedactorState}) => {
                 }
                 </tbody>
             </Table>
-            <h6>На суму: {orderSumCounter(products)} UAH</h6>
+            <div className='purchase__summary'>
+                <p>Товару на суму: {totalProductSum} UAH</p>
+                {!!deliveryPrice && <p>Ціна доставки: {deliveryPrice} UAH</p>}
+                <h5>Загалом: {totalProductSum + deliveryPrice} UAH</h5>
+            </div>
             <hr/>
 
             <div className='purchase__status'>

@@ -31,6 +31,8 @@ client.query({
                     color
                 }
                 connectionMethod
+                paymentMethod
+                deliveryPrice
                 orderId
                 status
                 createdAt
