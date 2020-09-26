@@ -3,6 +3,9 @@
 }
 
 .purchase {
+  width: 100%;
+  padding: 50px 100px;
+
   &__header {
     text-align: center;
   }
@@ -10,9 +13,24 @@
     margin: 10px 0;
   }
 
-  &__delete {
-    text-align: right;
+  &__buttons {
+    text-align: center;
     width: 100%;
+    button {
+      margin: 10px;
+    }
+  }
+
+  &__info {
+    display: flex;
+
+    > div {
+     flex-basis: 50%;
+    }
+
+    > div:first-child {
+      margin-right: 30px;
+    }
   }
 
   &__summary {

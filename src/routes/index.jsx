@@ -5,6 +5,7 @@ import {Route, Switch} from "react-router-dom";
 import {
     LoginPage,
     OrdersPage,
+    OrderRedactor,
     ProductsPage,
     ProductRedactor,
     BannersPage,
@@ -40,6 +41,10 @@ const Routes = () => {
                 )}/>
 
                 <Route exact path='/orders' component={OrdersPage}/>
+                <Route exact path='/orders/:id' render={({match}) => (
+                    <OrderRedactor id={match.params.id} />
+                )}/>
+
                 <Route exact path='/banners' component={BannersPage}/>
                 <Route exact path='/settings' component={SettingsPage}/>
             </Switch>

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
+import {push} from 'connected-react-router'
 
-import {getOrders, setOrder} from "../../redux/order/order.actions";
+import {getOrders, showLoading} from "../../redux/order/order.actions";
 import {ButtonsGroup, Pagination} from "../../components";
-import OrderRedactor from './OrderRedactor'
 import OrdersList from './OrdersList'
 import {ORDER_STATUSES} from "../../config";
 
@@ -20,14 +20,12 @@ const OrdersPage = () => {
         dispatch(getOrders());
     }, [dispatch])
 
-    const [showRedactor, setShowRedactor] = useState(false);
     const [filter, setFilter] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
 
-    const onSelectPurchase = (item) => {
-        dispatch(setOrder(item));
-        setShowRedactor(true)
-        window.innerWidth <= 1100 && window.scroll(0, 700)
+    const onSelectOrder = (item) => {
+        dispatch(showLoading())
+        dispatch(push(`/orders/${item.id}`));
     }
 
     const onFilterChange = (e) => {
@@ -53,7 +51,7 @@ const OrdersPage = () => {
                 <OrdersList
                     items={setOrdersToShow(currentPage)}
                     isLoading={isLoading}
-                    onSelectItem={onSelectPurchase}
+                    onSelectItem={onSelectOrder}
                 />
                 {!!setOrdersToShow(currentPage).length && <Pagination
                     itemsFilter={orderFilter}
@@ -61,12 +59,6 @@ const OrdersPage = () => {
                     setCurrentPage={setCurrentPage}
                     paginationLength={20}
                 />}
-            </div>
-            <div className='page-container__item'>
-                {
-                    showRedactor ? <OrderRedactor setRedactorState={setShowRedactor}/> :
-                    <div className='page-item-message'>Натисніть на замовлення, щоб отримати детальнішу інформацію</div>
-                }
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import { push } from 'connected-react-router';
+import {push} from 'connected-react-router';
 import {Button} from 'react-bootstrap';
 import {Input} from 'semantic-ui-react';
 
@@ -72,7 +72,7 @@ const ProductsPage = () => {
 
     const setProductsToShow = (lengthIndex) => {
         const products = productsFilter()
-        const isEnoughProducts = products.length>= 12
+        const isEnoughProducts = products.length >= 12
 
         return isEnoughProducts ? products.slice(lengthIndex, lengthIndex + 12) : products.slice(0, 12)
     }
