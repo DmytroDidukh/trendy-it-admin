@@ -1,5 +1,7 @@
 .navbar {
   display: flex !important;
+  height: 60px;
+  justify-content: space-between;
 
   .to-settings {
     margin-left: auto;
@@ -10,12 +12,73 @@
     }
   }
 
-  @media screen and (max-width: 600px) {
+  .burger {
     display: flex;
     flex-direction: column;
+    align-content: space-around;
+    transition: all .2s ease;
+    cursor: pointer;
 
-    .to-settings {
-      margin-left: 0;
+    span {
+      display: block;
+      width: 25px;
+      height: 4px;
+      background-color: white;
+      margin: 3px 10px;
+    }
+
+    @media screen and (min-width: 769px) {
+      display: none;
+    }
+  }
+
+  .burger.burger_reversed {
+    transform: rotate(-90deg);
+    span {
+      margin: 0 10px;
+      height: 10px;
+    }
+
+    span:first-child {
+      background: #009344;
+    }
+
+    span:nth-child(2) {
+      background: #ffffff;
+    }
+
+    span:last-child {
+      background: #cf2734;
+    }
+  }
+
+  .italy-flag {
+    display: flex;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    span {
+      display: block;
+      height: 25px;
+      width: 10px;
+      background-color: white;
+    }
+
+    span:first-child {
+      background: #009344;
+    }
+
+    span:nth-child(2) {
+      background: #ffffff;
+    }
+
+    span:last-child {
+      background: #cf2734;
+    }
+
+    @media screen and (max-width: 768px) {
+      display: none;
     }
   }
 }
@@ -29,7 +92,6 @@
   }
 
   &.navbar-text:nth-child(4) {
-    margin-left: auto;
     padding-right: 10px;
   }
 

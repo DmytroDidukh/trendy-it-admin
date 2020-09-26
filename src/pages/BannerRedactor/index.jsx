@@ -1,31 +1,31 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Form, Button} from 'react-bootstrap';
+import {Form} from 'react-bootstrap';
 
-import {addBanner, updateBanner} from "../../../redux/banner/banner.actions";
+import {RedactorButtons} from "../../components";
+import {addBanner, getBannerById, updateBanner} from "../../redux/banner/banner.actions";
 
 import './style.scss';
-import {RedactorButtons} from "../../../components";
+import {push} from "connected-react-router";
 
-const BannerRedactor = ({redactorState, setShowRedactor}) => {
+const BannerRedactor = ({id, editMode}) => {
     const dispatch = useDispatch()
     const {banner} = useSelector(({Banners}) => ({
         banner: Banners.banner
     }));
 
     const bannerDefault = {title: '', description: '', image: '', toSlider: false};
+    const [bannerObj, setBannerObj] = useState({...bannerDefault})
 
-    const [id, setId] = useState('');
-    const [bannerObj, setBannerObj] = useState(bannerDefault)
+    useEffect(() => {
+        id && dispatch(getBannerById(id))
+    }, [dispatch, id])
 
     useEffect(() => {
         if (banner) {
-            const {id, title, description, image, toSlider} = banner
+            const {title, description, image, toSlider} = banner
 
-            setId(id);
             setBannerObj({title, description, image, toSlider});
-        } else {
-            onResetInputs()
         }
     }, [banner]);
 
@@ -41,21 +41,21 @@ const BannerRedactor = ({redactorState, setShowRedactor}) => {
         setBannerObj({...bannerObj, [target.id]: target.checked})
     }
 
-    const onSaveProduct = () => {
+    const onSaveBanner = () => {
         if (bannerObj.title && bannerObj.description && bannerObj.image) {
-            dispatch(redactorState === 'add' ?
+            dispatch(!editMode ?
                 addBanner({...bannerObj}) :
                 updateBanner({id, banner: {...bannerObj}}))
             onResetInputs();
-            setShowRedactor(null)
+            dispatch(push('/banners'))
         } else {
             window.alert('Всі поля з "*" повинні бути заповнені!')
         }
     }
 
     const onResetInputs = () => {
-        setId('');
         setBannerObj(bannerDefault)
+        dispatch(push('/banners'))
     }
 
     return (
@@ -68,7 +68,7 @@ const BannerRedactor = ({redactorState, setShowRedactor}) => {
                             <Form.Control
                                 name='title'
                                 type="text"
-                                placeholder="Введіть назву продукту"
+                                placeholder="Введіть назву баннера"
                                 value={bannerObj.title || ''}
                                 onChange={onInputChange}/>
                         </Form.Group>
@@ -110,9 +110,8 @@ const BannerRedactor = ({redactorState, setShowRedactor}) => {
 
                 </div>
                 <RedactorButtons
-                    onSaveProduct={onSaveProduct}
+                    onSaveProduct={onSaveBanner}
                     onResetInputs={onResetInputs}
-                    setShowRedactor={setShowRedactor}
                 />
             </Form>
         </div>

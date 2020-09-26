@@ -76,9 +76,9 @@ export const ORDER_STATUSES = {
 }
 
 export const MENU_ITEMS = [
-    {name: 'Продукція', link: '/products', color: '#52a360'},
-    {name: 'Замовлення', link: '/orders', color: '#674794'},
-    {name: 'Баннери', link: '/banners', color: '#d03d03'},
+    {name: 'Продукція', link: '/products', color: '#52a360', icon: 'shopping bag'},
+    {name: 'Замовлення', link: '/orders', color: '#674794', icon: 'handshake'},
+    {name: 'Баннери', link: '/banners', color: '#d03d03', icon: 'image'},
     {name: 'Налаштування', link: '/settings', color: '#212529'},
 ]
 

@@ -2,6 +2,7 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 
 import {
         setBanners,
+        setBanner,
         showLoading,
         hideLoading,
 } from './banner.actions';
@@ -12,6 +13,7 @@ import {
 } from '../snackbar/snackbar.actions';
 import {
         getBanners,
+        getBannerById,
         addBanner,
         updateBanner,
         deleteBanner
@@ -20,7 +22,7 @@ import {
         GET_BANNERS,
         ADD_BANNER,
         UPDATE_BANNER,
-        DELETE_BANNER
+        DELETE_BANNER, GET_BANNER_BY_ID
 } from './banner.types';
 
 import { SNACKBAR_MESSAGES } from "../../config";
@@ -33,6 +35,19 @@ function* handleBannersLoad() {
                 yield put(hideLoading());
         } catch (error) {
                 console.log(error);
+        }
+}
+
+function* handleGetBannerById({ payload }) {
+        try {
+                yield put(showLoading());
+
+                const banner = yield call(getBannerById, payload);
+                yield put(setBanner(banner.data.getBannerById));
+                yield put(hideLoading());
+
+        } catch (err) {
+                console.log('error:', err);
         }
 }
 
@@ -101,6 +116,7 @@ function* handleDeleteBanner({ payload }) {
 
 export default function* bannerSaga() {
         yield takeEvery(GET_BANNERS, handleBannersLoad);
+        yield takeEvery(GET_BANNER_BY_ID, handleGetBannerById);
         yield takeEvery(ADD_BANNER, handleAddBanner);
         yield takeEvery(UPDATE_BANNER, handleUpdateBanner);
         yield takeEvery(DELETE_BANNER, handleDeleteBanner);

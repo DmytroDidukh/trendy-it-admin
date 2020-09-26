@@ -1,0 +1,61 @@
+.input-group-text {
+  font-weight: 700;
+}
+
+.purchase {
+  width: 100%;
+  padding: 50px 100px;
+
+  &__header {
+    text-align: center;
+  }
+
+  &__status {
+    margin: 10px 0;
+  }
+
+  &__buttons {
+    text-align: center;
+    width: 100%;
+
+    button {
+      margin: 10px;
+    }
+  }
+
+  &__info {
+    display: flex;
+
+    @media screen and (max-width: 450px) {
+      flex-direction: column;
+    }
+
+    > div {
+      flex-basis: 50%;
+    }
+
+    > div:first-child {
+      margin-right: 30px;
+    }
+  }
+
+  &__summary {
+    text-align: right;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 10px 30px;
+  }
+}
+
+td:not(:nth-child(2)) {
+  text-align: center;
+}
+
+.order-color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #f1f1f1;
+  border-radius: 50%;
+}

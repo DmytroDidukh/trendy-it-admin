@@ -2,6 +2,7 @@ import {
     SET_ORDER,
     SET_ORDERS,
     GET_ORDERS,
+    GET_ORDER_BY_ID,
     DELETE_ORDER,
     UPDATE_ORDER_STATUS,
     SHOW_LOADING,
@@ -20,6 +21,11 @@ export const setOrders = (orders) => ({
 
 export const getOrders = () => ({
     type: GET_ORDERS
+})
+
+export const getOrderById = (id) => ({
+    type: GET_ORDER_BY_ID,
+    payload: id
 })
 
 export const deleteOrder = (payload) => ({

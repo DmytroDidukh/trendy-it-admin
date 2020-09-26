@@ -1,13 +1,12 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import {Navbar, Nav} from 'react-bootstrap';
+import {Navbar} from 'react-bootstrap';
 
-import {logoutUser} from  '../../redux/user/user.actions'
-import {MENU_ITEMS} from "../../config";
+import {logoutUser} from '../../redux/user/user.actions'
 import './style.scss';
 
-const Header = () => {
+const Header = ({setLeftBarVisibility, leftBarVisibility}) => {
     const {isAuth, userName, location} = useSelector(({User, router}) => ({
         isAuth: User.isAuth,
         userName: User.userName,
@@ -19,25 +18,28 @@ const Header = () => {
 
     return (
         <Navbar bg="dark" variant="dark">
+            <div className={`burger ${leftBarVisibility && 'burger_reversed'}`}
+                 onClick={() => setLeftBarVisibility(!leftBarVisibility)}>
+                <span/>
+                <span/>
+                <span/>
+            </div>
+
             <Link to={isAuth ? '/' : '/login'}>
-                <Navbar.Brand>TrendyIT</Navbar.Brand>
+                <Navbar.Brand>Trendy IT</Navbar.Brand>
             </Link>
-            {isAuth && <Nav className="mr-space nav-flex">
-                {
-                    MENU_ITEMS.map((item, i) => (
-                        i !== 3 && <Navbar.Text className='nav-item' key={item.link}>
-                            <Link className={`nav-link ${location === item.link && 'active'}`}
-                                  to={`${item.link}`}>
-                                {item.name}
-                            </Link>
-                        </Navbar.Text>
-                    ))
-                }
-            </Nav>}
-            {userName && <span className={`nav-item navbar-text to-settings ${location === '/settings' && 'active'}`}>
-                <Link to={'/settings'}>{userName}</Link>
-            </span>}
-            {isAuth && <span className='nav-item' onClick={onLogOut}>Вийти</span>}
+            <div className='italy-flag'>
+                <span/>
+                <span/>
+                <span/>
+            </div>
+            <div className='to-settings'>
+                {userName &&
+                <span className={`nav-item navbar-text ${location === '/settings' && 'active'}`}>
+                     <Link to={'/settings'}>{userName}</Link>
+                </span>}
+                {isAuth && <span className='nav-item' onClick={onLogOut}>Вийти</span>}
+            </div>
         </Navbar>
     )
 }
