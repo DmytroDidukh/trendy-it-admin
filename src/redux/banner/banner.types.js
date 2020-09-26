@@ -1,6 +1,7 @@
 const SET_BANNER = 'SET_BANNER';
 const SET_BANNERS = 'SET_BANNERS';
 const GET_BANNERS = 'GET_BANNERS';
+const GET_BANNER_BY_ID = 'GET_BANNER_BY_ID';
 const ADD_BANNER = 'ADD_BANNER';
 const UPDATE_BANNER = 'UPDATE_BANNER';
 const DELETE_BANNER = 'DELETE_BANNER';
@@ -11,6 +12,7 @@ export {
         SET_BANNER,
         SET_BANNERS,
         GET_BANNERS,
+        GET_BANNER_BY_ID,
         ADD_BANNER,
         UPDATE_BANNER,
         DELETE_BANNER,

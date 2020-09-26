@@ -11,6 +11,7 @@ import {
     BannersPage,
     MenuPage,
     SettingsPage,
+    BannerRedactor,
 } from "../pages";
 import {LeftBar} from "../components";
 
@@ -38,6 +39,12 @@ const Routes = () => {
                 <Route exact path='/products/create' component={ProductRedactor}/>
                 <Route exact path='/products/:id' render={({match}) => (
                     <ProductRedactor id={match.params.id} editMode />
+                )}/>
+
+                <Route exact path='/banners' component={BannersPage}/>
+                <Route exact path='/banners/create' component={BannerRedactor}/>
+                <Route exact path='/banners/:id' render={({match}) => (
+                    <BannerRedactor id={match.params.id} editMode />
                 )}/>
 
                 <Route exact path='/orders' component={OrdersPage}/>

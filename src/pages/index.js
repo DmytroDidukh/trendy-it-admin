@@ -1,4 +1,5 @@
 import BannersPage from './Banners';
+import BannerRedactor from './BannerRedactor';
 import ProductsPage from './Products';
 import ProductRedactor from './ProductRedactor';
 import OrdersPage from './Orders';
@@ -13,6 +14,7 @@ export {
         OrdersPage,
         OrderRedactor,
         BannersPage,
+        BannerRedactor,
         LoginPage,
         MenuPage,
         SettingsPage,

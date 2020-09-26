@@ -32,15 +32,11 @@ const ProductsPage = () => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const onAddProduct = () => {
-        //window.innerWidth <= 1100 && window.scroll(0, 700)
-
         dispatch(push('/products/create'))
         dispatch(setProduct(null))
     }
 
     const onEditProduct = (product) => {
-        window.innerWidth <= 1100 && window.scroll(0, 600)
-
         dispatch(push(`/products/${product.id}`))
     }
 
