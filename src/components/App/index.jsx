@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {ConnectedRouter} from "connected-react-router";
 
@@ -15,14 +15,21 @@ const App = () => {
     const isAuth = useSelector(({User}) => User.isAuth)
     const dispatch = useDispatch();
 
+    const [leftBarVisibility, setLeftBarVisibility] = useState(window.innerWidth < 768)
+
     useEffect(() => {
         dispatch(checkUserByToken());
     }, [dispatch, isAuth])
 
     return (
         <ConnectedRouter history={history}>
-            <Header/>
-            <Routes/>
+            <Header
+                leftBarVisibility={leftBarVisibility}
+                setLeftBarVisibility={setLeftBarVisibility}
+            />
+            <Routes
+                leftBarVisibility={leftBarVisibility}
+            />
             <Snackbar/>
         </ConnectedRouter>
     )

@@ -5,6 +5,8 @@
   color: silver;
   border-right: 1px solid #a0a0a0;
   height: 100%;
+  transition: transform .2s ease;
+  background: white;
 
   &__item {
     border-bottom: 1px solid silver;
@@ -33,5 +35,17 @@
     * {
       color: white;
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .left-bar {
+    transform: translateX(-230px);
+    position: absolute;
+  }
+
+  .left-bar.left-bar_visible {
+    transform: translateX(0);
+    z-index: 10;
   }
 }

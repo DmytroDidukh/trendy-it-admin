@@ -15,7 +15,7 @@ import {
 } from "../pages";
 import {LeftBar} from "../components";
 
-const Routes = () => {
+const Routes = ({leftBarVisibility}) => {
     const {isAuth, location} = useSelector(({User, router}) => ({
         isAuth: User.isAuth,
         location: router.location.pathname
@@ -31,7 +31,9 @@ const Routes = () => {
 
     return (
         <div className='body'>
-            {location !== '/' && <LeftBar/>}
+            {location !== '/' && <LeftBar
+                leftBarVisibility={leftBarVisibility}
+            />}
             <Switch>
                 <Route exact path='/' component={MenuPage}/>
 
