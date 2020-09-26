@@ -9,6 +9,7 @@ import {orderSumCounter, orderStatusVariant} from "../../utils";
 import {ORDER_STATUSES} from '../../config'
 
 import './style.scss';
+import {Icon} from "semantic-ui-react";
 
 const OrderRedactor = ({id}) => {
     const dispatch = useDispatch()
@@ -66,6 +67,7 @@ const OrderRedactor = ({id}) => {
 
     return (
         <div className='purchase'>
+            <Icon name='arrow left' onClick={() => dispatch(push('/orders'))} className={'back-arrow'}/>
             <h3 className={'purchase__header'}>Замовлення {order.orderId}</h3>
             <h6>Створено: <Time date={createdAt}/></h6>
 

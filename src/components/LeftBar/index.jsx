@@ -8,26 +8,28 @@ import {MENU_ITEMS} from "../../config";
 
 import './style.scss';
 
-const LeftBar = ({leftBarVisibility}) => {
+const LeftBar = ({leftBarVisibility, setLeftBarVisibility}) => {
     const {location} = useSelector(({router}) => ({
         location: router.location.pathname,
     }))
 
 
     return (
-       <div className={`left-bar ${leftBarVisibility && 'left-bar_visible'}`}>
-           {
-               MENU_ITEMS.map((item, i) => (
-                   i !== 3 && <Navbar.Text className={`left-bar__item ${location.includes(item.link) && 'active'}`} key={item.link}>
-                       <Link
-                             to={`${item.link}`}>
-                           <Icon name={item.icon}/>
-                           {item.name}
-                       </Link>
-                   </Navbar.Text>
-               ))
-           }
-       </div>
+        <div className={`left-bar ${leftBarVisibility && 'left-bar_visible'}`}>
+            {
+                MENU_ITEMS.map((item, i) => (
+                    i !== 3 && <Navbar.Text className={`left-bar__item ${location.includes(item.link) && 'active'}`}
+                                            key={item.link}>
+                        <Link
+                            onClick={() => setLeftBarVisibility(false)}
+                            to={`${item.link}`}>
+                            <Icon name={item.icon}/>
+                            {item.name}
+                        </Link>
+                    </Navbar.Text>
+                ))
+            }
+        </div>
     )
 }
 

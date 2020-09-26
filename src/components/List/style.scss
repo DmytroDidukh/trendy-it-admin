@@ -1,10 +1,15 @@
 .list-container {
   padding: 10px 50px;
+
+  @media screen and (max-width: 1024px) {
+    padding: 10px 0;
+  }
 }
 
 .list-add-button {
   margin-bottom: 10px !important;
 }
+
 .list-item-content {
   display: flex;
   justify-content: space-between;
@@ -13,6 +18,7 @@
   &-buttons {
     margin-left: auto;
     display: flex;
+
     & > * {
       margin: 0 3px;
     }
@@ -48,6 +54,12 @@
   &-labels {
     margin-left: 20px;
     opacity: .6;
+
+    @media screen and (max-width: 450px) {
+      * {
+        font-size: .7em !important;
+      }
+    }
   }
 }
 

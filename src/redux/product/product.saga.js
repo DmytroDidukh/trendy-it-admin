@@ -32,11 +32,7 @@ function* handleProductsLoad() {
     try {
         yield put(showLoading());
         const products = yield call(getProducts);
-
-        const sortedProducts = Array.from(products.data.getProducts)
-            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-
-        yield put(setProducts(sortedProducts));
+        yield put(setProducts(Array.from(products.data.getProducts)));
         yield put(hideLoading());
     } catch (error) {
         console.log(error);

@@ -15,39 +15,40 @@ const List = ({items, isLoading, onEditItem, onDeleteItem}) => {
 
         return (
             <div className='list-item-content'>
-                { item.__typename === 'Product' &&
+                {item.__typename === 'Product' &&
                 <img className='list-item-content-image'
-                    src={images.product[0].link} alt='product'/>}
+                     src={images.product[0].link} alt='product'/>}
                 <h4 className='list-item-content-name'>{name || item.title}</h4>
-                { item.__typename === 'Product' &&
-               <div className={"list-item-content-labels"}>
-                   {available &&  <Label as='a' color='blue' horizontal>
-                       в наявності
-                   </Label>}
-                   {newItem &&  <Label as='a' color='green' horizontal>
-                       новинка
-                   </Label>}
-                   {sale &&  <Label as='a' color='red' horizontal>
-                       розпродаж
-                   </Label>}
-                   {hot &&  <Label as='a' color='orange' horizontal>
-                       хіт продаж
-                   </Label>}
-               </div>}
+                {item.__typename === 'Product' &&
+                <div className={"list-item-content-labels"}>
+                    {available && <Label as='a' color='blue' horizontal>
+                        в наявності
+                    </Label>}
+                    {newItem && <Label as='a' color='green' horizontal>
+                        новинка
+                    </Label>}
+                    {sale && <Label as='a' color='red' horizontal>
+                        розпродаж
+                    </Label>}
+                    {hot && <Label as='a' color='orange' horizontal>
+                        хіт продаж
+                    </Label>}
+                </div>}
                 <div className='list-item-content-buttons'>
                     {window.innerWidth > 550 ? (
                         <>
-
-                                <Button variant="outline-warning"
-                                       onClick={() => onEditItem(item)}>Редагувати</Button>
-
-                            <Button variant="outline-danger" onClick={() => onDeleteItem(item)}>Видалити</Button>
+                            <Button variant="outline-warning"
+                                    onClick={() => onEditItem(item)}>
+                                Редагувати
+                            </Button>
+                            <Button variant="outline-danger"
+                                    onClick={() => onDeleteItem(item)}>
+                                Видалити
+                            </Button>
                         </>
                     ) : (
                         <>
-                            <Link to={`/products/${id}`}>
-                                <Icon name='edit' onClick={() => onEditItem(item)}/>
-                            </Link>
+                            <Icon name='edit' onClick={() => onEditItem(item)}/>
                             <Icon name='delete' onClick={() => onDeleteItem(item)}/>
                         </>
                     )}

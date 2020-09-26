@@ -5,7 +5,6 @@ import {Button} from 'react-bootstrap';
 import {Input} from 'semantic-ui-react';
 
 import {List, ButtonsGroup, Pagination} from '../../components';
-import ProductRedactor from '../ProductRedactor'
 import {
     deleteProduct,
     setProduct,
@@ -19,7 +18,7 @@ const ProductsPage = () => {
     const dispatch = useDispatch();
     const {isLoading, products} = useSelector(({Products}) => ({
         isLoading: Products.loading,
-        products: Products.list
+        products: Products.list.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     }))
 
     useEffect(() => {

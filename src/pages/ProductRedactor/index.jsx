@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Form, Button} from 'react-bootstrap';
 import {push} from 'connected-react-router'
+import {Icon, Segment, Radio} from "semantic-ui-react";
 
 import {RedactorButtons} from "../../components";
 import {addProduct,
@@ -51,13 +52,9 @@ const ProductRedactor = ({id, editMode}) => {
         setProductObj(newObj)
     }
 
-    const onCheckboxChange = ({target}) => {
-        setProductObj({...productObj, [target.id]: target.checked})
-    }
-
-    const onColorChange = ({target: {id, checked}}) => {
-        setColors({...colors, [id]: checked});
-    }
+    const onCheckboxChange = ({target}) => setProductObj({...productObj, [target.id]: target.checked})
+    const onToggleChange = (_, {dataid, checked}) => setProductObj({...productObj, [dataid]: checked})
+    const onColorChange = ({target: {id, checked}}) => setColors({...colors, [id]: checked});
 
     const onImageInputChange = (e, idx) => {
         if (e.target.name === 'slider-image') {
@@ -100,20 +97,16 @@ const ProductRedactor = ({id, editMode}) => {
 
     return (
         <div className='product-redactor-container'>
+            <Icon name='arrow left' onClick={() => dispatch(push('/products'))} className={'back-arrow'}/>
             <Form>
                 <div className='product-redactor'>
                     <div className='product-redactor-left'>
 
-                        <div className='product-available'
-                             style={{background: productObj.available ? '#28a745' : '#dc3545'}}>
-                            <Form.Group id="formGridCheckbox">
-                                Наявність:
-                                <Form.Check type="checkbox"
-                                            label={productObj.available ? 'Так' : 'Ні'}
-                                            id='available'
-                                            checked={productObj.available || false}
-                                            onChange={onCheckboxChange}/>
-                            </Form.Group>
+                        <div className='product-available'>
+                            Наявність: <Radio toggle
+                                              dataid='available'
+                                              checked={productObj.available || false}
+                                              onChange={onToggleChange}/>
                         </div>
 
                         <Form.Group>

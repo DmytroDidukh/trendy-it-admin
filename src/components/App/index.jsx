@@ -15,7 +15,7 @@ const App = () => {
     const isAuth = useSelector(({User}) => User.isAuth)
     const dispatch = useDispatch();
 
-    const [leftBarVisibility, setLeftBarVisibility] = useState(window.innerWidth < 768)
+    const [leftBarVisibility, setLeftBarVisibility] = useState(window.innerWidth > 768)
 
     useEffect(() => {
         dispatch(checkUserByToken());
@@ -29,6 +29,7 @@ const App = () => {
             />
             <Routes
                 leftBarVisibility={leftBarVisibility}
+                setLeftBarVisibility={setLeftBarVisibility}
             />
             <Snackbar/>
         </ConnectedRouter>

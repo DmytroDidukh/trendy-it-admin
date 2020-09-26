@@ -22,9 +22,10 @@
     padding: 5px;
     border-radius: 10px;
     margin-bottom: 10px;
+    display: flex;
 
     & > * {
-      margin: 0 !important;
+      margin: 0 10px !important;
     }
   }
 

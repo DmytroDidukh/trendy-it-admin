@@ -1,6 +1,7 @@
 .navbar {
   display: flex !important;
   height: 60px;
+  justify-content: space-between;
 
   .to-settings {
     margin-left: auto;
@@ -8,15 +9,6 @@
     a {
       color: inherit;
       text-decoration: none;
-    }
-  }
-
-  @media screen and (max-width: 600px) {
-    display: flex;
-    flex-direction: column;
-
-    .to-settings {
-      margin-left: 0;
     }
   }
 
@@ -59,6 +51,36 @@
       background: #cf2734;
     }
   }
+
+  .italy-flag {
+    display: flex;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    span {
+      display: block;
+      height: 25px;
+      width: 10px;
+      background-color: white;
+    }
+
+    span:first-child {
+      background: #009344;
+    }
+
+    span:nth-child(2) {
+      background: #ffffff;
+    }
+
+    span:last-child {
+      background: #cf2734;
+    }
+
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
 }
 
 .nav-item {
@@ -70,7 +92,6 @@
   }
 
   &.navbar-text:nth-child(4) {
-    margin-left: auto;
     padding-right: 10px;
   }
 
