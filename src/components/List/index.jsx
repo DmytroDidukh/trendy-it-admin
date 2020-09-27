@@ -1,7 +1,6 @@
 import React from 'react'
 import {ListGroup, Button} from 'react-bootstrap'
 import {Icon, Label} from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
 import orderBy from 'lodash/orderBy';
 
 import {Spinner} from '../';
@@ -11,13 +10,14 @@ import './style.scss';
 const List = ({items, isLoading, onEditItem, onDeleteItem}) => {
 
     const ItemContent = ({item}) => {
-        const {id, name, images, newItem, sale, hot, available} = item;
+        const {name, images, newItem, sale, hot, available} = item;
+        const link = images.product[0].link || images.product[0].url
 
         return (
             <div className='list-item-content'>
                 {item.__typename === 'Product' &&
                 <img className='list-item-content-image'
-                     src={images.product[0].link} alt='product'/>}
+                     src={link} alt='product'/>}
                 <h4 className='list-item-content-name'>{name || item.title}</h4>
                 {item.__typename === 'Product' &&
                 <div className={"list-item-content-labels"}>

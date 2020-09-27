@@ -38,13 +38,6 @@ export const PRODUCT_DEFAULT = {
     toSlider: false
 };
 
-export const IMAGES_DEFAULT = {
-    slider: '',
-    product: [
-        {link: ''}
-    ]
-};
-
 export const COLORS_DEFAULT = {
     black: false,
     silver: false,

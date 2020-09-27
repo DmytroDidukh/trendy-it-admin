@@ -13,9 +13,14 @@ client.query({
                 price,
                 oldPrice,
                 images {
-                    slider
+                    slider {
+                        url
+                        publicId
+                    }
                     product {
                         link
+                        url
+                        publicId
                     }
                 },
                 colors {
@@ -53,9 +58,14 @@ await client.query({
                 id
                 name
                 images {
-                    slider
+                    slider {
+                        url
+                        publicId 
+                    }
                     product {
                         link
+                        url
+                        publicId
                     }
                 }
                 colors {
@@ -99,9 +109,11 @@ const addProduct = async (product) => {
                     price,
                     oldPrice,
                     images {
-                        slider
+                        slider {
+                            url
+                        }
                         product {
-                            link
+                            url
                         }
                     },
                     sale
@@ -130,9 +142,14 @@ const updateProduct = async ({id, product}) => {
                     price,
                     oldPrice,
                     images {
-                        slider
+                        slider {
+                            url
+                            publicId
+                        }
                         product {
                             link
+                            publicId
+                            url
                         }
                     },
                     sale

@@ -22,7 +22,9 @@ const productReducer = (state = initialState, { type, payload }) => {
                 case SET_PRODUCTS: {
                         return {
                                 ...state,
-                                list: payload,
+                                list: payload
+                                    .map((item) => item)
+                                    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
                         }
                 }
                 case SHOW_LOADING: {

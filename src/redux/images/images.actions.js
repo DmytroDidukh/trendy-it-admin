@@ -4,7 +4,7 @@ import {
     SET_IMAGE_TO_PRODUCT,
     SET_ALL_IMAGES_TO_PRODUCT,
     SET_IMAGE_TO_SLIDER,
-    DELETE_IMAGE_FROM_STATE,
+    SET_IMAGE_TO_DELETE_AND_UPDATE_STATE,
     SET_LOADING,
     CLEAR_UPLOAD_STATE,
 } from './images.types'
@@ -37,9 +37,9 @@ export const setImageToSlider = (image) => ({
     payload: image
 });
 
-export const deleteImageFromState = (newImages) => ({
-    type: DELETE_IMAGE_FROM_STATE,
-    payload: newImages
+export const setImagesToDeleteAndUpdateState = (imgId) => ({
+    type: SET_IMAGE_TO_DELETE_AND_UPDATE_STATE,
+    payload: imgId
 })
 
 export const clearUploadState = () => ({

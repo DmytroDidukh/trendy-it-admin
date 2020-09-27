@@ -19,7 +19,7 @@ const ProductsPage = () => {
     const dispatch = useDispatch();
     const {isLoading, products} = useSelector(({Products}) => ({
         isLoading: Products.loading,
-        products: Products.list.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        products: Products.list
     }))
 
     useEffect(() => {
@@ -42,7 +42,9 @@ const ProductsPage = () => {
     }
 
     const onDeleteProduct = ({id, name}) => {
-        window.confirm(`Видалити ${name}?`) && dispatch(deleteProduct(id))
+        if (window.confirm(`Видалити ${name}?`)) {
+            dispatch(deleteProduct(id))
+        }
     }
 
     const onFilterOptionChange = ({target}) => {

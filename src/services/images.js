@@ -10,8 +10,7 @@ export const uploadImage = async (image) => {
         query: gql`
             query ($image: String!){
                 uploadImage(image: $image) {
-                    asset_id
-                    public_id
+                    publicId
                     url
                 }
             }
@@ -19,14 +18,14 @@ export const uploadImage = async (image) => {
     });
 }
 
-export const deleteImage = async (image) => {
+export const deleteImage = async (images) => {
     return await client.query({
         variables: {
-            image
+            images
         },
         query: gql`
-            query ($image: String!){
-                deleteImage(image: $image) 
+            query ($images: [String]){
+                deleteImages(images: $images) 
             }
         `
     });

@@ -5,7 +5,7 @@ import Banners from './banner/banner.reducer'
 import Products from './product/product.reducer'
 import Orders from './order/order.reducer'
 import User from './user/user.reducer'
-import Upload from './images/images.reducer'
+import Images from './images/images.reducer'
 import Snackbar from './snackbar/snackbar.reducer'
 
 const rootReducer = (history) =>
@@ -15,7 +15,7 @@ const rootReducer = (history) =>
         Products,
         Orders,
         User,
-        Upload,
+        Images,
         router: connectRouter(history)
     });
 

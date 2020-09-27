@@ -6,7 +6,6 @@ import {MENU_ITEMS} from "../../config";
 import './style.scss'
 
 const MenuPage = () => {
-
     return (
         <div className='menu-page'>
             <h2 className='menu-page__title'>Menu</h2>

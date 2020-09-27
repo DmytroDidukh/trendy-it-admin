@@ -32,7 +32,7 @@ function* handleProductsLoad() {
     try {
         yield put(showLoading());
         const products = yield call(getProducts);
-        yield put(setProducts(Array.from(products.data.getProducts)));
+        yield put(setProducts(products.data.getProducts));
         yield put(hideLoading());
     } catch (error) {
         console.log(error);

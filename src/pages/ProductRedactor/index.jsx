@@ -11,6 +11,7 @@ import {
     updateProduct,
     getProductById
 } from "../../redux/product/product.actions";
+import {typenameRemover} from "../../utils";
 import {
     PRODUCT_DEFAULT,
     IMAGES_DEFAULT,
@@ -22,9 +23,13 @@ import './style.scss';
 
 const ProductRedactor = ({id, editMode}) => {
     const dispatch = useDispatch()
-    const product = useSelector(({Products}) => Products.product)
+    const {product, productImages, sliderImage} = useSelector(({Products, Images}) => ({
+        product: Products.product,
+        productImages: Images.images,
+        sliderImage: Images.sliderImage,
+    }))
 
-    const [images, setImages] = useState({...IMAGES_DEFAULT});
+    //const [images, setImages] = useState({});
     const [colors, setColors] = useState(COLORS_DEFAULT);
     const [productObj, setProductObj] = useState(PRODUCT_DEFAULT)
 
@@ -34,15 +39,12 @@ const ProductRedactor = ({id, editMode}) => {
 
     useEffect(() => {
         if (product) {
-            const {price, oldPrice, name, description, images, colors, sale, hot, available, newItem, toSlider} = product
+            const {price, oldPrice, name, description, colors, sale, hot, available, newItem, toSlider} = product
 
             setProductObj({price, oldPrice, name, description, available, sale, hot, newItem, toSlider});
-            setImages({slider: images.slider, product: images.product.map(img => ({link: img.link}))});
 
-
-            const colorsArray = Object.entries(colors).filter(([key]) => key !== '__typename')
             const copyColorsDefault = JSON.stringify(COLORS_DEFAULT)
-            setColors({...JSON.parse(copyColorsDefault), ...Object.fromEntries(colorsArray)});
+            setColors({...JSON.parse(copyColorsDefault), ...typenameRemover(colors)});
         }
     }, [product]);
 
@@ -58,26 +60,20 @@ const ProductRedactor = ({id, editMode}) => {
     const onToggleChange = (_, {dataid, checked}) => setProductObj({...productObj, [dataid]: checked})
     const onColorChange = ({target: {id, checked}}) => setColors({...colors, [id]: checked});
 
-    const onImageInputChange = (e, idx) => {
-        if (e.target.name === 'slider-image') {
-            setImages({slider: e.target.value, product: images.product})
-        } else {
-            const values = [...images.product];
-
-            values[idx].link = e.target.value;
-            setImages({slider: images.slider, product: values});
-        }
-    }
-
     const checkFieldsBeforeSubmit = () => {
-        return productObj.name && productObj.price && images.product[0].link && Object.values(colors).some(val => val)
+        return productObj.name && productObj.price && productImages[0].url && Object.values(colors).some(val => val)
     }
 
     const onSaveProduct = () => {
+        const imagesToSend = {
+            slider: typenameRemover(sliderImage),
+            product: typenameRemover(productImages)
+        }
+
         if (checkFieldsBeforeSubmit()) {
             dispatch(!editMode ?
-                addProduct({...productObj, images, colors}) :
-                updateProduct({id, product: {...productObj, images, colors}}))
+                addProduct({...productObj, images: imagesToSend, colors}) :
+                updateProduct({id, product: {...productObj, images: imagesToSend, colors}}))
             onResetInputs();
             dispatch(push('/products'))
         } else {
@@ -86,7 +82,6 @@ const ProductRedactor = ({id, editMode}) => {
     }
 
     const onResetInputs = () => {
-        setImages({slider: '', product: [{link: ''}]})
         setColors(COLORS_DEFAULT)
         setProductObj(PRODUCT_DEFAULT)
         dispatch(push('/products'))
@@ -171,7 +166,7 @@ const ProductRedactor = ({id, editMode}) => {
                                                 onChange={onCheckboxChange}/>
                                 </Form.Group>
 
-                                {productObj.toSlider && <Form.Group>
+                         {/*       {productObj.toSlider && <Form.Group>
                                     <Form.Label>Зображення на слайдер (широкоформатне):</Form.Label>
                                     <Form.Control
                                         name='slider-image'
@@ -179,7 +174,7 @@ const ProductRedactor = ({id, editMode}) => {
                                         placeholder="Посилання на зображення"
                                         value={images.slider || ''}
                                         onChange={onImageInputChange}/>
-                                </Form.Group>}
+                                </Form.Group>}*/}
                             </div>
                         </div>
                     </div>

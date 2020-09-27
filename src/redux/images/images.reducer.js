@@ -2,7 +2,7 @@ import {
     SET_IMAGE_TO_PRODUCT,
     SET_ALL_IMAGES_TO_PRODUCT,
     SET_IMAGE_TO_SLIDER,
-    DELETE_IMAGE_FROM_STATE,
+    SET_IMAGE_TO_DELETE_AND_UPDATE_STATE,
     CLEAR_UPLOAD_STATE,
     SET_LOADING,
 } from './images.types'
@@ -10,6 +10,7 @@ import {
 const initialState = {
     sliderImage: null,
     images: [],
+    imagesToDelete: [],
     loading: false,
 }
 
@@ -30,10 +31,11 @@ const imagesReducer = (state = initialState, {type, payload}) => {
                 ...state,
                 sliderImage: payload,
             };
-        case DELETE_IMAGE_FROM_STATE:
+        case SET_IMAGE_TO_DELETE_AND_UPDATE_STATE:
             return {
                 ...state,
-                images: payload
+                images: state.images.filter(img => img.publicId !== payload),
+                imagesToDelete: [...state.imagesToDelete, payload]
             };
         case SET_LOADING: {
             return {
