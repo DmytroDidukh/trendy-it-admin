@@ -11,6 +11,7 @@ import {
     setSnackbarSeverity,
     setSnackbarVisibility,
 } from '../snackbar/snackbar.actions';
+import {setAllImagesToProduct, setImageToSlider} from "../upload/upload.actions";
 import {
     getProducts,
     getProductById,
@@ -25,7 +26,6 @@ import {
     UPDATE_PRODUCT,
     DELETE_PRODUCT
 } from './product.types';
-
 import {SNACKBAR_MESSAGES} from "../../config";
 
 function* handleProductsLoad() {
@@ -42,8 +42,13 @@ function* handleProductsLoad() {
 function* handleGetProductById({payload}) {
     try {
         yield put(showLoading());
-        const product = yield call(getProductById, payload);
-        yield put(setProduct(product.data.getProductById));
+        const productResult = yield call(getProductById, payload);
+
+        const product = productResult.data.getProductById
+        yield put(setAllImagesToProduct(product.images.product));
+        yield put(setImageToSlider(product.images.slider));
+        yield put(setProduct(product));
+
         yield put(hideLoading());
     } catch (error) {
         console.log(error);

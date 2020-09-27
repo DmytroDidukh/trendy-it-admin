@@ -6,7 +6,8 @@ import {Icon, Radio} from "semantic-ui-react";
 
 import {RedactorButtons} from "../../components";
 import ImagePlaceholder from "./ImagePlaceholder";
-import {addProduct,
+import {
+    addProduct,
     updateProduct,
     getProductById
 } from "../../redux/product/product.actions";
@@ -68,11 +69,6 @@ const ProductRedactor = ({id, editMode}) => {
         }
     }
 
-    const onAddImageInput = () => {
-        const newArr = [...images.product, {link: ''}]
-        setImages({...images, product: newArr});
-    }
-
     const checkFieldsBeforeSubmit = () => {
         return productObj.name && productObj.price && images.product[0].link && Object.values(colors).some(val => val)
     }
@@ -115,14 +111,14 @@ const ProductRedactor = ({id, editMode}) => {
 
                             <div className=''>
                                 <Form.Group>
-                                <Form.Label>*Назва продукту:</Form.Label>
-                                <Form.Control
-                                    name='name'
-                                    type="text"
-                                    placeholder="Введіть назву продукту"
-                                    value={productObj.name || ''}
-                                    onChange={onInputChange}/>
-                            </Form.Group>
+                                    <Form.Label>*Назва продукту:</Form.Label>
+                                    <Form.Control
+                                        name='name'
+                                        type="text"
+                                        placeholder="Введіть назву продукту"
+                                        value={productObj.name || ''}
+                                        onChange={onInputChange}/>
+                                </Form.Group>
                                 <Form.Group>
                                     <Form.Label>*Ціна:</Form.Label>
                                     <Form.Control
@@ -186,6 +182,9 @@ const ProductRedactor = ({id, editMode}) => {
                                 </Form.Group>}
                             </div>
                         </div>
+                    </div>
+
+                    <div className='product-redactor-right'>
 
                         <Form.Group>
                             <Form.Label>Опис продукту:</Form.Label>
@@ -200,27 +199,8 @@ const ProductRedactor = ({id, editMode}) => {
                             />
 
                         </Form.Group>
-                    </div>
 
-                    <div className='product-redactor-right'>
                         <Form.Group>
-                            <Form.Label>*Посилання на зоображення:</Form.Label>
-                            {images.product.map((img, idx) => {
-                                return (
-                                    <Form.Control
-                                        key={idx + img.link}
-                                        name={`image-${idx}`}
-                                        type="textarea"
-                                        placeholder="Введіть посилання на зоображення"
-                                        value={img.link || ''}
-                                        onChange={e => onImageInputChange(e, idx)}/>
-                                )
-                            })}
-                            <div className="addImageInput-btn">
-                                <Button variant="outline-dark"
-                                        onClick={onAddImageInput}>Додати зображення</Button>
-                            </div>
-
                             <div className="product-colors">
                                 <h6>*Наявні кольори:</h6>
                                 {COLORS_DATA.map((color, i) => (

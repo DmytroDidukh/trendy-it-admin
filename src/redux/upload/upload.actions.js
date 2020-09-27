@@ -2,6 +2,7 @@ import {
     UPLOAD_IMAGE_TO_CLOUD,
     DELETE_IMAGE_FROM_CLOUD,
     SET_IMAGE_TO_PRODUCT,
+    SET_ALL_IMAGES_TO_PRODUCT,
     SET_IMAGE_TO_SLIDER,
     DELETE_IMAGE_FROM_STATE,
     SET_LOADING,
@@ -24,6 +25,11 @@ export const deleteImageFromCloud = (imageId) => ({
 export const setImageToProduct = (image) => ({
     type:SET_IMAGE_TO_PRODUCT,
     payload: image
+});
+
+export const setAllImagesToProduct = (images) => ({
+    type:SET_ALL_IMAGES_TO_PRODUCT,
+    payload: images
 });
 
 export const setImageToSlider = (image) => ({

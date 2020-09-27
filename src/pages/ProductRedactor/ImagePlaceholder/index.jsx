@@ -35,7 +35,6 @@ const ImagePlaceholder = ({id, editMode}) => {
         }
     }
 
-
     return (
         <div className='image-placeholder'>
 
@@ -43,7 +42,7 @@ const ImagePlaceholder = ({id, editMode}) => {
                 <div className='image-placeholder__images' ref={sliderImages}>
                     {
                         images.map(img => (
-                            <div className='image-placeholder__images__item'
+                            <div key={img.link} className='image-placeholder__images__item'
                                  style={{backgroundImage: `url(${img.link})`}}/>
                         ))
                     }
