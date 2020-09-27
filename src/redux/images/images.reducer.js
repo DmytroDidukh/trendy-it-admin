@@ -5,7 +5,7 @@ import {
     DELETE_IMAGE_FROM_STATE,
     CLEAR_UPLOAD_STATE,
     SET_LOADING,
-} from './upload.types'
+} from './images.types'
 
 const initialState = {
     sliderImage: null,
@@ -13,7 +13,7 @@ const initialState = {
     loading: false,
 }
 
-const uploadReducer = (state = initialState, {type, payload}) => {
+const imagesReducer = (state = initialState, {type, payload}) => {
     switch (type) {
         case SET_ALL_IMAGES_TO_PRODUCT:
             return {
@@ -51,4 +51,4 @@ const uploadReducer = (state = initialState, {type, payload}) => {
     }
 }
 
-export default uploadReducer;
+export default imagesReducer;

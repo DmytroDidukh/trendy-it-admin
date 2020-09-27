@@ -7,7 +7,7 @@ import {
     DELETE_IMAGE_FROM_STATE,
     SET_LOADING,
     CLEAR_UPLOAD_STATE,
-} from './upload.types'
+} from './images.types'
 
 export const uploadImageToCloud = (image, isSliderImg) => ({
     type: UPLOAD_IMAGE_TO_CLOUD,

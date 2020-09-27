@@ -5,7 +5,7 @@ import {
     setImageToProduct,
     setImageToSlider,
     setLoading,
-} from './upload.actions';
+} from './images.actions';
 import {
     setSnackbarMessage,
     setSnackbarSeverity,
@@ -14,11 +14,11 @@ import {
 import {
     UPLOAD_IMAGE_TO_CLOUD,
     DELETE_IMAGE_FROM_CLOUD,
-} from './upload.types';
+} from './images.types';
 import {
-    uploadFile,
-    deleteFile,
-} from '../../services/upload'
+    uploadImage,
+    deleteImage,
+} from '../../services/images'
 import {SNACKBAR_MESSAGES} from "../../config";
 
 function* handleImageUpload({payload}) {
@@ -28,8 +28,8 @@ function* handleImageUpload({payload}) {
 
         yield put(setLoading(true));
 
-        const uploadResult = yield call(uploadFile, image)
-        const uploadedImg = uploadResult.data.uploadFile
+        const uploadResult = yield call(uploadImage, image)
+        const uploadedImg = uploadResult.data.uploadImage
 
 
         if (isSliderImg) {
@@ -52,6 +52,6 @@ function* handleImageUpload({payload}) {
     }
 }
 
-export default function* uploadSaga() {
+export default function* imagesSaga() {
     yield takeEvery(UPLOAD_IMAGE_TO_CLOUD, handleImageUpload)
 }

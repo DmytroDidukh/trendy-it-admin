@@ -11,7 +11,7 @@ import {
     setSnackbarSeverity,
     setSnackbarVisibility,
 } from '../snackbar/snackbar.actions';
-import {setAllImagesToProduct, setImageToSlider} from "../upload/upload.actions";
+import {setAllImagesToProduct, setImageToSlider} from "../images/images.actions";
 import {
     getProducts,
     getProductById,

@@ -5,26 +5,21 @@ import './style.scss';
 import {Button} from "react-bootstrap";
 import {Icon} from "semantic-ui-react";
 
-/*const images = [
-    {url: 'https://a.lmcdn.ru/product/R/O/RO046BWFZAD5_9094490_1_v1.jpg'},
-    {url: 'https://a.lmcdn.ru/product/M/A/MA002BWKCII0_11642551_1_v1.jpg'},
-]*/
-
-const ImagePlaceholder = ({id, editMode}) => {
+const ImagePlaceholder = () => {
     const dispatch = useDispatch()
     const {images, sliderImage} = useSelector(({Upload}) => ({
         images: Upload.images,
         sliderImage: Upload.sliderImage
     }))
 
+    //HOOKS
     const [sliderPosition, setSliderPosition] = useState(0)
-
     const sliderImages = useRef(null)
 
+    //HANDLERS
     const onSliderScroll = ({target: {id}}) => {
-        const transformValue = sliderImages.current.style.transform
-        const currentPosition = (transformValue && transformValue.match(/-*\d+/)[0]) || 0
-
+        const transformValue = sliderImages.current.style.transform;
+        const currentPosition = (transformValue && transformValue.match(/-*\d+/)[0]) || 0;
 
         if (id === 'slider-left' && sliderPosition > 0) {
             setSliderPosition(sliderPosition - 1)
@@ -50,7 +45,7 @@ const ImagePlaceholder = ({id, editMode}) => {
                         <Icon name='plus circle'/>
                         <p>Натисніть для завантаження</p>
                         <label htmlFor="upload-photo"/>
-                        <input type="file" name="photo" id="upload-photo"/>
+                        <input type="file" name="photo" id="upload-photo" onChange={() => {}}/>
                     </div>
                 </div>
                 <div className={'slider-control'}>

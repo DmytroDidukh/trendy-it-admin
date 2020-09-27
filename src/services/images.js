@@ -2,15 +2,14 @@ import {gql} from '@apollo/client'
 
 import client from "./index";
 
-export const uploadFile = async (file) => {
-    console.log('file', file)
+export const uploadImage = async (image) => {
     return await client.query({
         variables: {
-            file
+            image
         },
         query: gql`
-            query ($file: String!){
-                uploadFile(file: $file) {
+            query ($image: String!){
+                uploadImage(image: $image) {
                     asset_id
                     public_id
                     url
@@ -20,14 +19,14 @@ export const uploadFile = async (file) => {
     });
 }
 
-export const deleteFile = async (file) => {
+export const deleteImage = async (image) => {
     return await client.query({
         variables: {
-            file
+            image
         },
         query: gql`
-            query ($file: String!){
-                deleteFile(file: $file) 
+            query ($image: String!){
+                deleteImage(image: $image) 
             }
         `
     });
