@@ -9,7 +9,7 @@
       .images-block {
         display: flex;
 
-        div:last-child {
+        > div:last-child {
           flex: 1;
         }
       }
