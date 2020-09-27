@@ -1,11 +1,19 @@
 .product-redactor-container {
 
   .product-redactor {
-    @media screen and (max-width: 1100px){
+    @media screen and (max-width: 1100px) {
       flex-direction: column;
     }
 
     &-left {
+      .images-block {
+        display: flex;
+
+        div:last-child {
+          flex: 1;
+        }
+      }
+
       @media screen and (min-width: 1101px) {
         margin-right: 10px;
       }

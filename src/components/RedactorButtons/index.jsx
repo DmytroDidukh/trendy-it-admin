@@ -14,7 +14,7 @@ const RedactorButtons = ({onSaveProduct, onResetInputs}) => {
 
     return (
         <div className='redactor-buttons'>
-            <Button variant="primary" onClick={onSaveProduct}>
+            <Button variant="success" onClick={onSaveProduct}>
                 Зберегти
             </Button>
             <Button variant="outline-dark" onClick={onCancel}>

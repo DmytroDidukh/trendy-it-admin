@@ -20,6 +20,10 @@ export const SNACKBAR_MESSAGES = {
     },
     login: {
         success: 'Вітаємо! Вхід успішний'
+    },
+    upload: {
+        success: 'Завантажено',
+        error: 'Не вдалось завантажити',
     }
 }
 
@@ -76,7 +80,7 @@ export const ORDER_STATUSES = {
 }
 
 export const MENU_ITEMS = [
-    {name: 'Продукція', link: '/products', color: '#52a360', icon: 'shopping bag'},
+    {name: 'Продукти', link: '/products', color: '#52a360', icon: 'shopping bag'},
     {name: 'Замовлення', link: '/orders', color: '#674794', icon: 'handshake'},
     {name: 'Баннери', link: '/banners', color: '#d03d03', icon: 'image'},
     {name: 'Налаштування', link: '/settings', color: '#212529'},
