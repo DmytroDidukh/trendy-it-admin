@@ -53,12 +53,7 @@ const BannerRedactor = ({id, editMode}) => {
                 return
             }
 
-            console.log('imagesToDelete', imagesToDelete)
-            if (imagesToDelete.length) {
-                console.log('inside')
-                dispatch(deleteImagesFromCloud(imagesToDelete))
-            }
-
+            imagesToDelete.length && dispatch(deleteImagesFromCloud(imagesToDelete))
             const imageToSend = typenameRemover(sliderImage)
 
             dispatch(!editMode ?
@@ -66,7 +61,6 @@ const BannerRedactor = ({id, editMode}) => {
                 updateBanner({id, banner: {...bannerObj, image: imageToSend}}))
 
             onResetInputs();
-            dispatch(push('/banners'))
         } else {
             window.alert('Поля з "*" є обов‘язковими!')
         }
@@ -90,12 +84,7 @@ const BannerRedactor = ({id, editMode}) => {
                 .map(img => img.publicId ? img.publicId : img)
         }
 
-        console.log('notSavedImages', notSavedImages)
-        if (notSavedImages.length) {
-            console.log('deleting')
-            dispatch(deleteImagesFromCloud(notSavedImages))
-        }
-
+        notSavedImages.length && dispatch(deleteImagesFromCloud(notSavedImages))
         onResetInputs()
     }
 

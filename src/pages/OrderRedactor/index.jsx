@@ -26,7 +26,7 @@ const OrderRedactor = ({id}) => {
 
     useEffect(() => {
         id && dispatch(getOrderById(id))
-    }, [id])
+    }, [id, dispatch])
 
     useEffect(() => {
         if (order) {

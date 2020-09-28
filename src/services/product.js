@@ -51,7 +51,7 @@ const getProducts = async () => {
 }
 
 const getProductById = async (id) => {
-    const response = await client.query({
+    await client.query({
         variables: {
             id
         },
@@ -96,12 +96,10 @@ const getProductById = async (id) => {
             }
         `
     })
-
-    return response.data.getProductById
 }
 
 const addProduct = async (product) => {
-    const response = await client.mutate({
+    await client.mutate({
         variables: {
             product
         },
@@ -146,12 +144,10 @@ const addProduct = async (product) => {
             }
         `
     });
-
-    return response.data.addProduct
 };
 
 const updateProduct = async ({id, product}) => {
-    const response = await client.mutate({
+    await client.mutate({
         variables: {
             id,
             product
@@ -197,8 +193,6 @@ const updateProduct = async ({id, product}) => {
             }
         `
     });
-
-    return response.data.updateProduct
 };
 
 const deleteProduct = async (id) => {

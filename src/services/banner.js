@@ -45,12 +45,11 @@ const getBannerById = async (id) => {
         `
     });
 
-    //await client.resetStore()
     return response.data.getBannerById
 };
 
 const addBanner = async (banner) => {
-    const response = await client.mutate({
+    await client.mutate({
         variables: {
             banner
         },
@@ -69,13 +68,10 @@ const addBanner = async (banner) => {
             }
         `
     });
-
-    //await client.resetStore()
-    return response.data.addBanner
 };
 
 const updateBanner = async ({id, banner}) => {
-    const response = await client.mutate({
+    await client.mutate({
         variables: {
             id,
             banner
@@ -95,8 +91,6 @@ const updateBanner = async ({id, banner}) => {
             }
         `
     });
-
-    return response.data.updateBanner
 };
 
 const deleteBanner = async (id) => {
@@ -113,7 +107,6 @@ const deleteBanner = async (id) => {
         `
     })
 
-    await client.resetStore()
     return response.data.deleteBanner
 };
 

@@ -20,7 +20,6 @@ const productReducer = (state = initialState, { type, payload }) => {
                         }
                 }
                 case SET_PRODUCTS: {
-                        console.log(payload, 'productReducer')
                         return {
                                 ...state,
                                 list: payload

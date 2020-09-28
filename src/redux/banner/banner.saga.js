@@ -26,7 +26,6 @@ import {
 } from './banner.types';
 
 import { SNACKBAR_MESSAGES } from "../../config";
-import {setProducts} from "../product/product.actions";
 
 function* handleBannersLoad() {
         try {
@@ -56,19 +55,12 @@ function* handleGetBannerById({ payload }) {
 
 function* handleAddBanner({ payload }) {
         try {
-                const banner = yield call(addBanner, payload);
+                yield call(addBanner, payload);
                 yield put(setBannersLoading(true));
 
                 yield put(setSnackbarMessage(SNACKBAR_MESSAGES.add.success));
                 yield put(setSnackbarSeverity('success'));
                 yield put(setSnackbarVisibility(true));
-
-                console.log('==================')
-                console.log(banner)
-                console.log('==================')
-
-                //const banners = yield call(getBannersFromState);
-                //yield put(setBanners([...banners, banner]));
 
                 yield put(setBannersLoading(false));
 
@@ -84,21 +76,11 @@ function* handleAddBanner({ payload }) {
 function* handleUpdateBanner({ payload }) {
         try {
                 yield put(setBannersLoading(true));
-                const banner = yield call(updateBanner, payload);
+                yield call(updateBanner, payload);
 
                 yield put(setSnackbarMessage(SNACKBAR_MESSAGES.update.success));
                 yield put(setSnackbarVisibility(true));
                 yield put(setSnackbarSeverity('success'));
-
-               /* const banners = yield call(getBannersFromState);
-                const updatedBanners = banners.map( item => {
-                        if (item.id === banner.id) {
-                                return banner
-                        }
-                        return item
-                })
-
-                yield put(setBanners(updatedBanners));*/
 
                 yield put(setBannersLoading(false));
 
