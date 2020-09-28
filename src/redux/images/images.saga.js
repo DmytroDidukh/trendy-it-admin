@@ -1,5 +1,4 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
-import {push} from 'connected-react-router';
 
 import {
     setImageToProduct,
@@ -36,7 +35,6 @@ function* handleImageUpload({payload}) {
         const uploadResult = yield call(uploadImage, image)
         const uploadedImg = uploadResult.data.uploadImage
 
-
         if (isSliderImg) {
             yield put(setImageToSlider(uploadedImg));
         } else {
@@ -65,6 +63,7 @@ function* handleImageUpload({payload}) {
 
 function* handleImagesDeleting({payload}) {
     try {
+        console.log(payload, '656666')
         yield call(deleteImages, payload)
 
         yield put(setSnackbarSeverity('success'));

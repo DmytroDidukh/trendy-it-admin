@@ -30,7 +30,6 @@ const SliderPlaceholder = ({toSlider, onCheckboxChange}) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-            console.log('hello')
             dispatch(uploadImageToCloud(reader.result, true))
         }
     }
@@ -40,7 +39,6 @@ const SliderPlaceholder = ({toSlider, onCheckboxChange}) => {
             dispatch(setImageToSlider(null))
             dispatch(setImagesToDeleteAndUpdateState(sliderImage.publicId))
         }
-
     }
 
     return (

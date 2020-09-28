@@ -2,7 +2,6 @@ import {takeEvery, call, put, select} from 'redux-saga/effects';
 
 import {
     setProducts,
-    setNewProduct,
     setProduct,
     showLoading,
     hideLoading
@@ -88,8 +87,6 @@ function* handleUpdateProduct({payload}) {
         yield put(setSnackbarVisibility(true));
 
         const products = yield call(getProductsListFromState);
-        console.log(products)
-
         const updatedProducts = products.map( item => {
             if (item.id === product.id) {
                 return product

@@ -99,7 +99,7 @@ const ProductsPage = () => {
                     itemsFilter={productsFilter}
                     setItemsToShow={setProductsToShow}
                     setCurrentPage={setCurrentPage}
-                    paginationLength={10}
+                    paginationLength={12}
                 />}
             </div>
         </div>

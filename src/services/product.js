@@ -151,6 +151,8 @@ const addProduct = async (product) => {
 };
 
 const updateProduct = async ({id, product}) => {
+    console.log('payload', product)
+
     const response = await client.mutate({
         variables: {
             id,
@@ -197,6 +199,8 @@ const updateProduct = async ({id, product}) => {
             }
         `
     });
+    console.log(response)
+
     return response.data.updateProduct
 };
 

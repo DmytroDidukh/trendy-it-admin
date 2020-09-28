@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Form, Button} from 'react-bootstrap';
+import {Form} from 'react-bootstrap';
 import {push} from 'connected-react-router'
 import {Icon, Radio} from "semantic-ui-react";
 
@@ -92,7 +92,11 @@ const ProductRedactor = ({id, editMode}) => {
         let notSavedImages;
         if (editMode) {
             const savedImages = product.images
-            notSavedImages = [sliderImage, ...imagesToDelete, ...productImages.filter(img => savedImages.product.find(obj => obj.publicId !== img.publicId))]
+            const notSavedSliderImage = savedImages.slider && savedImages.slider.publicId === sliderImage.publicId ? null : sliderImage;
+
+            notSavedImages = [notSavedSliderImage, ...imagesToDelete, ...productImages.filter(img => (
+                !savedImages.product.find(obj => obj.publicId === img.publicId)
+            ))]
                 .filter(val => val)
                 .map(img => img.publicId ? img.publicId : img)
         } else {
@@ -100,6 +104,7 @@ const ProductRedactor = ({id, editMode}) => {
                 .filter(val => val)
                 .map(img => img.publicId ? img.publicId : img)
         }
+        console.log(notSavedImages)
 
         notSavedImages.length && dispatch(deleteImagesFromCloud(notSavedImages))
         onResetInputs()
@@ -185,7 +190,7 @@ const ProductRedactor = ({id, editMode}) => {
 
                                 <SliderPlaceholder
                                     onCheckboxChange={onCheckboxChange}
-                                    toSlider={productObj.toSlider} />
+                                    toSlider={productObj.toSlider}/>
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Icon, Loader} from "semantic-ui-react";
 
@@ -60,8 +60,8 @@ const ImagePlaceholder = () => {
             <div className='image-placeholder__container'>
                 <div className='image-placeholder__images' ref={sliderImages}>
                     {
-                        images.map(img => (
-                            <div key={img.publicId} className='image-placeholder__images__item'
+                        images.map(img=> (
+                            <div key={img.publicId || Math.random()} className='image-placeholder__images__item'
                                  style={{backgroundImage: `url(${img.url})`}}/>
                         ))
                     }
