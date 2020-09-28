@@ -1,5 +1,6 @@
 import {
         SET_PRODUCT,
+        SET_NEW_PRODUCT,
         SET_PRODUCTS,
         SHOW_LOADING,
         HIDE_LOADING

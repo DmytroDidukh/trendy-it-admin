@@ -1,5 +1,6 @@
 import {
         SET_PRODUCT,
+        SET_NEW_PRODUCT,
         SET_PRODUCTS,
         GET_PRODUCTS,
         GET_PRODUCT_BY_ID,
@@ -12,6 +13,11 @@ import {
 
 export const setProduct = (product) => ({
         type: SET_PRODUCT,
+        payload: product
+})
+
+export const setNewProduct = (product) => ({
+        type: SET_NEW_PRODUCT,
         payload: product
 })
 

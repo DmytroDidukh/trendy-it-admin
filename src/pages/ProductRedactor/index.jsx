@@ -84,17 +84,23 @@ const ProductRedactor = ({id, editMode}) => {
     }
 
     const onGoBack = (location) => {
-        const savedImages = product.images
-
         if (location && !window.confirm('Скасувати зміни?')) {
             return
         }
 
-        const notSavedImages = [sliderImage, ...productImages.filter(img => savedImages.product.find(obj => obj.publicId !== img.publicId))]
-            .filter(val => val)
-            .map(img => img.publicId)
+        let notSavedImages;
+        if (editMode) {
+            const savedImages = product.images
+            notSavedImages = [sliderImage, ...productImages.filter(img => savedImages.product.find(obj => obj.publicId !== img.publicId))]
+                .filter(val => val)
+                .map(img => img.publicId)
+        } else {
+            notSavedImages = [sliderImage, ...productImages]
+                .filter(val => val)
+                .map(img => img.publicId)
+        }
 
-        dispatch(deleteImagesFromCloud(notSavedImages))
+        notSavedImages.length && dispatch(deleteImagesFromCloud(notSavedImages))
         onResetInputs()
     }
 

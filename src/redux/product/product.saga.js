@@ -1,7 +1,8 @@
-import {takeEvery, call, put} from 'redux-saga/effects';
+import {takeEvery, call, put, select} from 'redux-saga/effects';
 
 import {
     setProducts,
+    setNewProduct,
     setProduct,
     showLoading,
     hideLoading
@@ -32,7 +33,7 @@ function* handleProductsLoad() {
     try {
         yield put(showLoading());
         const products = yield call(getProducts);
-        yield put(setProducts(products.data.getProducts));
+        yield put(setProducts(products));
         yield put(hideLoading());
     } catch (error) {
         console.log(error);
@@ -42,9 +43,8 @@ function* handleProductsLoad() {
 function* handleGetProductById({payload}) {
     try {
         yield put(showLoading());
-        const productResult = yield call(getProductById, payload);
+        const product = yield call(getProductById, payload);
 
-        const product = productResult.data.getProductById
         yield put(setAllImagesToProduct(product.images.product));
         yield put(setImageToSlider(product.images.slider));
         yield put(setProduct(product));
@@ -57,15 +57,15 @@ function* handleGetProductById({payload}) {
 
 function* handleAddProduct({payload}) {
     try {
-        yield call(addProduct, payload);
+        const product = yield call(addProduct, payload);
         yield put(showLoading());
 
         yield put(setSnackbarSeverity('success'));
         yield put(setSnackbarMessage(SNACKBAR_MESSAGES.add.success));
         yield put(setSnackbarVisibility(true));
 
-        const products = yield call(getProducts);
-        yield put(setProducts(products.data.getProducts));
+        const products = yield call(getProductsListFromState);
+        yield put(setProducts([...products, product]));
 
         yield put(hideLoading());
 
@@ -79,17 +79,25 @@ function* handleAddProduct({payload}) {
 
 function* handleUpdateProduct({payload}) {
     try {
-        yield call(updateProduct, payload);
+        const product = yield call(updateProduct, payload);
+
+        yield put(showLoading());
 
         yield put(setSnackbarSeverity('success'));
         yield put(setSnackbarMessage(SNACKBAR_MESSAGES.update.success));
         yield put(setSnackbarVisibility(true));
 
-        yield put(showLoading());
+        const products = yield call(getProductsListFromState);
+        console.log(products)
 
-        const products = yield call(getProducts);
-        yield put(setProducts(products.data.getProducts));
+        const updatedProducts = products.map( item => {
+            if (item.id === product.id) {
+                return product
+            }
+            return item
+        })
 
+        yield put(setProducts(updatedProducts));
         yield put(hideLoading());
 
     } catch (error) {
@@ -104,15 +112,15 @@ function* handleUpdateProduct({payload}) {
 function* handleDeleteProduct({payload}) {
     try {
         yield put(showLoading());
-
-        yield call(deleteProduct, payload);
+        const product = yield call(deleteProduct, payload);
 
         yield put(setSnackbarSeverity('success'));
         yield put(setSnackbarMessage(SNACKBAR_MESSAGES.delete.success));
         yield put(setSnackbarVisibility(true));
 
         const products = yield call(getProducts);
-        yield put(setProducts(products.data.getProducts));
+        const updatedProducts = products.filter(item => item.id !== product.id)
+        yield put(setProducts(updatedProducts));
 
         yield put(hideLoading());
 
@@ -123,6 +131,12 @@ function* handleDeleteProduct({payload}) {
         yield put(hideLoading());
         console.log(error);
     }
+}
+
+function* getProductsListFromState() {
+    return yield select(
+        ({ Products }) => Products.list
+    );
 }
 
 export default function* productSaga() {
