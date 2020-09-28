@@ -24,6 +24,10 @@ export const SNACKBAR_MESSAGES = {
     upload: {
         success: 'Завантажено',
         error: 'Не вдалось завантажити',
+    },
+    deleteImages: {
+        success: 'Успішно видалено незбрежені зображення',
+        error: 'Не вдалось видалити зображення',
     }
 }
 

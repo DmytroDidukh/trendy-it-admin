@@ -46,7 +46,6 @@ const getProducts = async () => {
         `
     });
 
-    await client.resetStore()
     return response.data.getProducts
 }
 

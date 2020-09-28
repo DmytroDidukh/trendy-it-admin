@@ -6,6 +6,7 @@ import {Icon, Radio} from "semantic-ui-react";
 
 import {RedactorButtons} from "../../components";
 import ImagePlaceholder from "./ImagePlaceholder";
+import SliderPlaceholder from "./SliderPlaceholder";
 import {
     addProduct,
     updateProduct,
@@ -91,13 +92,13 @@ const ProductRedactor = ({id, editMode}) => {
         let notSavedImages;
         if (editMode) {
             const savedImages = product.images
-            notSavedImages = [sliderImage, ...productImages.filter(img => savedImages.product.find(obj => obj.publicId !== img.publicId))]
+            notSavedImages = [sliderImage, ...imagesToDelete, ...productImages.filter(img => savedImages.product.find(obj => obj.publicId !== img.publicId))]
                 .filter(val => val)
-                .map(img => img.publicId)
+                .map(img => img.publicId ? img.publicId : img)
         } else {
-            notSavedImages = [sliderImage, ...productImages]
+            notSavedImages = [sliderImage, ...productImages, ...imagesToDelete]
                 .filter(val => val)
-                .map(img => img.publicId)
+                .map(img => img.publicId ? img.publicId : img)
         }
 
         notSavedImages.length && dispatch(deleteImagesFromCloud(notSavedImages))
@@ -182,23 +183,9 @@ const ProductRedactor = ({id, editMode}) => {
                                                 onChange={onCheckboxChange}/>
                                 </Form.Group>
 
-                                <Form.Group id="formGridCheckbox">
-                                    <Form.Check type="checkbox"
-                                                label="Відобразити на головній сторінці?"
-                                                id='toSlider'
-                                                checked={productObj.toSlider || false}
-                                                onChange={onCheckboxChange}/>
-                                </Form.Group>
-
-                                {/*       {productObj.toSlider && <Form.Group>
-                                    <Form.Label>Зображення на слайдер (широкоформатне):</Form.Label>
-                                    <Form.Control
-                                        name='slider-image'
-                                        type="text"
-                                        placeholder="Посилання на зображення"
-                                        value={images.slider || ''}
-                                        onChange={onImageInputChange}/>
-                                </Form.Group>}*/}
+                                <SliderPlaceholder
+                                    onCheckboxChange={onCheckboxChange}
+                                    toSlider={productObj.toSlider} />
                             </div>
                         </div>
                     </div>

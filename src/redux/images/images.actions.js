@@ -5,7 +5,8 @@ import {
     SET_ALL_IMAGES_TO_PRODUCT,
     SET_IMAGE_TO_SLIDER,
     SET_IMAGE_TO_DELETE_AND_UPDATE_STATE,
-    SET_LOADING,
+    SET_IMAGE_LOADING,
+    SET_SLIDER_IMAGE_LOADING,
     CLEAR_IMAGES_STATE,
 } from './images.types'
 
@@ -46,7 +47,12 @@ export const clearImagesState = () => ({
     type: CLEAR_IMAGES_STATE
 })
 
-export const setLoading = (status) => ({
-    type: SET_LOADING,
+export const setImageLoading = (status) => ({
+    type: SET_IMAGE_LOADING,
+    payload: status
+})
+
+export const setSliderImageLoading = (status) => ({
+    type: SET_SLIDER_IMAGE_LOADING,
     payload: status
 })

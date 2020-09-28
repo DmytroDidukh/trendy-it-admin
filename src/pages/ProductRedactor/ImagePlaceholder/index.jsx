@@ -11,10 +11,9 @@ import './style.scss';
 
 const ImagePlaceholder = () => {
     const dispatch = useDispatch()
-    const {images, sliderImage, loading} = useSelector(({Images}) => ({
+    const {images, imageLoading} = useSelector(({Images}) => ({
         images: Images.images,
-        sliderImage: Images.sliderImage,
-        loading: Images.loading
+        imageLoading: Images.imageLoading
     }))
 
     //HOOKS
@@ -68,7 +67,7 @@ const ImagePlaceholder = () => {
                     }
                     <div className='image-placeholder__images__item default'>
                         {
-                            loading ?
+                            imageLoading ?
                                 <Loader style={{zIndex: 1000, display: 'block'}}/>
                                 :
                                 <>
