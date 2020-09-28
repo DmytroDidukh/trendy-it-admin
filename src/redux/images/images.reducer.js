@@ -3,7 +3,7 @@ import {
     SET_ALL_IMAGES_TO_PRODUCT,
     SET_IMAGE_TO_SLIDER,
     SET_IMAGE_TO_DELETE_AND_UPDATE_STATE,
-    CLEAR_UPLOAD_STATE,
+    CLEAR_IMAGES_STATE,
     SET_LOADING,
 } from './images.types'
 
@@ -43,7 +43,7 @@ const imagesReducer = (state = initialState, {type, payload}) => {
                 loading: payload,
             }
         }
-        case CLEAR_UPLOAD_STATE: {
+        case CLEAR_IMAGES_STATE: {
             return {
                 ...initialState
             }

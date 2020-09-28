@@ -19,7 +19,7 @@ const Snackbar = () => {
         setTimeout(() => {
             dispatch(setSnackbarVisibility(false))
         }, 3000)
-    }, [dispatch, snackbarVisibility])
+    }, [dispatch, snackbarVisibility, snackbarMessage])
 
     return (
         <div className={classNames('snackbar', {'active': snackbarVisibility, 'success': snackbarSeverity, 'error': !snackbarSeverity})}>

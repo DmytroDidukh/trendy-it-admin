@@ -18,7 +18,7 @@ export const uploadImage = async (image) => {
     });
 }
 
-export const deleteImage = async (images) => {
+export const deleteImages = async (images) => {
     return await client.query({
         variables: {
             images

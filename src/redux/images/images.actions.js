@@ -1,12 +1,12 @@
 import {
     UPLOAD_IMAGE_TO_CLOUD,
-    DELETE_IMAGE_FROM_CLOUD,
+    DELETE_IMAGES_FROM_CLOUD,
     SET_IMAGE_TO_PRODUCT,
     SET_ALL_IMAGES_TO_PRODUCT,
     SET_IMAGE_TO_SLIDER,
     SET_IMAGE_TO_DELETE_AND_UPDATE_STATE,
     SET_LOADING,
-    CLEAR_UPLOAD_STATE,
+    CLEAR_IMAGES_STATE,
 } from './images.types'
 
 export const uploadImageToCloud = (image, isSliderImg) => ({
@@ -17,9 +17,9 @@ export const uploadImageToCloud = (image, isSliderImg) => ({
     }
 });
 
-export const deleteImageFromCloud = (imageId) => ({
-    type: DELETE_IMAGE_FROM_CLOUD,
-    payload: imageId
+export const deleteImagesFromCloud = (images) => ({
+    type: DELETE_IMAGES_FROM_CLOUD,
+    payload: images
 })
 
 export const setImageToProduct = (image) => ({
@@ -42,8 +42,8 @@ export const setImagesToDeleteAndUpdateState = (imgId) => ({
     payload: imgId
 })
 
-export const clearUploadState = () => ({
-    type: CLEAR_UPLOAD_STATE
+export const clearImagesState = () => ({
+    type: CLEAR_IMAGES_STATE
 })
 
 export const setLoading = (status) => ({

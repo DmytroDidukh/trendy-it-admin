@@ -11,10 +11,10 @@ import {
     updateProduct,
     getProductById
 } from "../../redux/product/product.actions";
+import {clearImagesState, deleteImagesFromCloud} from "../../redux/images/images.actions";
 import {typenameRemover} from "../../utils";
 import {
     PRODUCT_DEFAULT,
-    IMAGES_DEFAULT,
     COLORS_DEFAULT,
     COLORS_DATA
 } from '../../config'
@@ -23,13 +23,13 @@ import './style.scss';
 
 const ProductRedactor = ({id, editMode}) => {
     const dispatch = useDispatch()
-    const {product, productImages, sliderImage} = useSelector(({Products, Images}) => ({
+    const {product, productImages, sliderImage, imagesToDelete} = useSelector(({Products, Images}) => ({
         product: Products.product,
         productImages: Images.images,
         sliderImage: Images.sliderImage,
+        imagesToDelete: Images.imagesToDelete,
     }))
 
-    //const [images, setImages] = useState({});
     const [colors, setColors] = useState(COLORS_DEFAULT);
     const [productObj, setProductObj] = useState(PRODUCT_DEFAULT)
 
@@ -61,7 +61,7 @@ const ProductRedactor = ({id, editMode}) => {
     const onColorChange = ({target: {id, checked}}) => setColors({...colors, [id]: checked});
 
     const checkFieldsBeforeSubmit = () => {
-        return productObj.name && productObj.price && productImages[0].url && Object.values(colors).some(val => val)
+        return productObj.name && productObj.price && productImages[0] && Object.values(colors).some(val => val)
     }
 
     const onSaveProduct = () => {
@@ -71,25 +71,43 @@ const ProductRedactor = ({id, editMode}) => {
         }
 
         if (checkFieldsBeforeSubmit()) {
+            imagesToDelete.length && dispatch(deleteImagesFromCloud(imagesToDelete))
+
             dispatch(!editMode ?
                 addProduct({...productObj, images: imagesToSend, colors}) :
                 updateProduct({id, product: {...productObj, images: imagesToSend, colors}}))
             onResetInputs();
             dispatch(push('/products'))
         } else {
-            window.alert('Всі поля з "*" повинні бути заповнені!')
+            window.alert('Всі поля з "*" повинні бути заповнені і додане одне зображеня для товару!')
         }
+    }
+
+    const onGoBack = (location) => {
+        const savedImages = product.images
+
+        if (location && !window.confirm('Скасувати зміни?')) {
+            return
+        }
+
+        const notSavedImages = [sliderImage, ...productImages.filter(img => savedImages.product.find(obj => obj.publicId !== img.publicId))]
+            .filter(val => val)
+            .map(img => img.publicId)
+
+        dispatch(deleteImagesFromCloud(notSavedImages))
+        onResetInputs()
     }
 
     const onResetInputs = () => {
         setColors(COLORS_DEFAULT)
         setProductObj(PRODUCT_DEFAULT)
+        dispatch(clearImagesState())
         dispatch(push('/products'))
     }
 
     return (
         <div className='product-redactor-container'>
-            <Icon name='arrow left' onClick={() => dispatch(push('/products'))} className={'back-arrow'}/>
+            <Icon name='arrow left' onClick={() => onGoBack(false)} className={'back-arrow'}/>
             <Form>
                 <div className='product-redactor'>
                     <div className='product-redactor-left'>
@@ -166,7 +184,7 @@ const ProductRedactor = ({id, editMode}) => {
                                                 onChange={onCheckboxChange}/>
                                 </Form.Group>
 
-                         {/*       {productObj.toSlider && <Form.Group>
+                                {/*       {productObj.toSlider && <Form.Group>
                                     <Form.Label>Зображення на слайдер (широкоформатне):</Form.Label>
                                     <Form.Control
                                         name='slider-image'
@@ -216,7 +234,7 @@ const ProductRedactor = ({id, editMode}) => {
                 </div>
                 <RedactorButtons
                     onSaveProduct={onSaveProduct}
-                    onResetInputs={onResetInputs}
+                    onGoBack={onGoBack}
                 />
             </Form>
         </div>

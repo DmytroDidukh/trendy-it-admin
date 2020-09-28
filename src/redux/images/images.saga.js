@@ -13,11 +13,11 @@ import {
 } from '../snackbar/snackbar.actions';
 import {
     UPLOAD_IMAGE_TO_CLOUD,
-    DELETE_IMAGE_FROM_CLOUD,
+    DELETE_IMAGES_FROM_CLOUD,
 } from './images.types';
 import {
     uploadImage,
-    deleteImage,
+    deleteImages,
 } from '../../services/images'
 import {SNACKBAR_MESSAGES} from "../../config";
 
@@ -52,6 +52,19 @@ function* handleImageUpload({payload}) {
     }
 }
 
+function* handleImagesDeleting({payload}) {
+    try {
+        yield call(deleteImages, payload)
+
+    } catch (e) {
+        yield put(setLoading(false));
+        yield put(setSnackbarSeverity('error'));
+        yield put(setSnackbarMessage(SNACKBAR_MESSAGES.upload.error));
+        yield put(setSnackbarVisibility(true));
+    }
+}
+
 export default function* imagesSaga() {
     yield takeEvery(UPLOAD_IMAGE_TO_CLOUD, handleImageUpload)
+    yield takeEvery(DELETE_IMAGES_FROM_CLOUD, handleImagesDeleting)
 }

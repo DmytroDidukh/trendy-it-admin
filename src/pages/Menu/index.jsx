@@ -8,7 +8,7 @@ import './style.scss'
 const MenuPage = () => {
     return (
         <div className='menu-page'>
-            <h2 className='menu-page__title'>Menu</h2>
+            <h2 className='menu-page__title'>Меню</h2>
             <div className='menu-page__menu-list'>
                 {MENU_ITEMS.map((item, i) => (
                     <Link to={item.link} key={i}>

@@ -96,19 +96,20 @@ function* handleUpdateProduct({payload}) {
         yield put(setSnackbarSeverity('error'));
         yield put(setSnackbarMessage(SNACKBAR_MESSAGES.update.error));
         yield put(setSnackbarVisibility(true));
+        yield put(hideLoading());
         console.log(error);
     }
 }
 
 function* handleDeleteProduct({payload}) {
     try {
+        yield put(showLoading());
+
         yield call(deleteProduct, payload);
 
         yield put(setSnackbarSeverity('success'));
         yield put(setSnackbarMessage(SNACKBAR_MESSAGES.delete.success));
         yield put(setSnackbarVisibility(true));
-
-        yield put(showLoading());
 
         const products = yield call(getProducts);
         yield put(setProducts(products.data.getProducts));
@@ -117,8 +118,9 @@ function* handleDeleteProduct({payload}) {
 
     } catch (error) {
         yield put(setSnackbarSeverity('error'));
-        yield put(setSnackbarMessage(SNACKBAR_MESSAGES.delete.error));
+        yield put(setSnackbarMessage(error.message));
         yield put(setSnackbarVisibility(true));
+        yield put(hideLoading());
         console.log(error);
     }
 }

@@ -50,11 +50,7 @@ const ImagePlaceholder = () => {
     }
 
     const onDeleteImage = () => {
-        if (sliderPosition === images.length) {
-            return
-        }
-
-        if (window.confirm('Видалити зображення?')) {
+        if (sliderPosition !== images.length && window.confirm('Видалити зображення?')) {
             dispatch(setImagesToDeleteAndUpdateState(images[sliderPosition].publicId))
         }
     }

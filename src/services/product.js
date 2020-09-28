@@ -171,7 +171,7 @@ const deleteProduct = async (id) => {
         mutation: gql`
             mutation($id: ID!) {
                 deleteProduct(id: $id) {
-                    name
+                    name                    
                 }
             }
         `

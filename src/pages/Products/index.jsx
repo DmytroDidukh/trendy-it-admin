@@ -10,7 +10,7 @@ import {
     setProduct,
     getProducts
 } from "../../redux/product/product.actions";
-import {clearUploadState} from "../../redux/images/images.actions";
+import {clearImagesState} from "../../redux/images/images.actions";
 import {PRODUCT_FILTER_OPTIONS} from '../../config'
 
 import './style.scss'
@@ -34,10 +34,11 @@ const ProductsPage = () => {
     const onAddProduct = () => {
         dispatch(push('/products/create'))
         dispatch(setProduct(null))
-        dispatch(clearUploadState())
+        dispatch(clearImagesState())
     }
 
     const onEditProduct = (product) => {
+        dispatch(clearImagesState())
         dispatch(push(`/products/${product.id}`))
     }
 
