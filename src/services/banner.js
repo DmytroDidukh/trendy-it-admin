@@ -20,10 +20,9 @@ const getBanners = async () => {
         `
     });
 
-    //await client.resetStore()
+    await client.resetStore()
     return response.data.getBanners
 }
-
 
 const getBannerById = async (id) => {
     const response = await client.query({
@@ -51,7 +50,7 @@ const getBannerById = async (id) => {
 };
 
 const addBanner = async (banner) => {
-    await client.mutate({
+    const response = await client.mutate({
         variables: {
             banner
         },
@@ -71,11 +70,12 @@ const addBanner = async (banner) => {
         `
     });
 
-    await client.resetStore()
+    //await client.resetStore()
+    return response.data.addBanner
 };
 
 const updateBanner = async ({id, banner}) => {
-    await client.mutate({
+    const response = await client.mutate({
         variables: {
             id,
             banner
@@ -96,11 +96,11 @@ const updateBanner = async ({id, banner}) => {
         `
     });
 
-    await client.resetStore()
+    return response.data.updateBanner
 };
 
 const deleteBanner = async (id) => {
-    await client.mutate({
+    const response = await client.mutate({
         variables: {
             id
         },
@@ -114,6 +114,7 @@ const deleteBanner = async (id) => {
     })
 
     await client.resetStore()
+    return response.data.deleteBanner
 };
 
 export {

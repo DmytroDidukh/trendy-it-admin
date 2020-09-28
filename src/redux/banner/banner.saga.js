@@ -26,6 +26,7 @@ import {
 } from './banner.types';
 
 import { SNACKBAR_MESSAGES } from "../../config";
+import {setProducts} from "../product/product.actions";
 
 function* handleBannersLoad() {
         try {
@@ -55,15 +56,19 @@ function* handleGetBannerById({ payload }) {
 
 function* handleAddBanner({ payload }) {
         try {
+                const banner = yield call(addBanner, payload);
                 yield put(setBannersLoading(true));
-                yield call(addBanner, payload);
 
                 yield put(setSnackbarMessage(SNACKBAR_MESSAGES.add.success));
                 yield put(setSnackbarSeverity('success'));
                 yield put(setSnackbarVisibility(true));
 
-                const banners = yield call(getBanners);
-                yield put(setBanners(banners));
+                console.log('==================')
+                console.log(banner)
+                console.log('==================')
+
+                //const banners = yield call(getBannersFromState);
+                //yield put(setBanners([...banners, banner]));
 
                 yield put(setBannersLoading(false));
 
@@ -79,14 +84,21 @@ function* handleAddBanner({ payload }) {
 function* handleUpdateBanner({ payload }) {
         try {
                 yield put(setBannersLoading(true));
-                yield call(updateBanner, payload);
+                const banner = yield call(updateBanner, payload);
 
                 yield put(setSnackbarMessage(SNACKBAR_MESSAGES.update.success));
                 yield put(setSnackbarVisibility(true));
                 yield put(setSnackbarSeverity('success'));
 
-                const banners = yield call(getBanners);
-                yield put(setBanners(banners));
+               /* const banners = yield call(getBannersFromState);
+                const updatedBanners = banners.map( item => {
+                        if (item.id === banner.id) {
+                                return banner
+                        }
+                        return item
+                })
+
+                yield put(setBanners(updatedBanners));*/
 
                 yield put(setBannersLoading(false));
 
@@ -102,15 +114,15 @@ function* handleUpdateBanner({ payload }) {
 function* handleDeleteBanner({ payload }) {
         try {
                 yield put(setBannersLoading(true));
-                yield call(deleteBanner, payload);
-
+                const banner = yield call(deleteBanner, payload);
 
                 yield put(setSnackbarMessage(SNACKBAR_MESSAGES.delete.success));
                 yield put(setSnackbarVisibility(true));
                 yield put(setSnackbarSeverity('success'));
 
-                const banners = yield call(getBanners);
-                yield put(setBanners(banners));
+                const banners = yield call(getBannersFromState);
+                const updatedBanners = banners.filter(item => item.id !== banner.id)
+                yield put(setBanners(updatedBanners));
 
                 yield put(setBannersLoading(false));
 
@@ -121,6 +133,12 @@ function* handleDeleteBanner({ payload }) {
                 yield put(setBannersLoading(false));
                 console.log(error);
         }
+}
+
+function* getBannersFromState() {
+        return yield select(
+            ({ Banners }) => Banners.list
+        );
 }
 
 export default function* bannerSaga() {

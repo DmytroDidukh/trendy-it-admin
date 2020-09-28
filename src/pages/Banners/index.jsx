@@ -9,6 +9,7 @@ import {
     setBanner,
     getBanners
 } from "../../redux/banner/banner.actions";
+import {clearImagesState} from "../../redux/images/images.actions";
 
 import './style.scss'
 
@@ -29,6 +30,7 @@ const BannersPage = () => {
     }
 
     const onEditBanner = (banner) => {
+        dispatch(clearImagesState())
         dispatch(push(`/banners/${banner.id}`))
     }
 

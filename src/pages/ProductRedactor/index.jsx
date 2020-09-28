@@ -78,7 +78,6 @@ const ProductRedactor = ({id, editMode}) => {
                 addProduct({...productObj, images: imagesToSend, colors}) :
                 updateProduct({id, product: {...productObj, images: imagesToSend, colors}}))
             onResetInputs();
-            dispatch(push('/products'))
         } else {
             window.alert('Всі поля з "*" повинні бути заповнені і додане одне зображеня для товару!')
         }
@@ -104,7 +103,6 @@ const ProductRedactor = ({id, editMode}) => {
                 .filter(val => val)
                 .map(img => img.publicId ? img.publicId : img)
         }
-        console.log(notSavedImages)
 
         notSavedImages.length && dispatch(deleteImagesFromCloud(notSavedImages))
         onResetInputs()

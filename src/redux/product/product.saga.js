@@ -31,10 +31,8 @@ import {SNACKBAR_MESSAGES} from "../../config";
 function* handleProductsLoad() {
     try {
         yield put(showLoading());
-
         const products = yield call(getProducts);
         yield put(setProducts(products));
-
         yield put(hideLoading());
     } catch (error) {
         console.log(error);
@@ -58,15 +56,15 @@ function* handleGetProductById({payload}) {
 
 function* handleAddProduct({payload}) {
     try {
+        const product = yield call(addProduct, payload);
         yield put(showLoading());
-        yield call(addProduct, payload);
 
         yield put(setSnackbarSeverity('success'));
         yield put(setSnackbarMessage(SNACKBAR_MESSAGES.add.success));
         yield put(setSnackbarVisibility(true));
 
-        const products = yield call(getProducts);
-        yield put(setProducts(products));
+     /*   const products = yield call(getProductsFromState);
+        yield put(setProducts([...products, product]));*/
 
         yield put(hideLoading());
 
@@ -80,16 +78,25 @@ function* handleAddProduct({payload}) {
 
 function* handleUpdateProduct({payload}) {
     try {
+        const product = yield call(updateProduct, payload);
+
         yield put(showLoading());
-        yield call(updateProduct, payload);
 
         yield put(setSnackbarSeverity('success'));
         yield put(setSnackbarMessage(SNACKBAR_MESSAGES.update.success));
         yield put(setSnackbarVisibility(true));
 
-        const products = yield call(getProducts);
-        yield put(setProducts(products));
+     /*   const products = yield call(getProductsFromState);
 
+        const updatedProducts = products.map( item => {
+            if (item.id === product.id) {
+                console.log('inside ==================')
+                return product
+            }
+            return item
+        })
+
+        yield put(setProducts(updatedProducts));*/
         yield put(hideLoading());
 
     } catch (error) {
@@ -110,8 +117,9 @@ function* handleDeleteProduct({payload}) {
         yield put(setSnackbarMessage(SNACKBAR_MESSAGES.delete.success));
         yield put(setSnackbarVisibility(true));
 
-        const products = yield call(getProducts);
-        yield put(setProducts(products));
+      /*  const products = yield call(getProductsFromState);
+        const updatedProducts = products.filter(item => item.id !== product.id)
+        yield put(setProducts(updatedProducts));*/
 
         yield put(hideLoading());
 
@@ -122,6 +130,12 @@ function* handleDeleteProduct({payload}) {
         yield put(hideLoading());
         console.log(error);
     }
+}
+
+function* getProductsFromState() {
+    return yield select(
+        ({ Products }) => Products.list
+    );
 }
 
 export default function* productSaga() {

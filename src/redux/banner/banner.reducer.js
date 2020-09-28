@@ -19,6 +19,7 @@ const bannerReducer = (state = initialState, { type, payload }) => {
                         }
                 }
                 case SET_BANNERS: {
+                        console.log(payload, 'bannerReducer')
                         return {
                                 ...state,
                                 list: payload,

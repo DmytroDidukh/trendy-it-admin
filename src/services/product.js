@@ -46,10 +46,9 @@ const getProducts = async () => {
         `
     });
 
-    //await client.resetStore()
+    await client.resetStore()
     return response.data.getProducts
 }
-
 
 const getProductById = async (id) => {
     const response = await client.query({
@@ -98,12 +97,11 @@ const getProductById = async (id) => {
         `
     })
 
-    //await client.resetStore()
     return response.data.getProductById
 }
 
 const addProduct = async (product) => {
-    await client.mutate({
+    const response = await client.mutate({
         variables: {
             product
         },
@@ -149,11 +147,11 @@ const addProduct = async (product) => {
         `
     });
 
-    await client.resetStore()
+    return response.data.addProduct
 };
 
 const updateProduct = async ({id, product}) => {
-    await client.mutate({
+    const response = await client.mutate({
         variables: {
             id,
             product
@@ -200,11 +198,11 @@ const updateProduct = async ({id, product}) => {
         `
     });
 
-    await client.resetStore()
+    return response.data.updateProduct
 };
 
 const deleteProduct = async (id) => {
-    await client.mutate({
+    const response = await client.mutate({
         variables: {
             id
         },
@@ -217,7 +215,7 @@ const deleteProduct = async (id) => {
         `
     })
 
-    await client.resetStore()
+    return response.data.deleteProduct
 };
 
 export {

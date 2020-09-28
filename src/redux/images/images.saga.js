@@ -32,8 +32,7 @@ function* handleImageUpload({payload}) {
             yield put(setImageLoading(true));
         }
 
-        const uploadResult = yield call(uploadImage, image)
-        const uploadedImg = uploadResult.data.uploadImage
+        const uploadedImg = yield call(uploadImage, image)
 
         if (isSliderImg) {
             yield put(setImageToSlider(uploadedImg));
@@ -54,9 +53,9 @@ function* handleImageUpload({payload}) {
     } catch (e) {
         yield put(setImageLoading(false));
         yield put(setSliderImageLoading(false));
-        yield put(setSnackbarSeverity('error'));
-        yield put(setSnackbarMessage(SNACKBAR_MESSAGES.upload.error));
-        yield put(setSnackbarVisibility(true));
+        // yield put(setSnackbarSeverity('error'));
+        // yield put(setSnackbarMessage(SNACKBAR_MESSAGES.upload.error));
+        // yield put(setSnackbarVisibility(true));
         console.log(e)
     }
 }
@@ -64,15 +63,16 @@ function* handleImageUpload({payload}) {
 function* handleImagesDeleting({payload}) {
     try {
         yield call(deleteImages, payload)
+        console.log('delete')
 
         yield put(setSnackbarSeverity('success'));
         yield put(setSnackbarMessage(SNACKBAR_MESSAGES.deleteImages.success));
         yield put(setSnackbarVisibility(true));
 
     } catch (e) {
-        yield put(setSnackbarSeverity('error'));
-        yield put(setSnackbarMessage(SNACKBAR_MESSAGES.deleteImages.error));
-        yield put(setSnackbarVisibility(true));
+        // yield put(setSnackbarSeverity('error'));
+        // yield put(setSnackbarMessage(SNACKBAR_MESSAGES.deleteImages.error));
+        // yield put(setSnackbarVisibility(true));
         console.log(e)
     }
 }
