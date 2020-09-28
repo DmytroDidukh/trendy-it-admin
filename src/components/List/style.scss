@@ -19,6 +19,11 @@
     margin-left: auto;
     display: flex;
 
+    button {
+      font-size: .8em;
+      padding: .25em .65em;
+    }
+
     & > * {
       margin: 0 3px;
     }

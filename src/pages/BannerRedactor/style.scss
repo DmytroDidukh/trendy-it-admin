@@ -7,21 +7,48 @@
   width: 100%;
   padding: 100px;
 
+  @media screen and (max-width: 768px) {
+    padding: 30px;
+  }
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
+
   &__info, .slider-placeholder {
     flex-basis: 50%;
     margin: 0 20px;
   }
 
   .slider-placeholder {
+
+    @media screen and (max-width: 450px) {
+      margin: 0;
+    }
+
     .ui.loader {
       top: 0;
       margin: 180px 0 110px;
+
+      @media screen and (max-width: 768px) {
+        margin: 80px 0;
+        top: 20px;
+      }
+
+      @media screen and (max-width: 450px) {
+        top: 10px;
+      }
     }
 
     &__image {
       margin: 0 auto;
       width: calc(100% - 40px);
       height: 350px;
+
+      @media screen and (max-width: 768px) {
+        width: calc(100% - 15px);
+        height: 170px;
+      }
     }
   }
 }

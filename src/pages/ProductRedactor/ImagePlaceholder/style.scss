@@ -5,6 +5,9 @@
   margin-bottom: 10px;
   border-bottom: 1px solid silver;
 
+  @media screen and (max-width: 450px){
+      margin: 0 auto;
+  }
 
   &__container {
     width: 300px;
