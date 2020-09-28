@@ -9,6 +9,7 @@ import {
     setBanner,
     getBanners
 } from "../../redux/banner/banner.actions";
+import {clearImagesState} from "../../redux/images/images.actions";
 
 import './style.scss'
 
@@ -29,11 +30,12 @@ const BannersPage = () => {
     }
 
     const onEditBanner = (banner) => {
+        dispatch(clearImagesState())
         dispatch(push(`/banners/${banner.id}`))
     }
 
-    const onDeleteBanner = ({id, name}) => {
-        window.confirm(`Видалити ${name}?`) && dispatch(deleteBanner(id))
+    const onDeleteBanner = ({id, title}) => {
+        window.confirm(`Видалити ${title}?`) && dispatch(deleteBanner(id))
     }
 
     return (

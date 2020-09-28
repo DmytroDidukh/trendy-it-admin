@@ -1,8 +1,7 @@
 import {
         SET_BANNER,
         SET_BANNERS,
-        SHOW_LOADING,
-        HIDE_LOADING
+        SET_BANNERS_LOADING,
 } from './banner.types'
 
 const initialState = {
@@ -25,16 +24,10 @@ const bannerReducer = (state = initialState, { type, payload }) => {
                                 list: payload,
                         }
                 }
-                case SHOW_LOADING: {
+                case SET_BANNERS_LOADING: {
                         return {
                                 ...state,
-                                loading: true,
-                        }
-                }
-                case HIDE_LOADING: {
-                        return {
-                                ...state,
-                                loading: false,
+                                loading: payload,
                         }
                 }
                 default:

@@ -10,6 +10,7 @@ import {
     setProduct,
     getProducts
 } from "../../redux/product/product.actions";
+import {clearImagesState} from "../../redux/images/images.actions";
 import {PRODUCT_FILTER_OPTIONS} from '../../config'
 
 import './style.scss'
@@ -18,7 +19,7 @@ const ProductsPage = () => {
     const dispatch = useDispatch();
     const {isLoading, products} = useSelector(({Products}) => ({
         isLoading: Products.loading,
-        products: Products.list.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        products: Products.list
     }))
 
     useEffect(() => {
@@ -33,14 +34,18 @@ const ProductsPage = () => {
     const onAddProduct = () => {
         dispatch(push('/products/create'))
         dispatch(setProduct(null))
+        dispatch(clearImagesState())
     }
 
     const onEditProduct = (product) => {
+        dispatch(clearImagesState())
         dispatch(push(`/products/${product.id}`))
     }
 
     const onDeleteProduct = ({id, name}) => {
-        window.confirm(`Видалити ${name}?`) && dispatch(deleteProduct(id))
+        if (window.confirm(`Видалити ${name}?`)) {
+            dispatch(deleteProduct(id))
+        }
     }
 
     const onFilterOptionChange = ({target}) => {
@@ -94,7 +99,7 @@ const ProductsPage = () => {
                     itemsFilter={productsFilter}
                     setItemsToShow={setProductsToShow}
                     setCurrentPage={setCurrentPage}
-                    paginationLength={10}
+                    paginationLength={12}
                 />}
             </div>
         </div>

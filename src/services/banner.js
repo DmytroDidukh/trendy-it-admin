@@ -2,23 +2,30 @@ import {gql} from '@apollo/client'
 
 import client from "./index";
 
-const getBanners = async () =>
-await client.query({
-    query: gql`
-        {
-            getBanners {
-                id,
-                title,
-                description,
-                image,
-                toSlider
+const getBanners = async () => {
+    const response = await client.query({
+        query: gql`
+            {
+                getBanners {
+                    id
+                    title
+                    description
+                    image {
+                        publicId
+                        url
+                    }
+                    toSlider
+                }
             }
-        }
-    `
-});
+        `
+    });
+
+    await client.resetStore()
+    return response.data.getBanners
+}
 
 const getBannerById = async (id) => {
-    return await client.query({
+    const response = await client.query({
         variables: {
             id
         },
@@ -28,12 +35,17 @@ const getBannerById = async (id) => {
                     id
                     title
                     description
-                    image
+                    image {
+                        publicId
+                        url
+                    }
                     toSlider
                 }
             }
         `
     });
+
+    return response.data.getBannerById
 };
 
 const addBanner = async (banner) => {
@@ -44,15 +56,18 @@ const addBanner = async (banner) => {
         mutation: gql`
             mutation($banner: BannerInput!) {
                 addBanner(banner: $banner) {
-                    title,
+                    id
+                    title
                     description
-                    image
+                    image {
+                        publicId
+                        url
+                    }
                     toSlider
                 }
             }
         `
     });
-    await client.resetStore();
 };
 
 const updateBanner = async ({id, banner}) => {
@@ -64,31 +79,35 @@ const updateBanner = async ({id, banner}) => {
         mutation: gql`
             mutation($id: ID!, $banner: BannerInput!) {
                 updateBanner(id: $id, banner: $banner) {
-                    title,
+                    id
+                    title
                     description
-                    image
+                    image {
+                        publicId
+                        url
+                    }
                     toSlider
                 }
             }
         `
     });
-    await client.resetStore();
 };
 
 const deleteBanner = async (id) => {
-    await client.mutate({
+    const response = await client.mutate({
         variables: {
             id
         },
         mutation: gql`
             mutation($id: ID!) {
                 deleteBanner(id: $id) {
-                    title
+                    id
                 }
             }
         `
     })
-    await client.resetStore();
+
+    return response.data.deleteBanner
 };
 
 export {

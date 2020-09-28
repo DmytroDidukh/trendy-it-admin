@@ -1,7 +1,7 @@
 .snackbar {
   position: fixed;
   left: 50%;
-  bottom: -70px;
+  bottom: -120px;
   transform: translateX(-50%);
   color: white;
   display: flex;
@@ -11,11 +11,14 @@
   border-radius: 10px;
   transition: all .4s ease-in-out;
   opacity: .6;
+/*  min-width: 200px;
+  min-height: 100px;
+  background: #676767;*/
 }
 
 .snackbar.active {
   display: flex;
-  bottom: 70px;
+  bottom: 80px;
   opacity: 1;
 }
 
@@ -23,6 +26,6 @@
   background: #28a745;
 }
 
-.snackbar .error {
+.snackbar.error {
   background: #bd2130;
 }

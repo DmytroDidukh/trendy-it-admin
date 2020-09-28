@@ -3,21 +3,14 @@ import {Button} from "react-bootstrap";
 
 import './style.scss'
 
-const RedactorButtons = ({onSaveProduct, onResetInputs}) => {
-
-    const onCancel = () => {
-        if (window.confirm('Скасувати зміни?')) {
-            onResetInputs()
-        }
-    }
-
+const RedactorButtons = ({onSaveProduct, onGoBack}) => {
 
     return (
         <div className='redactor-buttons'>
-            <Button variant="primary" onClick={onSaveProduct}>
+            <Button variant="success" onClick={onSaveProduct}>
                 Зберегти
             </Button>
-            <Button variant="outline-dark" onClick={onCancel}>
+            <Button variant="outline-dark" onClick={() => onGoBack(true)}>
                 Назад
             </Button>
         </div>

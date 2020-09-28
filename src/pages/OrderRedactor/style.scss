@@ -36,6 +36,10 @@
 
     > div:first-child {
       margin-right: 30px;
+
+      @media screen and (max-width: 450px) {
+        margin-right: 0;
+      }
     }
   }
 
@@ -44,7 +48,11 @@
   }
 
   @media screen and (max-width: 768px) {
-    padding: 10px 30px;
+    padding: 30px;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 30px 10px;
   }
 }
 

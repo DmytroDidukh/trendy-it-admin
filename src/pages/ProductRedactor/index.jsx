@@ -1,17 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Form, Button} from 'react-bootstrap';
+import {Form} from 'react-bootstrap';
 import {push} from 'connected-react-router'
-import {Icon, Segment, Radio} from "semantic-ui-react";
+import {Icon, Radio} from "semantic-ui-react";
 
 import {RedactorButtons} from "../../components";
-import {addProduct,
+import ImagePlaceholder from "./ImagePlaceholder";
+import SliderPlaceholder from "../../components/SliderPlaceholder";
+import {
+    addProduct,
     updateProduct,
     getProductById
 } from "../../redux/product/product.actions";
+import {clearImagesState, deleteImagesFromCloud} from "../../redux/images/images.actions";
+import {typenameRemover} from "../../utils";
 import {
     PRODUCT_DEFAULT,
-    IMAGES_DEFAULT,
     COLORS_DEFAULT,
     COLORS_DATA
 } from '../../config'
@@ -20,9 +24,13 @@ import './style.scss';
 
 const ProductRedactor = ({id, editMode}) => {
     const dispatch = useDispatch()
-    const product = useSelector(({Products}) => Products.product)
+    const {product, productImages, sliderImage, imagesToDelete} = useSelector(({Products, Images}) => ({
+        product: Products.product,
+        productImages: Images.images,
+        sliderImage: Images.sliderImage,
+        imagesToDelete: Images.imagesToDelete,
+    }))
 
-    const [images, setImages] = useState({...IMAGES_DEFAULT});
     const [colors, setColors] = useState(COLORS_DEFAULT);
     const [productObj, setProductObj] = useState(PRODUCT_DEFAULT)
 
@@ -32,15 +40,12 @@ const ProductRedactor = ({id, editMode}) => {
 
     useEffect(() => {
         if (product) {
-            const {price, oldPrice, name, description, images, colors, sale, hot, available, newItem, toSlider} = product
+            const {price, oldPrice, name, description, colors, sale, hot, available, newItem, toSlider} = product
 
             setProductObj({price, oldPrice, name, description, available, sale, hot, newItem, toSlider});
-            setImages({slider: images.slider, product: images.product.map(img => ({link: img.link}))});
 
-
-            const colorsArray = Object.entries(colors).filter(([key]) => key !== '__typename')
             const copyColorsDefault = JSON.stringify(COLORS_DEFAULT)
-            setColors({...JSON.parse(copyColorsDefault), ...Object.fromEntries(colorsArray)});
+            setColors({...JSON.parse(copyColorsDefault), ...typenameRemover(colors)});
         }
     }, [product]);
 
@@ -56,48 +61,63 @@ const ProductRedactor = ({id, editMode}) => {
     const onToggleChange = (_, {dataid, checked}) => setProductObj({...productObj, [dataid]: checked})
     const onColorChange = ({target: {id, checked}}) => setColors({...colors, [id]: checked});
 
-    const onImageInputChange = (e, idx) => {
-        if (e.target.name === 'slider-image') {
-            setImages({slider: e.target.value, product: images.product})
-        } else {
-            const values = [...images.product];
-
-            values[idx].link = e.target.value;
-            setImages({slider: images.slider, product: values});
-        }
-    }
-
-    const onAddImageInput = () => {
-        const newArr = [...images.product, {link: ''}]
-        setImages({...images, product: newArr});
-    }
-
     const checkFieldsBeforeSubmit = () => {
-        return productObj.name && productObj.price && images.product[0].link && Object.values(colors).some(val => val)
+        return productObj.name && productObj.price && productImages[0] && Object.values(colors).some(val => val)
     }
 
     const onSaveProduct = () => {
+        const imagesToSend = {
+            slider: typenameRemover(sliderImage),
+            product: typenameRemover(productImages)
+        }
+
         if (checkFieldsBeforeSubmit()) {
+            imagesToDelete.length && dispatch(deleteImagesFromCloud(imagesToDelete))
+
             dispatch(!editMode ?
-                addProduct({...productObj, images, colors}) :
-                updateProduct({id, product: {...productObj, images, colors}}))
+                addProduct({...productObj, images: imagesToSend, colors}) :
+                updateProduct({id, product: {...productObj, images: imagesToSend, colors}}))
             onResetInputs();
-            dispatch(push('/products'))
         } else {
-            window.alert('Всі поля з "*" повинні бути заповнені!')
+            window.alert('Всі поля з "*" повинні бути заповнені і додане одне зображеня для товару!')
         }
     }
 
+    const onGoBack = (location) => {
+        if (location && !window.confirm('Скасувати зміни?')) {
+            return
+        }
+
+        let notSavedImages;
+        if (editMode) {
+            const savedImages = product.images
+            const notSavedSliderImage = savedImages.slider && savedImages.slider.publicId === sliderImage.publicId ? null : sliderImage;
+
+            notSavedImages = [notSavedSliderImage, ...imagesToDelete, ...productImages.filter(img => (
+                !savedImages.product.find(obj => obj.publicId === img.publicId)
+            ))]
+                .filter(val => val)
+                .map(img => img.publicId ? img.publicId : img)
+        } else {
+            notSavedImages = [sliderImage, ...productImages, ...imagesToDelete]
+                .filter(val => val)
+                .map(img => img.publicId ? img.publicId : img)
+        }
+
+        notSavedImages.length && dispatch(deleteImagesFromCloud(notSavedImages))
+        onResetInputs()
+    }
+
     const onResetInputs = () => {
-        setImages({slider: '', product: [{link: ''}]})
         setColors(COLORS_DEFAULT)
         setProductObj(PRODUCT_DEFAULT)
+        dispatch(clearImagesState())
         dispatch(push('/products'))
     }
 
     return (
         <div className='product-redactor-container'>
-            <Icon name='arrow left' onClick={() => dispatch(push('/products'))} className={'back-arrow'}/>
+            <Icon name='arrow left' onClick={() => onGoBack(false)} className={'back-arrow'}/>
             <Form>
                 <div className='product-redactor'>
                     <div className='product-redactor-left'>
@@ -109,76 +129,71 @@ const ProductRedactor = ({id, editMode}) => {
                                               onChange={onToggleChange}/>
                         </div>
 
-                        <Form.Group>
-                            <Form.Label>*Назва продукту:</Form.Label>
-                            <Form.Control
-                                name='name'
-                                type="text"
-                                placeholder="Введіть назву продукту"
-                                value={productObj.name || ''}
-                                onChange={onInputChange}/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>*Ціна:</Form.Label>
-                            <Form.Control
-                                name='price'
-                                type="number"
-                                placeholder="Введіть ціну продукту"
-                                value={productObj.price || 0}
-                                onChange={onInputChange}/>
-                        </Form.Group>
+                        <div className='images-block'>
+                            <ImagePlaceholder/>
 
-                        <Form.Group id="formGridCheckbox">
-                            <Form.Check type="checkbox"
-                                        label="Розпродаж &#129297;"
-                                        id='sale'
-                                        checked={productObj.sale || false}
-                                        onChange={onCheckboxChange}/>
-                        </Form.Group>
+                            <div className=''>
+                                <Form.Group>
+                                    <Form.Label>*Назва продукту:</Form.Label>
+                                    <Form.Control
+                                        name='name'
+                                        type="text"
+                                        placeholder="Введіть назву продукту"
+                                        value={productObj.name || ''}
+                                        onChange={onInputChange}/>
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>*Ціна:</Form.Label>
+                                    <Form.Control
+                                        name='price'
+                                        type="number"
+                                        placeholder="Введіть ціну продукту"
+                                        value={productObj.price || 0}
+                                        onChange={onInputChange}/>
+                                </Form.Group>
 
-                        {productObj.sale && <Form.Group>
-                            <Form.Label>Стара ціна:</Form.Label>
-                            <Form.Control
-                                name='oldPrice'
-                                type="number"
-                                placeholder="Введіть стару ціну продукту"
-                                value={productObj.oldPrice || 0}
-                                onChange={onInputChange}/>
-                        </Form.Group>}
+                                <Form.Group id="formGridCheckbox">
+                                    <Form.Check type="checkbox"
+                                                label="Розпродаж &#129297;"
+                                                id='sale'
+                                                checked={productObj.sale || false}
+                                                onChange={onCheckboxChange}/>
+                                </Form.Group>
 
-                        <Form.Group id="formGridCheckbox">
-                            <Form.Check type="checkbox"
-                                        label="Хіт продаж &#128293;"
-                                        id='hot'
-                                        checked={productObj.hot || false}
-                                        onChange={onCheckboxChange}/>
-                        </Form.Group>
+                                {productObj.sale && <Form.Group>
+                                    <Form.Label>Стара ціна:</Form.Label>
+                                    <Form.Control
+                                        name='oldPrice'
+                                        type="number"
+                                        placeholder="Введіть стару ціну продукту"
+                                        value={productObj.oldPrice || 0}
+                                        onChange={onInputChange}/>
+                                </Form.Group>}
 
-                        <Form.Group id="formGridCheckbox">
-                            <Form.Check type="checkbox"
-                                        label="Новинка"
-                                        id='newItem'
-                                        checked={productObj.newItem || false}
-                                        onChange={onCheckboxChange}/>
-                        </Form.Group>
+                                <Form.Group id="formGridCheckbox">
+                                    <Form.Check type="checkbox"
+                                                label="Хіт продаж &#128293;"
+                                                id='hot'
+                                                checked={productObj.hot || false}
+                                                onChange={onCheckboxChange}/>
+                                </Form.Group>
 
-                        <Form.Group id="formGridCheckbox">
-                            <Form.Check type="checkbox"
-                                        label="Відобразити на головній сторінці?"
-                                        id='toSlider'
-                                        checked={productObj.toSlider || false}
-                                        onChange={onCheckboxChange}/>
-                        </Form.Group>
+                                <Form.Group id="formGridCheckbox">
+                                    <Form.Check type="checkbox"
+                                                label="Новинка"
+                                                id='newItem'
+                                                checked={productObj.newItem || false}
+                                                onChange={onCheckboxChange}/>
+                                </Form.Group>
 
-                        {productObj.toSlider && <Form.Group>
-                            <Form.Label>Зображення на слайдер (широкоформатне):</Form.Label>
-                            <Form.Control
-                                name='slider-image'
-                                type="text"
-                                placeholder="Посилання на зображення"
-                                value={images.slider || ''}
-                                onChange={onImageInputChange}/>
-                        </Form.Group>}
+                                <SliderPlaceholder
+                                    onCheckboxChange={onCheckboxChange}
+                                    toSlider={productObj.toSlider}/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='product-redactor-right'>
 
                         <Form.Group>
                             <Form.Label>Опис продукту:</Form.Label>
@@ -193,27 +208,8 @@ const ProductRedactor = ({id, editMode}) => {
                             />
 
                         </Form.Group>
-                    </div>
 
-                    <div className='product-redactor-right'>
                         <Form.Group>
-                            <Form.Label>*Посилання на зоображення:</Form.Label>
-                            {images.product.map((img, idx) => {
-                                return (
-                                    <Form.Control
-                                        key={idx + img.link}
-                                        name={`image-${idx}`}
-                                        type="textarea"
-                                        placeholder="Введіть посилання на зоображення"
-                                        value={img.link || ''}
-                                        onChange={e => onImageInputChange(e, idx)}/>
-                                )
-                            })}
-                            <div className="addImageInput-btn">
-                                <Button variant="outline-dark"
-                                        onClick={onAddImageInput}>Додати зображення</Button>
-                            </div>
-
                             <div className="product-colors">
                                 <h6>*Наявні кольори:</h6>
                                 {COLORS_DATA.map((color, i) => (
@@ -234,7 +230,7 @@ const ProductRedactor = ({id, editMode}) => {
                 </div>
                 <RedactorButtons
                     onSaveProduct={onSaveProduct}
-                    onResetInputs={onResetInputs}
+                    onGoBack={onGoBack}
                 />
             </Form>
         </div>
