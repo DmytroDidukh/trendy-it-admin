@@ -10,5 +10,7 @@ export default (object) => {
         const objectWithoutTypename = JSON.parse(JSON.stringify(object))
         delete objectWithoutTypename.__typename
         return objectWithoutTypename
+    } else {
+        return null
     }
 }

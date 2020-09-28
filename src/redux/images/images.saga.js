@@ -63,7 +63,6 @@ function* handleImageUpload({payload}) {
 
 function* handleImagesDeleting({payload}) {
     try {
-        console.log(payload, '656666')
         yield call(deleteImages, payload)
 
         yield put(setSnackbarSeverity('success'));

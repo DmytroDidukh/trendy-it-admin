@@ -5,8 +5,8 @@ import {
         ADD_BANNER,
         UPDATE_BANNER,
         DELETE_BANNER,
-        SHOW_LOADING,
-        HIDE_LOADING, GET_BANNER_BY_ID,
+        SET_BANNERS_LOADING,
+        GET_BANNER_BY_ID,
 } from './banner.types'
 
 export const setBanner = (banner) => ({
@@ -43,10 +43,7 @@ export const deleteBanner = (payload) => ({
         payload
 })
 
-export const showLoading = () => ({
-        type: SHOW_LOADING
-})
-
-export const hideLoading = () => ({
-        type: HIDE_LOADING
+export const setBannersLoading = (status) => ({
+        type: SET_BANNERS_LOADING,
+        payload: status
 })

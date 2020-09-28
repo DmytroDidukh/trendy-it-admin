@@ -10,15 +10,14 @@ import './style.scss';
 const List = ({items, isLoading, onEditItem, onDeleteItem}) => {
 
     const ItemContent = ({item}) => {
-        const {name, images, newItem, sale, hot, available} = item;
-        const link = images.product[0].link || images.product[0].url
+        const {name, title, images, newItem, sale, hot, available} = item;
 
         return (
             <div className='list-item-content'>
                 {item.__typename === 'Product' &&
                 <img className='list-item-content-image'
-                     src={link} alt='product'/>}
-                <h4 className='list-item-content-name'>{name || item.title}</h4>
+                     src={images.product[0].url} alt='product'/>}
+                <h4 className='list-item-content-name'>{name || title}</h4>
                 {item.__typename === 'Product' &&
                 <div className={"list-item-content-labels"}>
                     {available && <Label as='a' color='blue' horizontal>

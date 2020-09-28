@@ -32,8 +32,8 @@ const BannersPage = () => {
         dispatch(push(`/banners/${banner.id}`))
     }
 
-    const onDeleteBanner = ({id, name}) => {
-        window.confirm(`Видалити ${name}?`) && dispatch(deleteBanner(id))
+    const onDeleteBanner = ({id, title}) => {
+        window.confirm(`Видалити ${title}?`) && dispatch(deleteBanner(id))
     }
 
     return (

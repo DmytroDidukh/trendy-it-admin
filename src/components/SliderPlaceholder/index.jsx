@@ -6,7 +6,7 @@ import {Form} from "react-bootstrap";
 import {
     setImagesToDeleteAndUpdateState, setImageToSlider,
     uploadImageToCloud
-} from "../../../redux/images/images.actions";
+} from "../../redux/images/images.actions";
 
 import './style.scss';
 
@@ -21,6 +21,7 @@ const SliderPlaceholder = ({toSlider, onCheckboxChange}) => {
 
     //HANDLERS
     const onAddImage = ({target}) => {
+        console.log('gwg')
         const file = target.files[0]
 
         if (!file.type.includes('image')) {
@@ -35,7 +36,7 @@ const SliderPlaceholder = ({toSlider, onCheckboxChange}) => {
     }
 
     const onDeleteImage = () => {
-        if (window.confirm('Видалити зображення?')) {
+        if (sliderImage && window.confirm('Видалити зображення?')) {
             dispatch(setImageToSlider(null))
             dispatch(setImagesToDeleteAndUpdateState(sliderImage.publicId))
         }

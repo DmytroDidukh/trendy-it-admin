@@ -42,6 +42,12 @@ export const PRODUCT_DEFAULT = {
     toSlider: false
 };
 
+export const BANNER_DEFAULT = {
+    title: '',
+    description: '',
+    toSlider: false
+};
+
 export const COLORS_DEFAULT = {
     black: false,
     silver: false,

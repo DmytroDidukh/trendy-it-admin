@@ -6,7 +6,7 @@ import {Icon, Radio} from "semantic-ui-react";
 
 import {RedactorButtons} from "../../components";
 import ImagePlaceholder from "./ImagePlaceholder";
-import SliderPlaceholder from "./SliderPlaceholder";
+import SliderPlaceholder from "../../components/SliderPlaceholder";
 import {
     addProduct,
     updateProduct,
