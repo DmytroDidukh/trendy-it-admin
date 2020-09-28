@@ -51,7 +51,7 @@ const getProducts = async () => {
 }
 
 const getProductById = async (id) => {
-    await client.query({
+    const response = await client.query({
         variables: {
             id
         },
@@ -96,6 +96,8 @@ const getProductById = async (id) => {
             }
         `
     })
+
+    return response.data.getProductById
 }
 
 const addProduct = async (product) => {
