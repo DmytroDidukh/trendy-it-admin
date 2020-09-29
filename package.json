@@ -14,7 +14,6 @@
     "date-fns": "^2.15.0",
     "graphql": "^15.3.0",
     "history": "^4.10.1",
-    "husky": "^4.3.0",
     "lodash": "^4.17.19",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -51,11 +50,16 @@
     ]
   },
   "devDependencies": {
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
     "prettier": "2.1.2"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "prettier --write ."
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,scss,md}": "prettier --write"
   }
 }
