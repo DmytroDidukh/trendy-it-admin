@@ -20,8 +20,8 @@
     display: flex;
 
     button {
-      font-size: .8em;
-      padding: .25em .65em;
+      font-size: 0.8em;
+      padding: 0.25em 0.65em;
     }
 
     & > * {
@@ -58,13 +58,12 @@
 
   &-labels {
     margin-left: 20px;
-    opacity: .6;
+    opacity: 0.6;
 
     @media screen and (max-width: 450px) {
       * {
-        font-size: .7em !important;
+        font-size: 0.7em !important;
       }
     }
   }
 }
-

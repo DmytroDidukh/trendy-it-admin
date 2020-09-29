@@ -19,8 +19,4 @@ const setSnackbarMessage = (setSnackbarMessage) => ({
   payload: setSnackbarMessage
 });
 
-export {
-  setSnackbarVisibility,
-  setSnackbarSeverity,
-  setSnackbarMessage
-};
+export { setSnackbarVisibility, setSnackbarSeverity, setSnackbarMessage };

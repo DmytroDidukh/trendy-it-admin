@@ -4,7 +4,8 @@
   align-items: center;
   position: relative;
 
-  &__index, .date {
+  &__index,
+  .date {
     font-style: italic;
   }
   &__name {
@@ -14,10 +15,11 @@
     min-width: fit-content;
   }
 
-  &__sum, .date {
+  &__sum,
+  .date {
     flex-basis: 160px;
 
-    @media screen and (max-width: 450px){
+    @media screen and (max-width: 450px) {
       margin-left: auto;
       flex-basis: auto;
       margin-right: 5px;
@@ -31,6 +33,3 @@
     padding-left: 2px;
   }
 }
-
-
-

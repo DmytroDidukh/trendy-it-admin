@@ -1,5 +1,4 @@
 .product-redactor-container {
-
   .product-redactor {
     @media screen and (max-width: 1100px) {
       flex-direction: column;
@@ -9,18 +8,12 @@
       .images-block {
         display: flex;
 
-        @media screen and (max-width: 450px){
+        @media screen and (max-width: 450px) {
           flex-direction: column;
         }
 
         > div:last-child {
           flex: 1;
-        }
-
-        .ui.loader {
-          left: 50%;
-          top: 50%;
-          margin: 70px 0 50px;
         }
       }
 
@@ -28,7 +21,6 @@
         margin-right: 10px;
       }
     }
-
   }
 
   .addImageInput-btn {
@@ -67,7 +59,3 @@
     }
   }
 }
-
-
-
-
