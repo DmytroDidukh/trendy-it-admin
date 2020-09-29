@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 import { push } from 'connected-react-router';
 import { Icon, Radio } from 'semantic-ui-react';
 
-import { RedactorButtons } from '../../components';
+import { RedactorButtons, Editor } from '../../components';
 import ImagePlaceholder from './ImagePlaceholder';
 import SliderPlaceholder from '../../components/SliderPlaceholder';
 import {
@@ -74,11 +74,11 @@ const ProductRedactor = ({ id, editMode }) => {
     }
   }, [product]);
 
-  const onInputChange = (e) => {
-    const value = isFinite(e.target.value) ? +e.target.value : e.target.value;
+  const onInputChange = ({ target }) => {
+    const value = isFinite(target.value) ? +target.value : target.value;
     const newObj = { ...productObj };
 
-    newObj[e.target.name] = value;
+    newObj[target.name] = value;
     setProductObj(newObj);
   };
 
@@ -90,7 +90,12 @@ const ProductRedactor = ({ id, editMode }) => {
     setColors({ ...colors, [id]: checked });
 
   const checkFieldsBeforeSubmit = () => {
+    /*  if (productObj.toSlider && !sliderImage) {
+            return false
+        }*/
+
     return (
+      !(productObj.toSlider && !sliderImage) &&
       productObj.name &&
       productObj.price &&
       productImages[0] &&
@@ -118,7 +123,8 @@ const ProductRedactor = ({ id, editMode }) => {
       onResetInputs();
     } else {
       window.alert(
-        'Всі поля з "*" повинні бути заповнені і додане одне зображеня для товару!'
+        'Всі поля з "*" повинні бути заповнені і додане одне зображеня для товару,' +
+          ' або картинку до слайдера, якщо відмічена галочка про розміщення'
       );
     }
   };
@@ -261,18 +267,12 @@ const ProductRedactor = ({ id, editMode }) => {
           </div>
 
           <div className='product-redactor-right'>
-            <Form.Group>
-              <Form.Label>Опис продукту:</Form.Label>
-              <Form.Control
-                as='textarea'
-                rows='8'
-                name='description'
-                type='textarea'
-                placeholder='Введіть опис продукту'
-                value={productObj.description || ''}
-                onChange={onInputChange}
-              />
-            </Form.Group>
+            <hr />
+            <Editor
+              value={productObj.description || ''}
+              placeholder={'Введіть опис товару'}
+              onEditorChange={onInputChange}
+            />
 
             <Form.Group>
               <div className='product-colors'>

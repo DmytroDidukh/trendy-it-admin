@@ -4,9 +4,10 @@
   margin-right: 10px;
   margin-bottom: 10px;
   border-bottom: 1px solid silver;
+  height: fit-content;
 
   @media screen and (max-width: 450px) {
-    margin: 0 auto;
+    margin: 0 auto 10px;
   }
 
   &__container {
