@@ -9,37 +9,16 @@ const getProducts = async () => {
         getProducts {
           id
           name
-          description
-          price
-          oldPrice
           images {
-            slider {
-              url
-              publicId
-            }
             product {
               url
               publicId
             }
           }
-          colors {
-            black
-            silver
-            white
-            yellow
-            orange
-            red
-            blue
-            green
-            brown
-            purple
-            pink
-          }
           available
           sale
           hot
           newItem
-          toSlider
           createdAt
         }
       }
@@ -70,19 +49,7 @@ const getProductById = async (id) => {
               publicId
             }
           }
-          colors {
-            black
-            silver
-            white
-            yellow
-            orange
-            red
-            blue
-            green
-            brown
-            purple
-            pink
-          }
+          colors
           price
           oldPrice
           description
@@ -120,19 +87,7 @@ const addProduct = async (product) => {
               publicId
             }
           }
-          colors {
-            black
-            silver
-            white
-            yellow
-            orange
-            red
-            blue
-            green
-            brown
-            purple
-            pink
-          }
+          colors
           price
           oldPrice
           description
@@ -169,19 +124,7 @@ const updateProduct = async ({ id, product }) => {
               publicId
             }
           }
-          colors {
-            black
-            silver
-            white
-            yellow
-            orange
-            red
-            blue
-            green
-            brown
-            purple
-            pink
-          }
+          colors
           price
           oldPrice
           description

@@ -32,7 +32,7 @@ const ProductRedactor = ({ id, editMode }) => {
     })
   );
 
-  const [colors, setColors] = useState(COLORS_DEFAULT);
+  const [colors, setColors] = useState([]);
   const [productObj, setProductObj] = useState(PRODUCT_DEFAULT);
 
   useEffect(() => {
@@ -66,11 +66,7 @@ const ProductRedactor = ({ id, editMode }) => {
         toSlider
       });
 
-      const copyColorsDefault = JSON.stringify(COLORS_DEFAULT);
-      setColors({
-        ...JSON.parse(copyColorsDefault),
-        ...typenameRemover(colors)
-      });
+      setColors(colors);
     }
   }, [product]);
 
@@ -84,24 +80,29 @@ const ProductRedactor = ({ id, editMode }) => {
 
   const onCheckboxChange = ({ target }) =>
     setProductObj({ ...productObj, [target.id]: target.checked });
+
   const onToggleChange = (_, { dataid, checked }) =>
     setProductObj({ ...productObj, [dataid]: checked });
-  const onColorChange = ({ target: { id, checked } }) =>
-    setColors({ ...colors, [id]: checked });
 
-  const checkFieldsBeforeSubmit = () => {
-    /*  if (productObj.toSlider && !sliderImage) {
-            return false
-        }*/
+  const onColorChange = ({ target: { id } }) => {
+    const indexOfPossibleColor = colors.findIndex((val) => val === id);
+    const newColors = [...colors];
 
-    return (
-      !(productObj.toSlider && !sliderImage) &&
-      productObj.name &&
-      productObj.price &&
-      productImages[0] &&
-      Object.values(colors).some((val) => val)
-    );
+    if (indexOfPossibleColor === -1) {
+      newColors.push(id);
+    } else {
+      newColors.splice(indexOfPossibleColor, 1);
+    }
+
+    setColors(newColors);
   };
+
+  const checkFieldsBeforeSubmit = () =>
+    !(productObj.toSlider && !sliderImage) &&
+    productObj.name &&
+    productObj.price &&
+    productImages[0] &&
+    Object.values(colors).some((val) => val);
 
   const onSaveProduct = () => {
     const imagesToSend = {
@@ -285,9 +286,7 @@ const ProductRedactor = ({ id, editMode }) => {
                       label={color.name}
                       id={color.type}
                       checked={
-                        Object.keys(colors).find(
-                          (type) => colors[type] && type === color.type
-                        ) || false
+                        colors.find((val) => val === color.type) || false
                       }
                       onChange={onColorChange}
                     />
