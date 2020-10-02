@@ -165,10 +165,10 @@ const ProductRedactor = ({ id, editMode }) => {
   };
 
   const onResetInputs = () => {
-    setColors(COLORS_DEFAULT);
-    setProductObj(PRODUCT_DEFAULT);
+    setColors({ ...COLORS_DEFAULT });
+    setProductObj({ ...PRODUCT_DEFAULT });
     dispatch(clearImagesState());
-    dispatch(push('/products'));
+    dispatch(push(`/products/pages=${1}`));
   };
 
   return (

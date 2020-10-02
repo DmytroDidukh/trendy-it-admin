@@ -43,7 +43,9 @@ const Routes = ({ leftBarVisibility, setLeftBarVisibility }) => {
         <Route
           exact
           path='/products/pages=:page'
-          render={({ match: { params } }) => <ProductsPage page={params.id} />}
+          render={({ match: { params } }) => (
+            <ProductsPage page={params.page} />
+          )}
         />
         <Route exact path='/products/create' component={ProductRedactor} />
         <Route

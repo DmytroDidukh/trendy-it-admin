@@ -15,8 +15,10 @@ const FilterButtons = ({ filter, setQuery, items }) => {
       ...prev,
       filter: {
         [key]: value
-      }
+      },
+      page: 1
     }));
+    dispatch(push(`/products/pages=${1}`));
     setRadioValue(key);
   };
 

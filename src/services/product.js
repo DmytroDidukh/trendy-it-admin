@@ -49,8 +49,6 @@ const getProducts = async ({ filter, sort, page, limit = 0 }) => {
     `
   });
 
-  console.log('getProducts', response.data.getProducts);
-
   return response.data.getProducts;
 };
 
