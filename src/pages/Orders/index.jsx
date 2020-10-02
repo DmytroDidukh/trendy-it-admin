@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { push } from 'connected-react-router';
 
 import { getOrders, showLoading } from '../../redux/order/order.actions';
-import { ButtonsGroup, Pagination } from '../../components';
+import { FilterButtons, Pagination } from '../../components';
 import OrdersList from './OrdersList';
 import { ORDER_STATUSES } from '../../config';
 
@@ -51,7 +51,7 @@ const OrdersPage = () => {
   return (
     <div className='page-container'>
       <div className='page-list'>
-        <ButtonsGroup
+        <FilterButtons
           onChange={onFilterChange}
           items={Object.values(ORDER_STATUSES)}
         />

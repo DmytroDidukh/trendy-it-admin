@@ -1,4 +1,4 @@
-export { default as ButtonsGroup } from './ButtonsGroup';
+export { default as FilterButtons } from './FilterButtons';
 export { default as DropdownBar } from './DropdownBar';
 export { default as Header } from './Header';
 export { default as List } from './List';

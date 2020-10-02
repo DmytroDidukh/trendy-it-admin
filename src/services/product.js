@@ -2,30 +2,55 @@ import { gql } from '@apollo/client';
 
 import client from './index';
 
-const getProducts = async () => {
+const getProducts = async ({ filter, sort, page, limit = 0 }) => {
   const response = await client.query({
+    variables: {
+      filter,
+      sort,
+      page,
+      limit
+    },
     query: gql`
-      {
-        getProducts {
-          id
-          name
-          images {
-            product {
-              url
-              publicId
+      query($filter: FilterInput, $sort: String, $page: Int, $limit: Int) {
+        getProducts(filter: $filter, sort: $sort, page: $page, limit: $limit) {
+          products {
+            id
+            name
+            images {
+              slider {
+                url
+                publicId
+              }
+              product {
+                url
+                publicId
+              }
             }
+            colors
+            price
+            oldPrice
+            description
+            available
+            sale
+            hot
+            newItem
+            toSlider
+            createdAt
           }
-          available
-          sale
-          hot
-          newItem
-          createdAt
+          pagination {
+            totalDocs
+            currentPage
+            totalPages
+            hasNextPage
+            hasPrevPage
+          }
         }
       }
     `
   });
 
-  await client.resetStore();
+  console.log('getProducts', response.data.getProducts);
+
   return response.data.getProducts;
 };
 
@@ -41,12 +66,12 @@ const getProductById = async (id) => {
           name
           images {
             slider {
-              url
               publicId
+              url
             }
             product {
-              url
               publicId
+              url
             }
           }
           colors

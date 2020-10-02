@@ -1,12 +1,14 @@
 import {
   SET_PRODUCT,
   SET_PRODUCTS,
+  SET_PRODUCTS_PAGINATION,
   SHOW_LOADING,
   HIDE_LOADING
 } from './product.types';
 
 const initialState = {
   list: [],
+  pagination: null,
   product: null,
   loading: false
 };
@@ -23,11 +25,12 @@ const productReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         list: payload
-          .map((item) => item)
-          .sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          )
+      };
+    }
+    case SET_PRODUCTS_PAGINATION: {
+      return {
+        ...state,
+        pagination: payload
       };
     }
     case SHOW_LOADING: {

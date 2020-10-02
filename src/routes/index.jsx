@@ -40,7 +40,11 @@ const Routes = ({ leftBarVisibility, setLeftBarVisibility }) => {
       <Switch>
         <Route exact path='/' component={MenuPage} />
 
-        <Route exact path='/products' component={ProductsPage} />
+        <Route
+          exact
+          path='/products/pages=:page'
+          render={({ match: { params } }) => <ProductsPage page={params.id} />}
+        />
         <Route exact path='/products/create' component={ProductRedactor} />
         <Route
           exact

@@ -85,7 +85,7 @@ export const ORDER_STATUSES = {
 export const MENU_ITEMS = [
   {
     name: 'Продукти',
-    link: '/products',
+    link: `/products/pages=${1}`,
     color: '#52a360',
     icon: 'shopping bag'
   },
@@ -95,8 +95,8 @@ export const MENU_ITEMS = [
 ];
 
 export const PRODUCT_FILTER_OPTIONS = [
-  { name: 'В наявності', status: 'available' },
-  { name: 'Хіт продаж', status: 'hot' },
-  { name: 'Новинки', status: 'newItem' },
-  { name: 'Розпродаж', status: 'sale' }
+  { name: 'В наявності', key: 'available' },
+  { name: 'Хіт продаж', key: 'hot' },
+  { name: 'Новинки', key: 'newItem' },
+  { name: 'Розпродаж', key: 'sale' }
 ];
