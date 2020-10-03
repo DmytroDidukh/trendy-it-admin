@@ -29,7 +29,6 @@ const ProductsPage = ({ page }) => {
   });
 
   useEffect(() => {
-    console.log('222');
     dispatch(getProducts(query));
     window.scroll(0, 0);
   }, [query, dispatch]);

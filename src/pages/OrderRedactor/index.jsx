@@ -38,8 +38,6 @@ const OrderRedactor = ({ id }) => {
     paymentMethod
   } = order ? order : {};
 
-  console.log(status);
-
   useEffect(() => {
     id && dispatch(getOrderById(id));
   }, [id, dispatch]);
