@@ -1,2 +1,17 @@
 .list-filter-buttons {
+  flex-wrap: wrap;
+  > * {
+    border-radius: 5px !important;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding-left: 10px !important;
+  }
+}
+
+#search-input {
+  padding: 0 10px;
+  outline: none;
+  border-color: #6c757d;
+  height: 38px;
 }

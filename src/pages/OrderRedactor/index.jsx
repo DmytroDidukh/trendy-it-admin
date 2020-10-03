@@ -38,6 +38,8 @@ const OrderRedactor = ({ id }) => {
     paymentMethod
   } = order ? order : {};
 
+  console.log(status);
+
   useEffect(() => {
     id && dispatch(getOrderById(id));
   }, [id, dispatch]);
@@ -80,6 +82,7 @@ const OrderRedactor = ({ id }) => {
   const onDeletePurchase = () => {
     if (window.confirm('Видалити замовлення?')) {
       dispatch(deleteOrder(order.id));
+      dispatch(push(`/orders/pages=${1}`));
     }
   };
 
@@ -95,7 +98,7 @@ const OrderRedactor = ({ id }) => {
     <div className='purchase'>
       <Icon
         name='arrow left'
-        onClick={() => dispatch(push('/orders'))}
+        onClick={() => dispatch(push(`/orders/pages=${1}`))}
         className={'back-arrow'}
       />
       <h3 className={'purchase__header'}>Замовлення {order.orderId}</h3>
@@ -254,7 +257,10 @@ const OrderRedactor = ({ id }) => {
       </div>
 
       <div className={'purchase__buttons'}>
-        <Button variant='dark' onClick={() => dispatch(push('/orders'))}>
+        <Button
+          variant='dark'
+          onClick={() => dispatch(push(`/orders/pages=${1}`))}
+        >
           Назад
         </Button>
         <Button variant='outline-danger' onClick={onDeletePurchase}>

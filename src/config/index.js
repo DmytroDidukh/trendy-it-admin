@@ -76,27 +76,45 @@ export const COLORS_DATA = [
   { hex: '#692e19', name: 'Коричневий', type: 'brown' }
 ];
 
-export const ORDER_STATUSES = {
-  done: { name: 'Виконані', status: 'done' },
-  processing: { name: 'Обробляються', status: 'processing' },
-  canceled: { name: 'Скасовано', status: 'canceled' }
-};
-
 export const MENU_ITEMS = [
   {
+    id: 'products',
     name: 'Продукти',
     link: `/products/pages=${1}`,
     color: '#52a360',
     icon: 'shopping bag'
   },
-  { name: 'Замовлення', link: '/orders', color: '#674794', icon: 'handshake' },
-  { name: 'Баннери', link: '/banners', color: '#d03d03', icon: 'image' },
-  { name: 'Налаштування', link: '/settings', color: '#212529' }
+  {
+    id: 'orders',
+    name: 'Замовлення',
+    link: `/orders/pages=${1}`,
+    color: '#674794',
+    icon: 'handshake'
+  },
+  {
+    id: 'banners',
+    name: 'Баннери',
+    link: '/banners',
+    color: '#d03d03',
+    icon: 'image'
+  },
+  { id: 'settings', name: 'Налаштування', link: '/settings', color: '#212529' }
 ];
 
+export const ORDER_STATUSES = {
+  done: { id: 1, name: 'Виконані', key: 'status', value: 'done' },
+  processing: {
+    id: 2,
+    name: 'Обробляються',
+    key: 'status',
+    value: 'processing'
+  },
+  canceled: { id: 3, name: 'Скасовано', key: 'status', value: 'canceled' }
+};
+
 export const PRODUCT_FILTER_OPTIONS = [
-  { name: 'В наявності', key: 'available' },
-  { name: 'Хіт продаж', key: 'hot' },
-  { name: 'Новинки', key: 'newItem' },
-  { name: 'Розпродаж', key: 'sale' }
+  { id: 1, name: 'В наявності', key: 'available', value: true },
+  { id: 2, name: 'Хіт продаж', key: 'hot', value: true },
+  { id: 3, name: 'Новинки', key: 'newItem', value: true },
+  { id: 4, name: 'Розпродаж', key: 'sale', value: true }
 ];

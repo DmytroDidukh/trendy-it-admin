@@ -15,7 +15,7 @@ const DropdownBar = ({ items, selectedValue, setSelectedValue, size }) => {
           <Dropdown.Item
             key={item.id || i}
             data-id={item.id}
-            data-status={item.status}
+            data-status={item.value}
             eventKey={i}
             onSelect={setSelectedValue}
           >

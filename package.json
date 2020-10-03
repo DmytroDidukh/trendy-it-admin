@@ -14,7 +14,6 @@
     "date-fns": "^2.15.0",
     "graphql": "^15.3.0",
     "history": "^4.10.1",
-    "lodash": "^4.17.19",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.2.2",

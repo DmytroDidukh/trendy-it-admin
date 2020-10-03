@@ -29,6 +29,7 @@ const ProductsPage = ({ page }) => {
   });
 
   useEffect(() => {
+    console.log('222');
     dispatch(getProducts(query));
     window.scroll(0, 0);
   }, [query, dispatch]);
@@ -63,10 +64,10 @@ const ProductsPage = ({ page }) => {
             Додати +
           </Button>
           <FilterButtons
-            onChange={() => {}}
             filter={query.filter}
             setQuery={setQuery}
             items={PRODUCT_FILTER_OPTIONS}
+            linkValue='products'
           />
         </div>
         <List
@@ -76,7 +77,7 @@ const ProductsPage = ({ page }) => {
           onDeleteItem={onDeleteProduct}
         />
         {!!products.length && (
-          <Pagination pagination={pagination} setQuery={setQuery} />
+          <Pagination page={page} pagination={pagination} setQuery={setQuery} />
         )}
       </div>
     </div>

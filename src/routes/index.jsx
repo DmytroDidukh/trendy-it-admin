@@ -66,7 +66,11 @@ const Routes = ({ leftBarVisibility, setLeftBarVisibility }) => {
           )}
         />
 
-        <Route exact path='/orders' component={OrdersPage} />
+        <Route
+          exact
+          path='/orders/pages=:page'
+          render={({ match: { params } }) => <OrdersPage page={params.page} />}
+        />
         <Route
           exact
           path='/orders/:id'

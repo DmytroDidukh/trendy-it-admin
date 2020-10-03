@@ -6,6 +6,7 @@ import {
   ADD_PRODUCT,
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
+  SET_PRODUCTS_PAGINATION,
   SHOW_LOADING,
   HIDE_LOADING
 } from './product.types';
@@ -18,6 +19,11 @@ export const setProduct = (product) => ({
 export const setProducts = (products) => ({
   type: SET_PRODUCTS,
   payload: products
+});
+
+export const setProductsPagination = (pagination) => ({
+  type: SET_PRODUCTS_PAGINATION,
+  payload: pagination
 });
 
 export const getProducts = (payload) => ({

@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
 import { push } from 'connected-react-router';
 import { useDispatch } from 'react-redux';
-import { Input } from 'semantic-ui-react';
 
 import './style.scss';
 
-const FilterButtons = ({ filter, setQuery, items }) => {
+const FilterButtons = ({ filter, setQuery, items, linkValue }) => {
   const dispatch = useDispatch();
-  const [radioValue, setRadioValue] = useState(Object.keys(filter)[0] || 'all');
+  const [buttonId, setButtonId] = useState(0);
+  const [inputValue, setInputValue] = useState('');
 
-  const onSelectFilter = (key, value) => {
+  const onSelectFilter = (id, key, value) => {
     setQuery((prev) => ({
       ...prev,
       filter: {
@@ -18,8 +18,9 @@ const FilterButtons = ({ filter, setQuery, items }) => {
       },
       page: 1
     }));
-    dispatch(push(`/products/pages=${1}`));
-    setRadioValue(key);
+    dispatch(push(`/${linkValue}/pages=${1}`));
+    setButtonId(id);
+    setInputValue(key === 'search' ? value : '');
   };
 
   const onClearFilter = () => {
@@ -29,31 +30,33 @@ const FilterButtons = ({ filter, setQuery, items }) => {
       page: 1
     });
 
-    dispatch(push(`/products/pages=${1}`));
-    setRadioValue('all');
+    dispatch(push(`/${linkValue}/pages=${1}`));
+    setButtonId(0);
+    setInputValue('');
   };
 
   return (
     <ButtonGroup className='list-filter-buttons' toggle>
       <Button
-        variant={radioValue === 'all' ? 'secondary' : 'outline-secondary'}
+        variant={buttonId === 0 ? 'secondary' : 'outline-secondary'}
         onClick={onClearFilter}
       >
         Всі
       </Button>
-      {items.map((item, idx) => (
+      {items.map((item) => (
         <Button
-          key={item.key}
-          variant={radioValue === item.key ? 'secondary' : 'outline-secondary'}
-          value={idx}
-          onClick={() => onSelectFilter(item.key, true)}
+          key={item.id}
+          variant={buttonId === item.id ? 'secondary' : 'outline-secondary'}
+          onClick={() => onSelectFilter(item.id, item.key, item.value)}
         >
           {item.name}
         </Button>
       ))}
-      <Input
+      <input
+        type='text'
         placeholder='Пошук...'
-        onChange={({ target }) => onSelectFilter('search', target.value)}
+        value={inputValue}
+        onChange={({ target }) => onSelectFilter(null, 'search', target.value)}
         id='search-input'
       />
     </ButtonGroup>

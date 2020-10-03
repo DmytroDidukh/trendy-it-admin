@@ -49,6 +49,7 @@ const getProducts = async ({ filter, sort, page, limit = 0 }) => {
     `
   });
 
+  await client.resetStore();
   return response.data.getProducts;
 };
 

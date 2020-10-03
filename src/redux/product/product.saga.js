@@ -3,6 +3,7 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 import {
   setProducts,
   setProduct,
+  setProductsPagination,
   showLoading,
   hideLoading
 } from './product.actions';
@@ -36,7 +37,8 @@ function* handleProductsLoad({ payload }) {
     yield put(showLoading());
     const products = yield call(getProducts, payload);
 
-    yield put(setProducts(products));
+    yield put(setProductsPagination(products.pagination));
+    yield put(setProducts(products.products));
 
     yield put(hideLoading());
   } catch (error) {

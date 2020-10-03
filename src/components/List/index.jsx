@@ -1,7 +1,6 @@
 import React from 'react';
 import { ListGroup, Button } from 'react-bootstrap';
 import { Icon, Label } from 'semantic-ui-react';
-import orderBy from 'lodash/orderBy';
 
 import { Spinner } from '../';
 
@@ -81,7 +80,7 @@ const List = ({ items, isLoading, onEditItem, onDeleteItem }) => {
         <>
           <ListGroup>
             {items.length > 0
-              ? orderBy(items, ['createdAt'], 'desc').map((item) => (
+              ? items.map((item) => (
                   <ListGroup.Item key={item.id}>
                     <ItemContent item={item} />
                   </ListGroup.Item>

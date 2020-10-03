@@ -3,7 +3,7 @@ import { Pagination as BasePagination } from 'semantic-ui-react';
 import { push } from 'connected-react-router';
 import { useDispatch } from 'react-redux';
 
-const Pagination = ({ pagination, setQuery }) => {
+const Pagination = ({ page, pagination, setQuery }) => {
   const dispatch = useDispatch();
 
   const onPageChange = (e, { activePage }) => {
@@ -16,7 +16,7 @@ const Pagination = ({ pagination, setQuery }) => {
 
   return (
     <BasePagination
-      defaultActivePage={pagination.currentPage}
+      defaultActivePage={page}
       firstItem={null}
       lastItem={null}
       pointing

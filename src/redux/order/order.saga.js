@@ -1,6 +1,12 @@
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { takeEvery, call, put, select } from 'redux-saga/effects';
 
-import { setOrders, setOrder, showLoading, hideLoading } from './order.actions';
+import {
+  setOrders,
+  setOrder,
+  showLoading,
+  hideLoading,
+  setOrdersPagination
+} from './order.actions';
 import {
   getOrders,
   getOrderById,
@@ -19,12 +25,16 @@ import {
   setSnackbarSeverity,
   setSnackbarVisibility
 } from '../snackbar/snackbar.actions';
+import { setProducts } from '../product/product.actions';
 
-function* handleOrdersLoad() {
+function* handleOrdersLoad({ payload }) {
   try {
     yield put(showLoading());
-    const orders = yield call(getOrders);
-    yield put(setOrders(orders.data.getOrders));
+    const orders = yield call(getOrders, payload);
+
+    yield put(setOrdersPagination(orders.pagination));
+    yield put(setOrders(orders.orders));
+
     yield put(hideLoading());
   } catch (error) {
     console.log(error);
@@ -44,15 +54,13 @@ function* handleGetOrderById({ payload }) {
 
 function* handleUpdateOrderStatus({ payload }) {
   try {
+    yield put(showLoading());
     yield call(updateOrderStatus, payload);
 
     yield put(setSnackbarSeverity('success'));
     yield put(setSnackbarMessage(SNACKBAR_MESSAGES.update.success));
     yield put(setSnackbarVisibility(true));
 
-    yield put(showLoading());
-    const orders = yield call(getOrders);
-    yield put(setOrders(orders.data.getOrders));
     yield put(hideLoading());
   } catch (error) {
     yield put(setSnackbarSeverity('error'));
@@ -64,15 +72,17 @@ function* handleUpdateOrderStatus({ payload }) {
 
 function* handleDeleteOrder({ payload }) {
   try {
-    yield call(deleteOrder, payload);
+    yield put(showLoading());
+    const order = yield call(deleteOrder, payload);
 
     yield put(setSnackbarSeverity('success'));
     yield put(setSnackbarMessage(SNACKBAR_MESSAGES.delete.success));
     yield put(setSnackbarVisibility(true));
 
-    yield put(showLoading());
-    const orders = yield call(getOrders);
-    yield put(setOrders(orders.data.getOrders));
+    const orders = yield call(getOrderFromState);
+    const updatedOrders = orders.filter((item) => item.id !== order.id);
+    yield put(setOrders(updatedOrders));
+
     yield put(hideLoading());
   } catch (error) {
     yield put(setSnackbarSeverity('error'));
@@ -80,6 +90,10 @@ function* handleDeleteOrder({ payload }) {
     yield put(setSnackbarVisibility(true));
     console.log(error);
   }
+}
+
+function* getOrderFromState() {
+  return yield select(({ Orders }) => Orders.list);
 }
 
 export default function* orderSaga() {

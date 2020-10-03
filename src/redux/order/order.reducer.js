@@ -2,11 +2,13 @@ import {
   SET_ORDERS,
   SHOW_LOADING,
   HIDE_LOADING,
-  SET_ORDER
+  SET_ORDER,
+  SET_ORDERS_PAGINATION
 } from './order.types';
 
 const initialState = {
   list: [],
+  pagination: null,
   order: null,
   loading: false
 };
@@ -17,6 +19,12 @@ const orderReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         list: payload
+      };
+    }
+    case SET_ORDERS_PAGINATION: {
+      return {
+        ...state,
+        pagination: payload
       };
     }
     case SET_ORDER: {

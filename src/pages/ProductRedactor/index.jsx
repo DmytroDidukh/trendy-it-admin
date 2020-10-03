@@ -122,6 +122,7 @@ const ProductRedactor = ({ id, editMode }) => {
             })
       );
       onResetInputs();
+      dispatch(push(`/products/pages=${1}`));
     } else {
       window.alert(
         'Всі поля з "*" повинні бути заповнені і додане одне зображеня для товару,' +

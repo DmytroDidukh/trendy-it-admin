@@ -20,7 +20,7 @@ const LeftBar = ({ leftBarVisibility, setLeftBarVisibility }) => {
           i !== 3 && (
             <Navbar.Text
               className={`left-bar__item ${
-                location.includes(item.link) && 'active'
+                location.includes(item.id) && 'active'
               }`}
               key={item.link}
             >

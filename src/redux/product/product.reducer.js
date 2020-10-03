@@ -1,6 +1,7 @@
 import {
   SET_PRODUCT,
   SET_PRODUCTS,
+  SET_PRODUCTS_PAGINATION,
   SHOW_LOADING,
   HIDE_LOADING
 } from './product.types';
@@ -23,8 +24,13 @@ const productReducer = (state = initialState, { type, payload }) => {
     case SET_PRODUCTS: {
       return {
         ...state,
-        list: payload.products,
-        pagination: payload.pagination
+        list: payload
+      };
+    }
+    case SET_PRODUCTS_PAGINATION: {
+      return {
+        ...state,
+        pagination: payload
       };
     }
     case SHOW_LOADING: {

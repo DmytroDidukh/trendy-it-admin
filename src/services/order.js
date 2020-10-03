@@ -2,44 +2,57 @@ import { gql } from '@apollo/client';
 
 import client from './index';
 
-const getOrders = async () => {
-  return await client.query({
+const getOrders = async ({ filter, page }) => {
+  const response = await client.query({
+    variables: {
+      filter,
+      page
+    },
     query: gql`
-      {
-        getOrders {
-          id
-          customer {
-            name
-            surname
-            email
-            phone
-          }
-          delivery {
-            method
-            city
-            postOffice
-            address {
-              street
-              built
-              apartment
+      query($filter: FilterInput, $page: Int) {
+        getOrders(filter: $filter, page: $page) {
+          orders {
+            id
+            customer {
+              name
+              surname
+              email
+              phone
             }
+            delivery {
+              method
+              city
+              postOffice
+              address {
+                street
+                built
+                apartment
+              }
+            }
+            products {
+              name
+              price
+              quantity
+              color
+            }
+            connectionMethod
+            paymentMethod
+            deliveryPrice
+            orderId
+            status
+            createdAt
           }
-          products {
-            name
-            price
-            quantity
-            color
+          pagination {
+            totalDocs
+            totalPages
           }
-          connectionMethod
-          paymentMethod
-          deliveryPrice
-          orderId
-          status
-          createdAt
         }
       }
     `
   });
+
+  await client.resetStore();
+  return response.data.getOrders;
 };
 
 const getOrderById = async (id) => {
@@ -99,25 +112,23 @@ const updateOrderStatus = async ({ id, status }) => {
       }
     `
   });
-  await client.resetStore();
 };
 
 const deleteOrder = async (id) => {
-  await client.mutate({
+  const response = await client.mutate({
     variables: {
       id
     },
     mutation: gql`
       mutation($id: ID!) {
         deleteOrder(id: $id) {
-          customer {
-            name
-          }
+          id
         }
       }
     `
   });
-  await client.resetStore();
+
+  return response.data.deleteOrder;
 };
 
 export { getOrders, getOrderById, updateOrderStatus, deleteOrder };

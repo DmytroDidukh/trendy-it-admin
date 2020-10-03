@@ -5,6 +5,7 @@ import {
   GET_ORDER_BY_ID,
   DELETE_ORDER,
   UPDATE_ORDER_STATUS,
+  SET_ORDERS_PAGINATION,
   SHOW_LOADING,
   HIDE_LOADING
 } from './order.types';
@@ -19,8 +20,14 @@ export const setOrders = (orders) => ({
   payload: orders
 });
 
-export const getOrders = () => ({
-  type: GET_ORDERS
+export const setOrdersPagination = (pagination) => ({
+  type: SET_ORDERS_PAGINATION,
+  payload: pagination
+});
+
+export const getOrders = (payload) => ({
+  type: GET_ORDERS,
+  payload
 });
 
 export const getOrderById = (id) => ({
