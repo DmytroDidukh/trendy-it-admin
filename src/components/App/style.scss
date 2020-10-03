@@ -26,7 +26,6 @@
     &__control {
       display: flex;
       flex-wrap: wrap;
-      margin-bottom: 25px;
 
       @media screen and (max-width: 450px) {
         justify-content: flex-start;

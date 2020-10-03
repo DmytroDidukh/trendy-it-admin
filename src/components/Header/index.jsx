@@ -19,14 +19,16 @@ const Header = ({ setLeftBarVisibility, leftBarVisibility }) => {
 
   return (
     <Navbar bg='dark' variant='dark'>
-      <div
-        className={`burger ${leftBarVisibility && 'burger_reversed'}`}
-        onClick={() => setLeftBarVisibility(!leftBarVisibility)}
-      >
-        <span />
-        <span />
-        <span />
-      </div>
+      {location !== '/' && location !== '/login' && (
+        <div
+          className={`burger ${leftBarVisibility && 'burger_reversed'}`}
+          onClick={() => setLeftBarVisibility(!leftBarVisibility)}
+        >
+          <span />
+          <span />
+          <span />
+        </div>
+      )}
 
       <Link to={isAuth ? '/' : '/login'}>
         <Navbar.Brand>Trendy IT</Navbar.Brand>
