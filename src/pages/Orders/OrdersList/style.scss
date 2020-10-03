@@ -1,35 +1,48 @@
+.list-group-item {
+  @media screen and (max-width: 450px) {
+    padding: 10px 2px !important;
+  }
+}
+
 .list-item-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   position: relative;
+
+  > div {
+    font-size: 0.9em;
+  }
+
+  > div:not(:first-child) {
+    padding: 0 5px;
+  }
 
   &__index,
   .date {
     font-style: italic;
   }
   &__name {
-    margin: 0 auto 0 20px;
-    font-weight: bold;
     flex: 1;
+    font-weight: bold;
     min-width: fit-content;
   }
 
-  &__sum,
-  .date {
-    flex-basis: 160px;
+  &__orderId {
+    flex-basis: 60px;
+    min-width: fit-content;
+    margin-left: 5px;
+  }
 
-    @media screen and (max-width: 450px) {
-      margin-left: auto;
-      flex-basis: auto;
-      margin-right: 5px;
-      width: fit-content;
-    }
+  &__sum {
+    flex-basis: 60px;
+    min-width: fit-content;
+    text-align: center;
   }
 
   .date {
     text-align: right;
-    border-left: 1px solid black;
     padding-left: 2px;
+    flex-basis: 80px;
+    min-width: fit-content;
   }
 }
