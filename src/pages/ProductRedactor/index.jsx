@@ -87,6 +87,7 @@ const ProductRedactor = ({ id, editMode }) => {
   };
 
   const checkFieldsBeforeSubmit = () =>
+    !(productObj.sale && !productObj.oldPrice) &&
     !(productObj.toSlider && !sliderImage) &&
     productObj.name &&
     productObj.price &&
@@ -115,7 +116,8 @@ const ProductRedactor = ({ id, editMode }) => {
     } else {
       window.alert(
         'Всі поля з "*" повинні бути заповнені і додане одне зображеня для товару,' +
-          ' або картинку до слайдера, якщо відмічена галочка про розміщення'
+          ' або картинку до слайдера, якщо відмічена галочка про розміщення' +
+          'чи стару ціну, якщо розпродаж'
       );
     }
   };

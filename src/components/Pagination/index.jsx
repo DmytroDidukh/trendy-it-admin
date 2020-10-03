@@ -16,7 +16,7 @@ const Pagination = ({ page, pagination, setQuery }) => {
 
   return (
     <BasePagination
-      defaultActivePage={page}
+      activePage={page}
       firstItem={null}
       lastItem={null}
       pointing
