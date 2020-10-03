@@ -29,6 +29,12 @@
 
       @media screen and (max-width: 450px) {
         justify-content: flex-start;
+        height: 65px;
+      }
+
+      @media screen and (max-width: 350px) {
+        justify-content: flex-start;
+        height: 90px;
       }
 
       * {

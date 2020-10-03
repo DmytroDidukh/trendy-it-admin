@@ -6,7 +6,6 @@
 
   @media screen and (max-width: 450px) {
     padding-left: 10px !important;
-    display: inline-table;
   }
 }
 
@@ -18,5 +17,6 @@
 
   @media screen and (max-width: 450px) {
     height: 30px;
+    flex: 1;
   }
 }
