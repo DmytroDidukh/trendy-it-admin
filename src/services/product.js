@@ -26,7 +26,7 @@ const getProducts = async ({ filter, sort, page, limit = 0 }) => {
                 publicId
               }
             }
-            colors
+            color
             price
             oldPrice
             description
@@ -73,7 +73,7 @@ const getProductById = async (id) => {
               url
             }
           }
-          colors
+          color
           price
           oldPrice
           description
@@ -111,7 +111,7 @@ const addProduct = async (product) => {
               publicId
             }
           }
-          colors
+          color
           price
           oldPrice
           description
@@ -148,7 +148,7 @@ const updateProduct = async ({ id, product }) => {
               publicId
             }
           }
-          colors
+          color
           price
           oldPrice
           description

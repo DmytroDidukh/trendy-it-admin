@@ -32,7 +32,6 @@ const ProductRedactor = ({ id, editMode }) => {
     })
   );
 
-  const [colors, setColors] = useState([]);
   const [productObj, setProductObj] = useState(PRODUCT_DEFAULT);
 
   useEffect(() => {
@@ -46,7 +45,7 @@ const ProductRedactor = ({ id, editMode }) => {
         oldPrice,
         name,
         description,
-        colors,
+        color,
         sale,
         hot,
         available,
@@ -55,6 +54,7 @@ const ProductRedactor = ({ id, editMode }) => {
       } = product;
 
       setProductObj({
+        color,
         price,
         oldPrice,
         name,
@@ -65,8 +65,6 @@ const ProductRedactor = ({ id, editMode }) => {
         newItem,
         toSlider
       });
-
-      setColors(colors);
     }
   }, [product]);
 
@@ -84,17 +82,8 @@ const ProductRedactor = ({ id, editMode }) => {
   const onToggleChange = (_, { dataid, checked }) =>
     setProductObj({ ...productObj, [dataid]: checked });
 
-  const onColorChange = ({ target: { id } }) => {
-    const indexOfPossibleColor = colors.findIndex((val) => val === id);
-    const newColors = [...colors];
-
-    if (indexOfPossibleColor === -1) {
-      newColors.push(id);
-    } else {
-      newColors.splice(indexOfPossibleColor, 1);
-    }
-
-    setColors(newColors);
+  const onColorChange = (type) => {
+    setProductObj({ ...productObj, color: type });
   };
 
   const checkFieldsBeforeSubmit = () =>
@@ -102,7 +91,7 @@ const ProductRedactor = ({ id, editMode }) => {
     productObj.name &&
     productObj.price &&
     productImages[0] &&
-    Object.values(colors).some((val) => val);
+    productObj.color;
 
   const onSaveProduct = () => {
     const imagesToSend = {
@@ -115,10 +104,10 @@ const ProductRedactor = ({ id, editMode }) => {
 
       dispatch(
         !editMode
-          ? addProduct({ ...productObj, images: imagesToSend, colors })
+          ? addProduct({ ...productObj, images: imagesToSend })
           : updateProduct({
               id,
-              product: { ...productObj, images: imagesToSend, colors }
+              product: { ...productObj, images: imagesToSend }
             })
       );
       onResetInputs();
@@ -166,7 +155,6 @@ const ProductRedactor = ({ id, editMode }) => {
   };
 
   const onResetInputs = () => {
-    setColors({ ...COLORS_DEFAULT });
     setProductObj({ ...PRODUCT_DEFAULT });
     dispatch(clearImagesState());
     dispatch(push(`/products/pages=${1}`));
@@ -278,21 +266,21 @@ const ProductRedactor = ({ id, editMode }) => {
 
             <Form.Group>
               <div className='product-colors'>
-                <h6>*Наявні кольори:</h6>
-                {COLORS_DATA.map((color, i) => (
-                  <Form.Group id='formGridCheckbox' key={i}>
-                    <span style={{ background: color.hex }} />
-                    <Form.Check
-                      type='checkbox'
-                      label={color.name}
-                      id={color.type}
-                      checked={
-                        colors.find((val) => val === color.type) || false
-                      }
-                      onChange={onColorChange}
+                <h6>*Колір:</h6>
+                <div className='product-colors__container'>
+                  {COLORS_DATA.map((color, i) => (
+                    <div
+                      key={color.hex}
+                      className={`product-colors__container-item ${
+                        productObj.color === color.type && 'active-color'
+                      }`}
+                      style={{ backgroundColor: color.hex }}
+                      data-id={color.type}
+                      onClick={() => onColorChange(color.type)}
+                      title={color.name}
                     />
-                  </Form.Group>
-                ))}
+                  ))}
+                </div>
               </div>
             </Form.Group>
           </div>

@@ -40,22 +40,29 @@
   }
 
   .product-colors {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     margin-top: 50px;
 
-    & span {
-      border-radius: 50%;
-      width: 15px;
-      height: 15px;
-      display: inline-block;
-      margin-right: 5px;
-      border: 1px solid silver;
-    }
-
-    & > .form-group {
+    &__container {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
+
+      &-item {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid silver;
+        cursor: pointer;
+        margin: 0 3px;
+      }
+
+      .active-color {
+        border: 1px solid black;
+        width: 30px;
+        height: 30px;
+      }
     }
   }
 }
