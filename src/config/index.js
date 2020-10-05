@@ -50,7 +50,7 @@ export const BANNER_DEFAULT = {
 
 export const COLORS_DEFAULT = {
   black: false,
-  silver: false,
+  grey: false,
   white: false,
   red: false,
   yellow: false,
@@ -64,7 +64,7 @@ export const COLORS_DEFAULT = {
 
 export const COLORS_DATA = [
   { hex: '#000000', name: 'Чорний', type: 'black' },
-  { hex: '#6c757d', name: 'Сірий', type: 'silver' },
+  { hex: '#6c757d', name: 'Сірий', type: 'grey' },
   { hex: '#ffffff', name: 'Білий', type: 'white' },
   { hex: '#007bff', name: 'Синій', type: 'blue' },
   { hex: '#ffc107', name: 'Жовтий', type: 'yellow' },
