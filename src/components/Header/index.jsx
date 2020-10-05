@@ -31,7 +31,13 @@ const Header = ({ setLeftBarVisibility, leftBarVisibility }) => {
       )}
 
       <Link to={isAuth ? '/' : '/login'}>
-        <Navbar.Brand>Trendy IT</Navbar.Brand>
+        <Navbar.Brand>
+          <img
+            className={'logo-img'}
+            src='https://res.cloudinary.com/d-didukh/image/upload/v1601889295/trendy-it/logo-dark_o9wf1x.png'
+            alt='Trendy IT'
+          />
+        </Navbar.Brand>
       </Link>
       <div className='italy-flag'>
         <span />
