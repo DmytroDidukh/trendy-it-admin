@@ -35,10 +35,10 @@ const LoginPage = () => {
 
   return (
     <div className='login-page'>
-      <h2 className='login-page__title'>Welcome!</h2>
+      <h2 className='login-page__title'>Привіт</h2>
       <Form className='login-page__form' onSubmit={handleOnSubmit}>
         <Form.Group controlId='formBasicEmail'>
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Ел. пошта</Form.Label>
           <Form.Control
             type='email'
             placeholder='Enter email'
@@ -47,7 +47,7 @@ const LoginPage = () => {
         </Form.Group>
 
         <Form.Group controlId='formBasicPassword'>
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Пароль</Form.Label>
           <Form.Control
             type='password'
             placeholder='Password'
@@ -55,7 +55,7 @@ const LoginPage = () => {
           />
         </Form.Group>
         <Button variant='dark' type='submit' disabled={isLoading}>
-          {!isLoading ? 'Login' : <Spinner />}
+          {!isLoading ? 'Увійти' : <Spinner />}
         </Button>
       </Form>
     </div>
