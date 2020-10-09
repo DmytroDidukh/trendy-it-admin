@@ -4,12 +4,11 @@
   margin: 50px auto 0;
   border-radius: 14px;
   background: #ffffff;
-  box-shadow:  5px 5px 14px #f2f2f2,
-  -5px -5px 14px #ffffff;
+  box-shadow: 5px 5px 14px #f2f2f2, -5px -5px 14px #ffffff;
   padding: 50px;
 
   &__title {
-      text-align: center;
+    text-align: center;
   }
 
   &__form {
@@ -17,7 +16,7 @@
     flex-direction: column;
     button {
       .spinner {
-        margin-top: 0
+        margin-top: 0;
       }
     }
   }

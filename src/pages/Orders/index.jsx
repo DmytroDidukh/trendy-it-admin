@@ -1,67 +1,58 @@
-import React, {useEffect, useState} from 'react'
-import {useDispatch, useSelector} from "react-redux";
-import {push} from 'connected-react-router'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { push } from 'connected-react-router';
 
-import {getOrders, showLoading} from "../../redux/order/order.actions";
-import {ButtonsGroup, Pagination} from "../../components";
-import OrdersList from './OrdersList'
-import {ORDER_STATUSES} from "../../config";
+import { getOrders, showLoading } from '../../redux/order/order.actions';
+import { FilterButtons, Pagination } from '../../components';
+import OrdersList from './OrdersList';
+import { ORDER_STATUSES, PRODUCT_FILTER_OPTIONS } from '../../config';
 
-import './style.scss'
+import './style.scss';
 
-const OrdersPage = () => {
-    const dispatch = useDispatch();
-    const { isLoading, orders } = useSelector(({ Orders }) => ({
-        isLoading: Orders.loading,
-        orders: Orders.list
-    }))
+const OrdersPage = ({ page }) => {
+  const dispatch = useDispatch();
+  const { loading, orders, pagination } = useSelector(({ Orders }) => ({
+    loading: Orders.loading,
+    orders: Orders.list,
+    pagination: Orders.pagination
+  }));
 
-    useEffect(() => {
-        dispatch(getOrders());
-    }, [dispatch])
+  const [query, setQuery] = useState({
+    filter: {},
+    sort: '-createdAt',
+    page: +page
+  });
 
-    const [filter, setFilter] = useState(false);
-    const [currentPage, setCurrentPage] = useState(0);
+  useEffect(() => {
+    dispatch(getOrders(query));
+    window.scroll(0, 0);
+  }, [query, dispatch]);
 
-    const onSelectOrder = (item) => {
-        dispatch(showLoading())
-        dispatch(push(`/orders/${item.id}`));
-    }
+  const onSelectOrder = (item) => {
+    dispatch(showLoading());
+    dispatch(push(`/orders/${item.id}`));
+  };
 
-    const onFilterChange = (e) => {
-        e.target.innerText === 'Всі' ? setFilter(false) : setFilter(e.target.dataset.status);
-        setCurrentPage(0)
-    }
+  return (
+    <div className='page-container'>
+      <div className='page-list'>
+        <FilterButtons
+          filter={query.filter}
+          setQuery={setQuery}
+          items={Object.values(ORDER_STATUSES)}
+          linkValue='orders'
+        />
+        <OrdersList
+          items={orders}
+          loading={loading}
+          onSelectItem={onSelectOrder}
+        />
+        {!!orders.length && (
+          <Pagination pagination={pagination} setQuery={setQuery} />
+        )}
+      </div>
+    </div>
+  );
+};
 
-    const orderFilter = () => {
-        return filter ? orders.filter(order => order.status === filter) : orders
-    }
-
-    const setOrdersToShow = (lengthIndex) => {
-        const orders = orderFilter()
-        const isEnoughOrders = orders.length>= 20
-
-        return isEnoughOrders ? [...orders].reverse().slice(lengthIndex, lengthIndex + 20) : [...orders].reverse().slice(0, 20)
-    }
-
-    return (
-        <div className='page-container'>
-            <div className='page-list'>
-                <ButtonsGroup onChange={onFilterChange} items={Object.values(ORDER_STATUSES)} />
-                <OrdersList
-                    items={setOrdersToShow(currentPage)}
-                    isLoading={isLoading}
-                    onSelectItem={onSelectOrder}
-                />
-                {!!setOrdersToShow(currentPage).length && <Pagination
-                    itemsFilter={orderFilter}
-                    setItemsToShow={setOrdersToShow}
-                    setCurrentPage={setCurrentPage}
-                    paginationLength={20}
-                />}
-            </div>
-        </div>
-    )
-}
-
-export default OrdersPage
+export default OrdersPage;

@@ -9,13 +9,13 @@ import MenuPage from './Menu';
 import SettingsPage from './Settings';
 
 export {
-        ProductsPage,
-        ProductRedactor,
-        OrdersPage,
-        OrderRedactor,
-        BannersPage,
-        BannerRedactor,
-        LoginPage,
-        MenuPage,
-        SettingsPage,
-}
+  ProductsPage,
+  ProductRedactor,
+  OrdersPage,
+  OrderRedactor,
+  BannersPage,
+  BannerRedactor,
+  LoginPage,
+  MenuPage,
+  SettingsPage
+};

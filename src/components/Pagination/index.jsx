@@ -1,35 +1,30 @@
-import React from "react";
-import { Pagination as BasePagination } from 'semantic-ui-react'
+import React from 'react';
+import { Pagination as BasePagination } from 'semantic-ui-react';
+import { push } from 'connected-react-router';
+import { useDispatch } from 'react-redux';
 
+const Pagination = ({ page, pagination, setQuery }) => {
+  const dispatch = useDispatch();
 
-const Pagination = ({itemsFilter, setItemsToShow, setCurrentPage, paginationLength}) => {
-    const itemsAfterFiltering = itemsFilter();
+  const onPageChange = (e, { activePage }) => {
+    setQuery((query) => ({
+      ...query,
+      page: +activePage
+    }));
+    dispatch(push(`/products/pages=${activePage}`));
+  };
 
-    const onPageChange = (e, data) => {
-        let lengthIndex;
-        if (data.activePage.toString().includes('.')) {
-            lengthIndex = data.activePage.toString().split('.')[0] * paginationLength
-        } else  {
-            lengthIndex = (data.activePage === 1 || data.activePage === undefined ? 0 : data.activePage - 1) * paginationLength
-        }
-        if (lengthIndex >= itemsAfterFiltering.length) return
+  return (
+    <BasePagination
+      activePage={page}
+      firstItem={null}
+      lastItem={null}
+      pointing
+      secondary
+      totalPages={pagination.totalPages}
+      onPageChange={onPageChange}
+    />
+  );
+};
 
-        setCurrentPage(lengthIndex)
-        setItemsToShow(lengthIndex)
-    }
-
-
-    return (
-        <BasePagination
-            defaultActivePage={1}
-            firstItem={null}
-            lastItem={null}
-            pointing
-            secondary
-            totalPages={itemsAfterFiltering.length / paginationLength}
-            onPageChange={onPageChange}
-        />
-    )
-}
-
-export default Pagination
+export default Pagination;

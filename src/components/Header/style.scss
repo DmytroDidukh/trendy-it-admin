@@ -3,6 +3,10 @@
   height: 60px;
   justify-content: space-between;
 
+  .logo-img {
+    height: 40px;
+  }
+
   .to-settings {
     margin-left: auto;
 
@@ -16,7 +20,7 @@
     display: flex;
     flex-direction: column;
     align-content: space-around;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
     cursor: pointer;
 
     span {
@@ -96,11 +100,11 @@
   }
 
   &:last-child {
-    color: rgba(255, 255, 255, .5);
+    color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
 
     &:hover {
-      color: rgba(255, 255, 255, .75);
+      color: rgba(255, 255, 255, 0.75);
     }
   }
 }

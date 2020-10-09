@@ -1,38 +1,34 @@
-import {
-        SET_BANNER,
-        SET_BANNERS,
-        SET_BANNERS_LOADING,
-} from './banner.types'
+import { SET_BANNER, SET_BANNERS, SET_BANNERS_LOADING } from './banner.types';
 
 const initialState = {
-        list: [],
-        banner: null,
-        loading: false
-}
+  list: [],
+  banner: null,
+  loading: false
+};
 
 const bannerReducer = (state = initialState, { type, payload }) => {
-        switch (type) {
-                case SET_BANNER: {
-                        return {
-                                ...state,
-                                banner: payload
-                        }
-                }
-                case SET_BANNERS: {
-                        return {
-                                ...state,
-                                list: payload,
-                        }
-                }
-                case SET_BANNERS_LOADING: {
-                        return {
-                                ...state,
-                                loading: payload,
-                        }
-                }
-                default:
-                        return state
-        }
-}
+  switch (type) {
+    case SET_BANNER: {
+      return {
+        ...state,
+        banner: payload
+      };
+    }
+    case SET_BANNERS: {
+      return {
+        ...state,
+        list: payload
+      };
+    }
+    case SET_BANNERS_LOADING: {
+      return {
+        ...state,
+        loading: payload
+      };
+    }
+    default:
+      return state;
+  }
+};
 
 export default bannerReducer;

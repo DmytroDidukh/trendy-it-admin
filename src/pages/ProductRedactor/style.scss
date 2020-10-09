@@ -1,5 +1,4 @@
 .product-redactor-container {
-
   .product-redactor {
     @media screen and (max-width: 1100px) {
       flex-direction: column;
@@ -9,18 +8,12 @@
       .images-block {
         display: flex;
 
-        @media screen and (max-width: 450px){
+        @media screen and (max-width: 450px) {
           flex-direction: column;
         }
 
         > div:last-child {
           flex: 1;
-        }
-
-        .ui.loader {
-          left: 50%;
-          top: 50%;
-          margin: 70px 0 50px;
         }
       }
 
@@ -28,7 +21,6 @@
         margin-right: 10px;
       }
     }
-
   }
 
   .addImageInput-btn {
@@ -48,26 +40,31 @@
   }
 
   .product-colors {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
 
-    & span {
-      border-radius: 50%;
-      width: 15px;
-      height: 15px;
-      display: inline-block;
-      margin-right: 5px;
-      border: 1px solid silver;
-    }
-
-    & > .form-group {
+    &__container {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
+      height: 30px;
+
+      &-item {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid silver;
+        cursor: pointer;
+        margin: 0 3px;
+        transition: all 0.2s ease;
+      }
+
+      .active-color {
+        border: 1px solid black;
+        width: 30px;
+        height: 30px;
+      }
     }
   }
 }
-
-
-
-

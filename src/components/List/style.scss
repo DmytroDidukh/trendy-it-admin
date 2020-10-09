@@ -20,8 +20,8 @@
     display: flex;
 
     button {
-      font-size: .8em;
-      padding: .25em .65em;
+      font-size: 0.8em;
+      padding: 0.25em 0.65em;
     }
 
     & > * {
@@ -53,18 +53,46 @@
   }
 
   &-name {
-    margin: 0;
+    margin: 0 0 0 20px;
+    flex: 1;
   }
 
   &-labels {
     margin-left: 20px;
-    opacity: .6;
+    opacity: 0.6;
 
     @media screen and (max-width: 450px) {
       * {
-        font-size: .7em !important;
+        font-size: 0.7em !important;
       }
     }
   }
 }
 
+@media screen and (max-width: 450px) {
+  .list-item-content {
+    display: flex;
+    padding: 1px 10px;
+
+    > * {
+      font-size: 0.9em;
+    }
+
+    &-name {
+      margin: 0 0 0 10px;
+    }
+
+    &-labels {
+      margin-left: 5px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    i {
+      font-size: 0.8rem !important;
+      margin-left: 5px !important;
+      margin-right: 5px !important;
+      color: #343a40;
+    }
+  }
+}

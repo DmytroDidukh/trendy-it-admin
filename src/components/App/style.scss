@@ -26,15 +26,21 @@
     &__control {
       display: flex;
       flex-wrap: wrap;
-      margin-bottom: 10px;
 
       @media screen and (max-width: 450px) {
         justify-content: flex-start;
+        height: 65px;
+      }
+
+      @media screen and (max-width: 350px) {
+        justify-content: flex-start;
+        height: 90px;
+        margin-bottom: 10px;
       }
 
       * {
         @media screen and (max-width: 768px) {
-          font-size: .8rem;
+          font-size: 0.8rem;
         }
       }
 
@@ -58,7 +64,6 @@
           }
         }
       }
-
 
       .list-filter-buttons {
         margin-left: 10px;
